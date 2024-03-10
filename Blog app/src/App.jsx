@@ -6,14 +6,15 @@ import Login from './pages/login page/Login'
 import 'bootstrap/dist/css/bootstrap.css';
 import Register from './pages/register page/Register'
 import { Outlet } from 'react-router-dom'
+import { url } from './tools/serverURL'
+
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-     
-    <Outlet/>
-    </>
+<div >
+  {url}
+  <Outlet/>
+</div>
   )
 }
 

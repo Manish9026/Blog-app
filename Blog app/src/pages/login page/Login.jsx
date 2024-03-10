@@ -82,7 +82,7 @@ export default function Login() {
           <label className="errorLabel">{passwordError}</label>
         </div>
         <div className="form-group mt-3">
-         <input type="checkbox"  checked={checked} onClick={()=>setChecked(prev=>!prev)}/>
+         <input type="checkbox"  readOnly checked={checked} onClick={()=>setChecked(prev=>!prev)}/>
         </div>
         
         <br />
