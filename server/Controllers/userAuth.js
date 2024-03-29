@@ -63,7 +63,8 @@ class userAuth extends AuthTools {
 
             if (userEmail && password && tc) {
                 const match = await userModel.findOne({ userEmail })
-                if (match.length!=0) {
+                console.log(match);
+                if (match) {
                     if (await this.bycriptPass(password, match.password)) {
                         
                         const loginToken= await this.genJWT_Token(match.userEmail,match.userId)
