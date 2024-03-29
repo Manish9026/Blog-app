@@ -56,17 +56,14 @@ class userAuth extends AuthTools {
 
     static login = async (req, res) => {
         try {
-            // res.cookie("hello",9026)
+            
             console.log(req.body);
-            // const hash = await this.hashPass("123456");
-
- 
-            // console.log("hello", hash);
+        
             const { userEmail, password, tc, } = req.body;
 
             if (userEmail && password && tc) {
                 const match = await userModel.findOne({ userEmail })
-                if (match) {
+                if (match.length!=0) {
                     if (await this.bycriptPass(password, match.password)) {
                         
                         const loginToken= await this.genJWT_Token(match.userEmail,match.userId)
@@ -277,7 +274,7 @@ class userAuth extends AuthTools {
 
     static userVerifed=async(req,res)=>{
  
-        console.log(req.cookies);
+        // console.log(req.cookies);
         try {
             const {uid}=req.cookies;
 
