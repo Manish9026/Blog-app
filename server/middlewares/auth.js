@@ -1,7 +1,30 @@
+import { AuthTools } from "../Controllers/userAuth.js";
+import { userModel } from "../Models/userModel.js";
 
-const authMiddleWare=(req,res,next)=>{
+ export const authMiddleWare=async(req,res,next)=>{
     
-    
-    
-    req.cockie
+    try {
+        const {uid}=req.cookies;
+        if(uid){
+          const {userId} =await AuthTools.getUserId(req)
+          if(await userModel.findOne({userId})){
+           next();
+   
+          }
+
+        }else{
+            res.status(201).json({
+                message:"firstly login",
+                statusCode:65,
+                data:[]
+            })
+        }
+
+
+        
+    } catch (error) {
+        
+    }
+
 }
+

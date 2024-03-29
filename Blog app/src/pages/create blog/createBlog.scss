@@ -1,0 +1,228 @@
+.ct-blog-container,
+.ct-blog-container * {
+  box-sizing: border-box;
+}
+
+textarea{
+background-color: transparent;
+border: none;
+outline: none;
+font-weight: 500;
+        text-transform: capitalize;
+        font-size: large;
+        color: #0b0a0a;
+
+}
+
+.ct-blog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+//   height: 505px;
+width: 100%;
+height: 100%;
+  position: relative;
+  overflow: hidden;
+
+  
+    ::placeholder{
+        color: #fffbfb;
+        font-weight: 500;
+        text-transform: capitalize;
+        font-size: large;
+    }
+    input{
+        padding: 5px 10px;
+        font-weight: 400;
+        text-transform: capitalize;
+        font-size: 20px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #3f3c3c;
+        width: 100%;
+        height: 100%;
+    }
+  
+}
+.ct-heading {
+  padding: 12px 20px 12px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.ct-txt {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-text-stroke: 1px rgba(157, 23, 159, 0.57);
+}
+.ct-form {
+  background: rgba(171, 168, 168, 0.47);
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  flex-shrink: 0;
+  max-width: 800px;
+  position: relative;
+  overflow: hidden;
+}
+.ct-img {
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  min-width: 155px;
+  max-width: 250px;
+  min-height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+.ct-blur {
+  background: rgba(59, 52, 52, 0.63);
+  padding: 30px 29px 30px 29px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 323px;
+  min-width: 100px;
+  min-height: 100px;
+  position: relative;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.ct-in-section {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-self: stretch;
+  flex: 1;
+  min-width: 235px;
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+.ct-in-field {
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 10px;
+  border-style: solid;
+  border-color: rgba(46, 79, 195, 0.75);
+  border-width: 2px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1;
+  height: 37px;
+  min-width: 150px;
+  max-width: 250px;
+  position: relative;
+  box-shadow: inset -4px -4px 20px 5px rgba(251, 242, 242, 0.25),
+    inset 4px 4px 20px 5px rgba(248, 240, 240, 0.6),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  
+}
+
+.ct-content-field {
+  border-radius: 5px;
+  border-style: solid;
+  border-color: rgba(46, 79, 195, 0.75);
+  border-width: 2px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex: 1;
+  height: 176px;
+  min-width: 300px;
+  min-height: 100px;
+  position: relative;
+}
+
+.ct-btn-section {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 70px;
+  min-width: 220px;
+  position: relative;
+  overflow: hidden;
+}
+.sub-btn {
+  background: rgba(50, 35, 228, 0.55);
+  border-radius: 10px;
+  padding: 21px 56px 21px 56px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-shrink: 0;
+  max-width: 300px;
+  position: relative;
+  box-shadow: inset -4px -4px 4px 0px rgba(255, 251, 251, 0.25),
+    inset 4px 4px 4px 0px rgba(255, 251, 251, 0.25);
+  overflow: hidden;
+}
+.txt {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  position: relative;
+  width: 87px;
+  height: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

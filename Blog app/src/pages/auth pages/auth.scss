@@ -1,0 +1,732 @@
+.auth-section,
+.auth-section * {
+  box-sizing: border-box;
+}
+
+input {
+    background: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+    text-align: left;
+   
+}
+.input:focus{
+  .in-heading{
+    background-color: #fff;
+  }
+}
+button{
+    border: none;
+    background-color: transparent;
+}
+.wrong-in{
+  background: rgba(255, 57, 30, 0.28);
+  border-style: solid;
+  border-color: rgba(249, 60, 94, 0.59);
+  border-width: 3px;
+  box-shadow: inset -4px -4px 10px 0px rgba(0, 0, 0, 0.25), inset 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.auth-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  .auth-container {
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+      0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+  .key-login-container {
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px;
+    padding: 40px 15px 40px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex: 1;
+    min-width: 246px;
+    max-width: 350px;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-section1{
+    background: linear-gradient(
+        109.93deg,
+        rgba(255, 3, 3, 1) 21.59622758626938%,
+        rgba(55, 24, 244, 0.48) 60.231608152389526%
+      ),
+      linear-gradient(to left, rgba(201, 72, 72, 0.01), rgba(201, 72, 72, 0.01));
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 50px;
+    position: relative;
+    box-shadow: inset -10px -10px 20.8px 0px rgba(0, 0, 0, 0.34),
+      inset 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+
+  .auth-icons{
+    width: 35px;
+    height: 35px;
+    // flex: 1;
+    left: -20px;
+    position: relative;
+    // object-fit: cover;
+  }
+  .google {
+    height: 100%;
+    flex: 1;
+    max-width: 50px;
+    max-height: 50px;
+    position: relative;
+    object-fit: cover;
+  }
+  .login-with-google {
+    color: #ffffff;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-section2 {
+    background: linear-gradient(to left, #1c56eb, #1c56eb),
+      linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0.01),
+        rgba(255, 255, 255, 0.01)
+      );
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    padding: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 50px;
+    position: relative;
+    box-shadow: inset -10px -10px 20.8px 0px rgba(0, 0, 0, 0.34),
+      inset 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+  .facebook {
+    height: 100%;
+    flex: 1;
+    max-width: 50px;
+    max-height: 40px;
+    position: relative;
+    object-fit: cover;
+  }
+  .login-with-facebook {
+    color: #ffffff;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-section3 {
+    background: linear-gradient(to left, #3e3939, #3e3939),
+      linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0.01),
+        rgba(255, 255, 255, 0.01)
+      );
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 50px;
+    position: relative;
+    box-shadow: inset -10px -10px 20.8px 0px rgba(0, 0, 0, 0.34),
+      inset 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+  .auth-logo {
+    height: 100%;
+    flex: 1;
+    max-width: 40px;
+    max-height: 40px;
+    position: relative;
+    object-fit: cover;
+  }
+  .login-with-github {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .or {
+    color: #000000;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    position: relative;
+    width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gmail-logo {
+    flex-shrink: 0;
+    width: 40px;
+    height: 38px;
+    max-width: 40px;
+    max-height: 40px;
+    position: relative;
+    object-fit: cover;
+  }
+  .login-with-email {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    width: 150px;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .register-section {
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px;
+    padding: 0px 9px 0px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex: 1;
+    min-width: 222px;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
+  }
+  .input-section {
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-pk-field {
+    background: linear-gradient(
+      91.66deg,
+      rgba(99, 123, 170, 0.52) 0%,
+      rgba(40, 49, 68, 0.52) 100%
+    );
+    border-radius: 50px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.94);
+    border-width: 1px;
+    padding: 10px 0px 10px 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    flex-shrink: 0;
+    height: 50px;
+    min-width: 150px;
+    max-width: 300px;
+    position: relative;
+    overflow: hidden;
+  }
+  .user-icons {
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.01),
+      rgba(255, 255, 255, 0.01)
+    );
+    border-radius: 50px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 55px;
+    height: 50px;
+    position: relative;
+    box-shadow: inset 2px 2px 4px 0px rgba(0, 0, 0, 0.25),
+      inset -2px 2px 4px 0px rgba(0, 0, 0, 0.25),
+      inset 2px -2px 4px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    object-fit: cover;
+  }
+  .upload {
+    color: rgba(248, 235, 235, 0.89);
+    text-align: left;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    -webkit-text-stroke: 1px #7a6ffb;
+  }
+  .frame-133 {
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .in-field{
+    border-radius: 12px;
+    border:2px solid #5b62ff;
+    padding: 12px 51px 12px 51px;
+    display: flex;
+    flex-direction: row;
+max-height: 50px;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    box-shadow: inset -4px -4px 20px 5px rgba(251, 242, 242, 0.25),
+    inset 4px 4px 20px 5px rgba(248, 240, 240, 0.6);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.01);
+
+  }
+  .in-field-2 {
+    min-width: 200px;
+    position: relative;
+  }
+  .field-1 {
+    min-width: 200px;
+  }
+  .input-text {
+    color: #ffffff;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+ text-transform: capitalize;
+  }
+  .in-field-3 {
+    min-width: 230px;
+  }
+
+
+  .sub-btn {
+    background: linear-gradient(
+      93.31deg,
+      rgba(33, 119, 168, 1) 0%,
+      rgba(43, 121, 42, 1) 100%
+    );
+    border-radius: 20px;
+    padding: 7px 36px 7px 36px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit {
+    color: #abe350;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    width: 78px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-link {
+    padding: 7px 35px 7px 35px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 96.4%;
+    height: 5.6%;
+    position: absolute;
+    right: 1.9%;
+    left: 1.7%;
+    bottom: 19.62%;
+    top: 74.78%;
+    overflow: hidden;
+  }
+  .already-account {
+    color: #000000;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 1px #7a7ee3;
+  }
+  .sign-in {
+    color: #096027;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: underline;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 1px transparent;
+  }
+  
+
+
+  //
+//   login -section -css
+
+.login-section {
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px;
+    padding: 0px 9px 0px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex: 1;
+    min-width: 222px;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
+  }
+  .login-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 365px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .login-now {
+    color: #ffffff;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    position: relative;
+    width: 201px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 1px #0e5efa;
+  }
+  .l-infield-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    // overflow: hidden;
+
+   
+  }
+  // .l-infield-container:focus-within  .in-heading{
+  //   top: -15px;
+  // }
+  .l-in-field {
+    background: rgb(153 146 240 / 28%);
+    border-radius: 14px;
+    border-style: solid;
+    border-color: #2447db;
+    border-width: 3px;
+    padding: 12px 20px 12px 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: inset -4px -4px 10px 0px rgba(0, 0, 0, 0.25),
+      inset 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    // overflow: hidden;
+    transition: 1s ease;
+
+  }
+  .l-in-text {
+    color: #fffdfd;
+    // text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    // width: 96px;
+    // height: 27px;
+    // background-color: #fff;
+    // display: flex;
+    // align-items: center;
+    text-transform: capitalize;
+    
+    // justify-content: center;
+
+  }
+  input::placeholder{
+    color: #fffdfd;
+
+  }
+  // .l-in-text:focus{
+  //   .in-heading{
+  //     top:15px
+  //   }
+
+  // }
+  // .l-in-field:focus-within{
+  //   // background-color: #fff;
+  //   .in-heading{
+  //     transition: 2s ease;
+  //     top: -15px;
+  //     background-color: #0ad8e7;
+  //   }
+   
+  // }
+  .in-heading :is(input:focus, input:valid){
+background-color: #ae1919;
+  }
+
+  .in-heading{
+    color: #f4f4f4;
+    position: absolute;
+    // text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+  
+    border-radius: 5px;
+    // // background-color: #1525de;
+    // border-left: 1px solid white;
+    // border-right: 1px solid white;
+
+    padding: 0px 10px;
+    transition: all 1s linear;
+
+    
+  }
+  
+ 
+ 
+ 
+  .term-conditon {
+    padding: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .rectangle-4 {
+    background: #1e32e7;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+  .term-condition {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .submit-btn {
+    background: #2c61e8;
+    border-radius: 15px;
+    padding: 9px 46px 9px 46px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-shrink: 0;
+    min-width: 100px;
+    max-width: 215px;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit {
+    color: #ffffff;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    width: 111px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .signup-link {
+    padding: 7px 35px 7px 35px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 10.47%;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: 0%;
+    top: 89.53%;
+    overflow: hidden;
+  }
+  .create-new-account {
+    color: #000000;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    transform-origin: 0 0;
+    transform: rotate(-0.243deg) scale(1, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 1px #7a7ee3;
+  }
+  .sign-up {
+    color: #096027;
+    text-align: center;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: underline;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 1px transparent;
+  }
+  

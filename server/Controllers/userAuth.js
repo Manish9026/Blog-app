@@ -1,14 +1,18 @@
 import { userModel } from "../Models/userModel.js"
 import bcrypt, { hash } from 'bcrypt'
-import dotenv from 'dotenv'
+import dotenv, { populate } from 'dotenv'
 import jwt from "jsonwebtoken";
 import express from 'express'
 import cookieParser from "cookie-parser";
+import { userProfileModel } from "../Models/userProfileModel.js";
+import { imageBuffer } from "../../Blog app/src/utills/imageBuffer.js";
+import { imageUploader } from "../utils/imageUploader.js";
+import mongoose from "mongoose";
 let app=express();
 app.use(cookieParser());
 
 dotenv.config();
-class AuthTools {
+export class AuthTools {
 
     static hashPass = async (pass) => {
         const passwordKey = "manish", saltRounds = 15;
@@ -23,12 +27,28 @@ class AuthTools {
         return bcrypt.compare(checkPass, hash).then(res => res).catch(err => console.log(err));
     }
 
-    static genJWT_Token =async (userEmail,_id) => {
-        console.log(userEmail,_id);
-       return await jwt.sign({userEmail,_id},process.env.SECRET_KEY)
+    static genJWT_Token =async (userEmail,userId) => {
+        console.log(userEmail,userId);
+       return await jwt.sign({userEmail,userId},process.env.SECRET_KEY)
       
 
     }
+    static tokenVerifier=async(token)=>{
+
+      return await jwt.verify(token,process.env.SECRET_KEY)
+       
+        
+    }
+
+   static getUserId=async(req)=>{
+
+        const {uid}= req.cookies
+        if(uid)
+        return await  this.tokenVerifier(uid)
+        else
+        return {userId:undefined}
+
+   }
 }
 
 class userAuth extends AuthTools {
@@ -36,7 +56,7 @@ class userAuth extends AuthTools {
 
     static login = async (req, res) => {
         try {
-            res.cookie("hello",9026)
+            // res.cookie("hello",9026)
             console.log(req.body);
             // const hash = await this.hashPass("123456");
 
@@ -49,11 +69,15 @@ class userAuth extends AuthTools {
                 if (match) {
                     if (await this.bycriptPass(password, match.password)) {
                         
-                        const loginToken= await this.genJWT_Token(match.userEmail,match._id)
+                        const loginToken= await this.genJWT_Token(match.userEmail,match.userId)
                         console.log(loginToken);
-                        // res.cookie("hdb",673735)
-                        // res.cookie("uid",loginToken)
-                        res.cookie("uid",loginToken).json({
+                        
+                        res.cookie("uid",loginToken,{
+                            sameSite: 'None',
+                            secure: true,
+                            httpOnly: true ,
+                            expires: new Date(Date.now() + 3600000)
+                          }).json({
                             message: "successfully login",
                             status:true
                         })
@@ -99,22 +123,37 @@ class userAuth extends AuthTools {
 
         try {
 
-            const {userEmail,userName,password}=req.body
+            const {userEmail,userName,password,profileImage}=req.body
             console.log(req.body)
             if( userEmail && userName && password){
 
                 let hashedPass=await this.hashPass(password)
-                console.log(hashedPass)
+                // console.log(hashedPass)
                 const match =await userModel.findOne({userEmail})
 
                 if(!match){
-
+                    const imageUrl=await imageUploader(profileImage)
                 
-                const userDetail= await userModel.create({
+                    // console.log(new mongoose.Types.ObjectId);
+                const userDetail= await userModel({
+                    
                     userName,
                     userEmail,
-                    password:hashedPass
+                    password:hashedPass,
+                    // userProfile:""/
                 })
+
+             const profile=await userProfileModel.create(
+                    {
+                       
+                        profileImage:imageUrl
+                    }
+                )
+
+                   userDetail.profile=profile._id;
+                   userDetail.userId=userDetail._id;
+                // userDetail.save()
+                // await userProfileModel.save();
 
                  
                 
@@ -152,14 +191,133 @@ class userAuth extends AuthTools {
     }
 
     static logout = async (req, res) => {
+        try {
+            console.log("dsfhjs");
+            res.clearCookie('uid', { 
+                sameSite: 'None',
+                secure: true
+            });
+      
+           res.send({
+            message:"logout successfully",
+            status:true
+           })
 
+            
+        } catch (error) {
+            
+        }
     }
     static forgot = async (req, res) => {
 
+     
     }
 
     static setProfile = async (req, res) => {
+        console.log(req.body);
+ const { userId,profileImage,DOB,gender} =req.body
+        try {
+ const  userDetail=  await userProfileModel.create({
+    userId,
+    profileImage,
+    DOB,
+    gender
+ })
 
+  await userDetail.save();
+
+  res.send({
+    message:"successfully added"
+  })
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static getUserInfo=async(req,res)=>{
+
+
+        try {
+            const {uid}=req.cookies
+
+            if(uid){
+
+                let  {userId}=await this.tokenVerifier(uid);
+                // console.log(uid,userId);
+ 
+
+                    const data =await userModel.findOne({userId}).populate({
+                        path:"profile",
+                        
+                    })
+                    const {userName,userEmail,profile}=data
+                    if(data){
+                        res.status(201).json({
+                            status:true,
+                            data:{userEmail,userId,userName,profile}
+                        })
+                    }
+
+                // console.log( data,"bvcf");
+            }
+            else{
+                res.status(201).json({
+                    "message":"wait some time",
+                    status:false
+                })
+            }
+          
+            
+        } catch (error) {
+            
+            console.log(error);
+        }
+    }
+
+    static userVerifed=async(req,res)=>{
+ 
+        console.log(req.cookies);
+        try {
+            const {uid}=req.cookies;
+
+            if(uid){
+            const  {userId}= await this.tokenVerifier(uid)
+            console.log(userId);
+            const match=await userModel.findOne({userId})
+            console.log(match);
+            if(match){
+        res.status(201).json({
+        message:" user Already login",
+        status:true,
+        path:'/',
+
+
+         })
+         }else{
+        res.status(404).json({
+        message:"kindly you login again",
+        status:false,
+        path:"/sign-up"
+
+    })
+            }
+        //    console.log( req.cookies)
+        }else{
+            res.status(404).json({
+                message:"kindly you login again",
+                status:false,
+        
+            })
+        }
+
+        } catch (error) {console.log(error);
+            res.status(404).json({
+                message:"server busy please wait",
+                status:false,
+                
+            })
+        }
     }
 }
 

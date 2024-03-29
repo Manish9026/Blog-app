@@ -1,1 +1,47 @@
+.row-flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex:1;
 
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.correct-in{
+    background: rgba(46, 28, 252, 0.28);
+    border-style: solid;
+    border-color: #04ac29;
+    border-width: 3px;
+    box-shadow: inset -4px -4px 10px 0px rgba(0, 0, 0, 0.25), inset 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+.wrong-in{
+    background: rgba(255, 57, 30, 0.28);
+    border-style: solid;
+    border-color: rgba(249, 60, 94, 0.59);
+    border-width: 3px;
+    box-shadow: inset -4px -4px 10px 0px rgba(0, 0, 0, 0.25), inset 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+.column-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex:1;
+
+}
+.pointer{
+    cursor: pointer;
+}
+
+.text-heading{
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: capitalize
+    
+}
+.text-in{
+    text-transform: capitalize;
+}
