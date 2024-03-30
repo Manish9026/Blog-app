@@ -119,6 +119,8 @@ class userAuth extends AuthTools {
     static register = async (req, res) => {
 
 
+        console.log(req.body,"hgyf")
+
         try {
 
             const {userEmail,userName,password,profileImage}=req.body

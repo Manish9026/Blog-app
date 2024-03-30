@@ -17,7 +17,6 @@ dispatch(getNotificData())
 
    
   },[])
-
   return (
     <div className="friend-section">
 
@@ -28,6 +27,7 @@ dispatch(getNotificData())
           <div className="your-friends">your friends</div>
         </div>
         <div className="save-fd-container">{
+          friends.length!=0?
           friends.map((friend,indx)=>{
             return (
               <Link to={`/single-friend?uid=${friend._id}`} className="save-fd" key={indx}>
@@ -40,7 +40,7 @@ dispatch(getNotificData())
             </div>
           </Link>
             )
-          })
+          }):<div> no friends </div>
           }
         </div>
       </div>
@@ -49,7 +49,8 @@ dispatch(getNotificData())
           <div className="friend-requests">friend requests</div>
         </div>
         <div className="fd-req-container">
-        {  
+        { 
+        notifiData.length!=0? 
         notifiData.map((notific,indx)=>{
           let {senderId,receiverId}=notific
           return (
@@ -70,7 +71,7 @@ dispatch(getNotificData())
             </div>
           </div>
           )
-        })
+        }):<div>no friends request</div>
          }
         </div>
       </div>

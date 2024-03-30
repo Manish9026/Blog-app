@@ -25,7 +25,7 @@ export const cnfFrndReq=createAsyncThunk("cnfFrndReq",(frndReqId)=>{
     })
 
 export const getNotificData=createAsyncThunk("getNotificData",async()=>{
-    console.log("getNotific called");
+
     return await axios.get("/user/f1/notification",{withCredentials:true}).then(res=>{
     
         urlLoader(res.data)
@@ -36,10 +36,10 @@ export const getNotificData=createAsyncThunk("getNotificData",async()=>{
      })
     })
 
-export const getAllFrnd=createAsyncThunk("getAllFrnd",({userId,type})=>{
+export const getAllFrnd=createAsyncThunk("getAllFrnd",async({userId,type})=>{
 
-    console.log(type,userId);
-        return axios.get(`user/f1/get-friends?userId=${userId}&type=${type}`,{withCredentials:true}).then(res=>{
+
+        return await axios.get(`user/f1/get-friends?userId=${userId}&type=${type}`,{withCredentials:true}).then(res=>{
            
            
             return  res.data.data
@@ -76,7 +76,7 @@ builder.addCase(getAllFrnd.fulfilled,(state,{payload})=>{
 
 
     state.loading=false;
-    state.friends=payload.friends
+    state.friends=payload.friends || []
 
 })
     },

@@ -290,7 +290,8 @@ class userFriendController extends AuthTools {
             const {type}=req.query;
           console.log(type);
             const getFriend=async(userId)=>{
-            try{    const match=await userFriendModel.findOne({userId}).populate({
+            try{  
+                  const match=await userFriendModel.findOne({userId}).populate({
                     path:"friends",
                     select:"userName profile",
                     populate:{

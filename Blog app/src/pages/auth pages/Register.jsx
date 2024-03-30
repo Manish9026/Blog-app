@@ -20,7 +20,6 @@ const dispatch=useDispatch();
 
 useEffect(()=>{
 dispatch(isVerified())
-console.log("called");
 },[status])
 
     const SignUP=()=>{
