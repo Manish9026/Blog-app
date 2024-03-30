@@ -23,11 +23,13 @@ export const getRegister=createAsyncThunk("getRegister/userAuth",(data)=>{
 export const getLogin=createAsyncThunk("getLogin/userAuth",(data)=>{
     return axios.post("/user/s1/login",data,{withCredentials:true}).then(res=>{
   
-      console.log(res.data.message)
+      // console.log(res.data.message)
       
       if(res.data.status){
         toast.success(res.data.message) 
         // Navigate(-1)
+      window.history.back();
+
       }else{
         toast.error(res.data.message)
       }
@@ -58,30 +60,34 @@ export const getUserInfo=createAsyncThunk("getUserInfo/userAuth",(data)=>{
 
 export const isVerified=createAsyncThunk("isVerified/userAuth",()=>{
 
-  axios.get("/user/s1/verify",{withCredentials:true}).then(res=>{
+  return axios.get("/user/s1/verify",{withCredentials:true}).then(res=>{
     const {path,status}=res.data
-    console.log(path,status);
+    console.log(res.data);
+    
     if(status){
-      // window.history.pushState({},"",path)
+     console.log("login succ");
       window.history.back();
       // window.location.reload();
     }
     else{
+     
       window.history.pushState({},"",path)
-      // window.location.reload();
     }
+
+    return res.data
   }).catch(error=>{
 
   })
 })
 
 export const logout =createAsyncThunk("logout",async()=>{
-  await axios.get("/user/s1/logout",{withCredentials:true}).then(res=>{
+  await  axios.get("/user/s1/logout",{withCredentials:true}).then(res=>{
     toast.success(res.data.message);
     if(res.data.status){
       window.history.pushState({},"","/");
       window.location.reload();
     }
+    
   }).catch(err=>{
     alert(err)
   })
@@ -151,6 +157,7 @@ const authSlice=createSlice({
         builder.addCase(getUserInfo.fulfilled,(state,{payload})=>{
           state.userInfo=payload;
         })
+        
         
 
     },

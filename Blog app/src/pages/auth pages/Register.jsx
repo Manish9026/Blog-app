@@ -15,12 +15,12 @@ const register = () => {
 
 const [authMethod,setAuthMethod]=useState("sign-up")
 const {loading,status}=useSelector(state=>state.userAuth)
+
 const dispatch=useDispatch();
 
 useEffect(()=>{
 dispatch(isVerified())
-
-
+console.log("called");
 },[status])
 
     const SignUP=()=>{

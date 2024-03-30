@@ -254,6 +254,7 @@ class userFriendController extends AuthTools {
             
             const {userId}=await this.getUserId(req);
             const {frndId}=req.query;
+            // console.log();
           
             if( await userFriendModel.findOne({userId,friends:frndId})){
                 res.json({
@@ -282,30 +283,59 @@ class userFriendController extends AuthTools {
     }
 
     static getAllFrnd=async(req,res)=>{
+
+
+
         try {
-            const {userId}=req.query
-            console.log(userId);
-            const match=await userFriendModel.findOne({userId}).populate({
-                path:"friends",
-                select:"userName profile",
-                populate:{
-                    path:"profile",
-                    model:"userProfiles",
-                    select:"profileImage"
+            const {type}=req.query;
+          console.log(type);
+            const getFriend=async(userId)=>{
+            try{    const match=await userFriendModel.findOne({userId}).populate({
+                    path:"friends",
+                    select:"userName profile",
+                    populate:{
+                        path:"profile",
+                        model:"userProfiles",
+                        select:"profileImage",
+                       
+                    },
+                    
+                }).populate({
+                    path:"friends",
+                    select:"userName profile",
+                    populate:{
+                        path:"friends"
+                    }
+                })
+                console.log(match)
+                if(match){
+                    res.status(201).json({
+                        data:match,
+                        status:true
+                    })
+                }else{
+                    // console.log("sngf")
+                    res.status(201).json({
+                        data:[],
+                        status:false
+                    })
+                }}catch(err){
+                    console.log(err);
                 }
-            })
-            console.log(match)
-            if(match){
-                res.status(201).json({
-                    data:match,
-                    status:true
-                })
-            }else{
-                // console.log("sngf")
-                res.status(201).json({
-                    data:[],
-                    status:false
-                })
+            }
+         
+
+            switch(type){
+                case 'self':const {userId}=await this.getUserId(req);
+                            getFriend(userId);
+                           
+                            break;
+                case 'other': const friendId=req.query.userId;
+                console.log("sadgsah"); 
+                            getFriend(friendId);
+                           
+                            break;
+
             }
             // console.log(match);
         } catch (error) {

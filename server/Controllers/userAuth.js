@@ -278,7 +278,7 @@ class userAuth extends AuthTools {
         // console.log(req.cookies);
         try {
             const {uid}=req.cookies;
-
+console.log("asdjjagh",uid);
             if(uid){
             const  {userId}= await this.tokenVerifier(uid)
             console.log(userId);
@@ -302,9 +302,11 @@ class userAuth extends AuthTools {
             }
         //    console.log( req.cookies)
         }else{
-            res.status(404).json({
+            res.status(201).json({
                 message:"kindly you login again",
                 status:false,
+                 path:"/sign-up"
+
         
             })
         }

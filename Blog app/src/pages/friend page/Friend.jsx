@@ -1,24 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import './friend.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { isVerified } from '../../sclice/authSlice/authSlice';
+import { cnfFrndReq, getAllFrnd, getFriendPageData, getNotificData } from '../../sclice/friendSlice';
+import { Link } from 'react-router-dom';
+import Loder from '../../component/loader/Loder';
 const Friend = () => {
+
+const {friends,notifiData,loading}=useSelector(state=>{return state.userFriend})
+const dispatch=useDispatch();
+  useEffect(()=>{
+
+dispatch(getAllFrnd({type:"self"}));
+dispatch(getNotificData())
+
+   
+  },[])
+
   return (
     <div className="friend-section">
+
+      {loading?<Loder/>:""}
     <div className="fd-container">
       <div className="fd-section">
         <div className="save-fd-heading">
           <div className="your-friends">your friends</div>
         </div>
-        <div className="save-fd-container">
-          <div className="save-fd">
+        <div className="save-fd-container">{
+          friends.map((friend,indx)=>{
+            return (
+              <Link to={`/single-friend?uid=${friend._id}`} className="save-fd" key={indx}>
             <div className="save-fd-img">
-              <img className="manish-img-1" src="manish-img-10.png" />
+              <img className="manish-img-1" src={friend.profile.profileImage}/>
             </div>
             <div className="save-fd-txt">
-              <div className="save-fd-name">manish maurya</div>
-              <div className="save-fd-t">24 friends</div>
+              <div className="save-fd-name">{friend.userName}</div>
+              <div className="save-fd-t">{friend.friends.friends.length} friends</div>
             </div>
-          </div>
+          </Link>
+            )
+          })
+          }
         </div>
       </div>
       <div className="fd-res-seciton">
@@ -26,22 +49,29 @@ const Friend = () => {
           <div className="friend-requests">friend requests</div>
         </div>
         <div className="fd-req-container">
-          <div className="fd-req-card">
+        {  
+        notifiData.map((notific,indx)=>{
+          let {senderId,receiverId}=notific
+          return (
+            <div className="fd-req-card" key={indx}>
             <div className="req-card-img">
-              <img className="fd-img" src="fd-img0.png" />
+              <img className="fd-img" src={senderId.profile.profileImage}/>
             </div>
             <div className="fd-content-part">
               <div className="fd-req-name">
-                <div className="name">manish maurya</div>
+                <div className="name">{senderId.userName}</div>
               </div>
-              <div className="confirm-btn">
+              <button className="confirm-btn" onClick={()=>dispatch(cnfFrndReq(senderId.userId))}>
                 <div className="confirm">confirm</div>
-              </div>
+              </button>
               <div className="remove-btn">
                 <div className="remove">remove</div>
               </div>
             </div>
           </div>
+          )
+        })
+         }
         </div>
       </div>
       <div className="suj-fd-section">

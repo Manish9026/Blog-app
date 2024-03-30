@@ -1,6 +1,6 @@
 .loader-c{
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 60px);
     display: flex;
     background-color: hsla(0, 16%, 94%, 0.232);
 position: absolute;

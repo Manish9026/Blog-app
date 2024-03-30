@@ -1,6 +1,8 @@
 import axios from "axios"
 import React, { useState } from "react"
 import { url } from "../../tools/serverURL"
+import { useDispatch } from "react-redux"
+import { isVerified } from "../../sclice/authSlice/authSlice"
 
 export default function Register() {
   const [name, setName] = useState("")
@@ -11,7 +13,9 @@ export default function Register() {
   const [emailError, setEmailError] = useState("")
   const [passwordError, setPasswordError] = useState("")
   const [confirmPasswordError, setConfirmPasswordError] = useState("")
+ const dispatch=useDispatch();
 
+ 
   const onButtonClick = () => {
     // Set initial error values to empty
     setNameError("")

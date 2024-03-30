@@ -14,7 +14,7 @@ const Friends = () => {
 const dispatch=useDispatch()
 useEffect(()=>{
    const param=queryParam.get("uid").split('/')[0];
-    dispatch(getAllFrnd(param))
+    dispatch(getAllFrnd({userId:param,type:"other"}))
 },[searchTxt])
 
 
