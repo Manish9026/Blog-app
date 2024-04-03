@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Home from '../pages/home/Home'
 import Header from '../component/hearder/Header'
@@ -6,19 +6,32 @@ import SideNav from '../component/hearder/SideNav'
 
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MenuBar from '../component/hearder/mobileMenuBar/MenuBar'
 const Layout = () => {
 const [layoutState,setLayoutState]=useState(1)
-
+const widthRef=useRef();
 useEffect(()=>{
-
+window.addEventListener("resize",widthHandler)
+widthHandler()
+return()=>{
+   window.removeEventListener("resize",widthHandler)
+}
 
 },[])
+const widthHandler=()=>{
+ if(widthRef.current.offsetWidth<600){
+setLayoutState(0)
+ }else{
+setLayoutState(1)
+
+ }
+}
 
   return (<>
-{
-   layoutState?<div className='destop-layout blog-app'>
-   
-   <Header/>
+
+   <div className='destop-layout blog-app' ref={widthRef}>
+ {  layoutState?
+   <Header/>:<MenuBar/>}
    <div className='outlet-container'>
    <SideNav/>
 
@@ -47,14 +60,9 @@ style={{position:"absolute",textTransform:"capitalize"}}
 
    </div>
    </div> 
-   :
-   <div className="mobile-layout">
 
-<Home/>
+ 
 
-   </div>
-    
-}
   </>
 
 

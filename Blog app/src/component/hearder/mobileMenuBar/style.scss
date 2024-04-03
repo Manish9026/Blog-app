@@ -1,0 +1,426 @@
+.menu-bar-section,
+.menu-bar-section * {
+  box-sizing: border-box;
+}
+.menu-bar-section {
+    transition: all 1s ease;
+    transform: translatex(-600px);
+  background: linear-gradient(to left, #260b76, #260b76);
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+//   overflow: hidden;
+}
+.menu-bar-section .top-section {
+  border-style: solid;
+  border-color: rgba(255, 246, 246, 0.5);
+  border-width: 0px 0px 1px 0px;
+  padding: 30px 10px 0px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 194px;
+  position: relative;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    inset 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.menu-bar-section .pro-container {
+  background: #1c1c28;
+  border-radius: 11px;
+  border-style: solid;
+  border-color: #fdf7f7;
+  border-width: 1px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 75px;
+  position: relative;
+  box-shadow: inset -4px -4px 4px 0px rgba(52, 36, 237, 0.3),
+    inset 4px 4px 4px 0px rgba(52, 36, 237, 0.3);
+}
+.menu-bar-section .like-box {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+//   padding: 5px 9px 5px 9px;
+width: 50px;
+// background-color: #fff;
+height: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: absolute;
+  right: 15px;
+  top: calc(50% - 16px);
+  overflow: hidden;
+}
+.menu-bar-section .pro-txt {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  position: relative;
+
+}
+.menu-bar-section .likes {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+//   align-items: center;
+//   justify-content: flex-start;
+}
+.menu-bar-section .follower-box {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+//   padding: 5px 9px 5px 9px;
+  display: flex;
+  width: 50px;
+// background-color: #fff;
+height: 50px;
+  flex-direction: column;
+  gap: 1px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: absolute;
+  left: 9px;
+  top: calc(50% - 16px);
+  overflow: hidden;
+}
+.menu-bar-section .followers {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.menu-bar-section .user-name {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 49.5px);
+  top: calc(50% - 5px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.menu-bar-section .img-section {
+  background: #ffffff;
+  border-radius: 35px;
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: calc(50% - 29.5px);
+  top: calc(50% - 65px);
+  overflow: hidden;
+}
+.menu-bar-section .manish-img-2 {
+  border-radius: 50px;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  object-fit: cover;
+}
+.menu-bar-section .status-section {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px 0px 1px 0px;
+  padding: 7px 20px 7px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 54px;
+  position: relative;
+  overflow: hidden;
+}
+.menu-bar-section .status-box {
+  border-radius: 5px 0px 0px 5px;
+  border-style: solid;
+  border-color: #24d6ee;
+  border-width: 2px;
+  padding: 0px 13px 0px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  min-width: 50px;
+  max-width: 100px;
+  position: relative;
+  box-shadow: inset -2px -2px 4px 0px rgba(63, 58, 56, 0.8),
+    inset 2px 2px 3.5px 0px rgba(63, 58, 56, 0.79);
+  overflow: hidden;
+}
+.menu-bar-section ._23 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.menu-bar-section .friends {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.menu-bar-section .status-box2 {
+  border-style: solid;
+  border-color: #24d6ee;
+  border-width: 2px;
+  padding: 0px 13px 0px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  min-width: 50px;
+  max-width: 100px;
+  position: relative;
+  box-shadow: inset -2px -2px 4px 0px rgba(63, 58, 56, 0.8),
+    inset 2px 2px 3.5px 0px rgba(63, 58, 56, 0.79);
+  overflow: hidden;
+}
+.menu-bar-section .blogs {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  -webkit-text-stroke: 1px rgba(229, 60, 232, 0.48);
+}
+.menu-bar-section .status-box3 {
+  border-radius: 0px 5px 5px 0px;
+  border-style: solid;
+  border-color: #24d6ee;
+  border-width: 2px;
+  padding: 0px 13px 0px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  min-width: 50px;
+  max-width: 100px;
+  position: relative;
+  box-shadow: inset -2px -2px 4px 0px rgba(63, 58, 56, 0.8),
+    inset 2px 2px 3.5px 0px rgba(63, 58, 56, 0.79);
+  overflow: hidden;
+}
+.menu-bar-section .posts {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.menu-bar-section .close-icon {
+  border-radius: 50px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  overflow: hidden;
+}
+.menu-bar-section .x {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-bar-section .nav-titles-section {
+  padding: 21px 20px 21px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 334px;
+  position: relative;
+  overflow: hidden;
+}
+.menu-bar-section .title-box {
+  border-style: solid;
+  border-color: #d9c9c9;
+  border-width: 0px 0px 1px 0px;
+  padding: 0px 6px 0px 6px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.menu-bar-section .icon-section {
+  background: #faefef;
+  border-radius: 35px;
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  overflow: hidden;
+}
+.menu-bar-section .title {
+  padding: 0px 14px 0px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.menu-bar-section .home {
+  color: #faefef;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.menu-bar-section .arrow-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 15px;
+  position: relative;
+  transform: translate(-11.25px, 1.34px);
+  overflow: visible;
+}
+.menu-bar-section .bottom-section {
+  padding: 16px 20px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.menu-bar-section .logout-btn {
+  background: #2abdeb;
+  border-radius: 5px;
+  padding: 5px 65px 5px 65px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.menu-bar-section .logout {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

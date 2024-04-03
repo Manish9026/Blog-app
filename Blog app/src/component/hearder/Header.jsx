@@ -45,7 +45,7 @@ const UserProfile=()=>{
       <div className="ellipse-10"></div>
 
       {
-       userInfo? <UserProfile/>
+       userInfo.length!=0? <UserProfile/>
       :
       <div className="top-nav">
         <div className="user-icon">

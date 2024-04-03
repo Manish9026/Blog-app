@@ -8,9 +8,21 @@ import { Navigate } from "react-router-dom";
 axios.defaults.baseURL=url
 //register async function
 
-export const getRegister=createAsyncThunk("getRegister/userAuth",(data)=>{
-  return axios.post("/user/s1/register",data).then(res=>{
+export const getRegister=createAsyncThunk("getRegister/userAuth",async(data)=>{
+  
+  console.log(data);
 
+  try {
+    const formData = new FormData();
+    for (const key in data){
+      formData.append(key,data[key]);
+    }
+    
+  return  await axios.post("/user/s1/register",formData,{headers:{
+    "Content-Type":"multipart/form-data"
+  }}).then(res=>{
+
+  
     res.data.status?
     toast.success(res.data.message): toast.error(res.data.message)
 
@@ -18,10 +30,14 @@ export const getRegister=createAsyncThunk("getRegister/userAuth",(data)=>{
   }).catch(err=>{
 
   })
+
+} catch (error) {
+  console.log(error);
+}
 })
 // login function
-export const getLogin=createAsyncThunk("getLogin/userAuth",(data)=>{
-    return axios.post("/user/s1/login",data,{withCredentials:true}).then(res=>{
+export const getLogin=createAsyncThunk("getLogin/userAuth",async(data)=>{
+    return await axios.post("/user/s1/login",data,{withCredentials:true}).then(res=>{
   
       // console.log(res.data.message)
       
@@ -104,7 +120,7 @@ const authSlice=createSlice({
         error:false,
         message:"",
         loading:false,
-        userInfo:null
+        userInfo:[]
 
     },
     reducers:{
@@ -155,7 +171,7 @@ const authSlice=createSlice({
 
         //isVerified extra reducer
         builder.addCase(getUserInfo.fulfilled,(state,{payload})=>{
-          state.userInfo=payload;
+          state.userInfo=payload || [];
         })
         
         

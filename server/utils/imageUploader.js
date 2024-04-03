@@ -10,9 +10,14 @@ export const imageUploader=async(bufferImg)=>{
           api_secret: process.env.CLOUDNARY_SECRETKEY
         });
 
-        const result = await cloudinary.uploader.upload(bufferImg);
-        console.log(result)
-        return result.secure_url
+       return  await cloudinary.uploader.upload(bufferImg).then(res=>{
+        console.log(res.secure_url);
+        return res.secure_url;
+       }).catch(err=>{
+        console.log(err);
+       })
+        // console.log(result)
+        // return result.secure_url
     } catch (error) {
         
         console.log(error);

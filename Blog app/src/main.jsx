@@ -15,6 +15,7 @@ import CreateBlog from './pages/create blog/CreateBlog.jsx'
 import Friend from './pages/friend page/Friend.jsx'
 import { SingleFrdSection } from './pages/singlefriend page/SingleFrdSection.jsx'
 import Friends from './pages/singlefriend page/Friends.jsx'
+import MenuBar from './component/hearder/mobileMenuBar/MenuBar.jsx'
 
 // console.log("fsdfjhgdf")
 const router = createBrowserRouter(
@@ -72,6 +73,10 @@ const router = createBrowserRouter(
 
       ],
     },
+    {
+      path:"/menu",
+      element:<MenuBar/>
+    }
 
   ]
 )

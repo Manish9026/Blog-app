@@ -10,6 +10,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import '../../index.css'
 import privious from '../../custom hooks/privious'
+import axios from 'axios'
+import { url } from '../../tools/serverURL'
 
 const register = () => {
 
@@ -33,13 +35,14 @@ dispatch(isVerified())
       })
       
       const [formData,setformData]=useState({
-        profileImage:"",
+        file:null,
         userName:"",
         userEmail:"",
         password:"",
         cnfPassword:"",
 
       })
+      const [file,setFile]=useState(null);
 
 const onchangeHandler=async(e)=>{
   // console.log(e);
@@ -63,22 +66,13 @@ const onchangeHandler=async(e)=>{
 
   if(files){
 
-    const file=files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      // console.log(reader.result);
-      // setImage(reader.result);
+  // console.log(files);
+ 
       setformData((prev)=>{return {
-        ...prev,[name]:reader.result
+        ...prev,[name]:files[0]
       }})
-    };
-
-    reader.readAsDataURL(file);
-
-    // let image1=imageBuffer(files[0])
-    // console.log(await imageBuffer(files[0]));
    
+      // setFile(files[0]);
    
   }else{
     setformData((prev)=>{return {
@@ -93,80 +87,99 @@ const onchangeHandler=async(e)=>{
 const submitHandler=(e)=>{
   e.preventDefault();
 
-if(!formData.profileImage){
-  setErrorField(prev=>{
-    return {
-      ...prev,image:true
 
-  }})
-  toast("kindly upload your profile image")
-}
 
-else if(!formData.userName){
-  setErrorField(prev=>{
-    return {
-      ...prev,name:true
 
-  }})
-toast("please enter userName")
-  return
-}
-else if(!formData.userEmail){
-  setErrorField(prev=>{
-    return {
-      ...prev,email:true
+console.log(formData);
+// if(!formData.file){
+//   setErrorField(prev=>{
+//     return {
+//       ...prev,image:true
 
-  }})
-toast("please enter userEmail")
+//   }})
+//   toast("kindly upload your profile image")
+// }
 
-  return
+// else if(!formData.userName){
+//   setErrorField(prev=>{
+//     return {
+//       ...prev,name:true
 
-}
-else if(!formData.password){
+//   }})
+// toast("please enter userName")
+//   return
+// }
+// else if(!formData.userEmail){
+//   setErrorField(prev=>{
+//     return {
+//       ...prev,email:true
+
+//   }})
+// toast("please enter userEmail")
+
+//   return
+
+// }
+// else if(!formData.password){
   
 
-  setErrorField(prev=>{
-    return {
-      ...prev,password:1
+//   setErrorField(prev=>{
+//     return {
+//       ...prev,password:1
 
-  }})
-  toast("empty  password")
-  return 
+//   }})
+//   toast("empty  password")
+//   return 
 
-}
+// }
 
-else if(formData.password!=formData.cnfPassword){
+// else if(formData.password!=formData.cnfPassword){
 
-  setErrorField(prev=>{
-    return {
-      ...prev,cnfPassword:1
+//   setErrorField(prev=>{
+//     return {
+//       ...prev,cnfPassword:1
 
-  }})
-toast("please enter same password")
+//   }})
+// toast("please enter same password")
 
-  return
+//   return
 
-}
+// }
 
-else{
-  console.log(formData);
+// else{
+  // console.log(formData);
   dispatch(getRegister(formData))
-}
+// }
 
 
 
 
 }
 
+axios.defaults.baseURL=url;
 
+const upload =async(e)=>{
+  e.preventDefault();
+// console.log(file);
+//   const formData=new FormData();
+//   formData.append("file",file)
+//   formData.append("name","manish");
+//   formData.append("email","manishmaurya11365@gmail.com");
+//   await axios.post("/user/s1/upload",formData,{}).then(res=>{
+//     console.log(res.data);
+//   })
+
+dispatch(await getRegister(formData))
+  
+}
      
         return(
             <div className="register-section">
-            <form className="input-section" enctype="multipart/form-data">
+            <form className="input-section" >
               <label  htmlFor="fileUP" className={`profile-pk-field  wrong-in`} style={errorField.image?{backgroundColor:"rgba(255, 57, 30, 0.28)",borderColor:"rgba(249, 60, 94, 0.59)"}:{}}>
-                <img className="user-icons" src={ formData.profileImage || headerIcons.userIcons} />
+                <img className="user-icons" src={formData.file} />
                 <h5 className="upload ">upload</h5>
-                <input type="file"  id='fileUP' style={{display:"none"}} name='profileImage' onChange={(e)=>onchangeHandler(e)}/>
+                <input type="file"  id='fileUP' style={{display:"none"}} name='file'  onChange={(e)=>{onchangeHandler(e)}}/>
 
               </label>
               <div className="frame-133">
@@ -183,7 +196,7 @@ else{
                   <input className="input-text" value={formData.cnfPassword} placeholder='confirm password' type='password'  name='cnfPassword' onChange={(e)=>onchangeHandler(e)}  />
                 </div>
               </div>
-              <div className="sub-btn" onClick={(e)=>submitHandler(e)}>
+              <div className="sub-btn" onClick={(e)=>upload(e)}>
                 <button className="submit">submit</button>
               </div>
             </form>

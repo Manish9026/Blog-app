@@ -9,11 +9,11 @@ import { userBlog } from './Controllers/userBlog.js';
 import userAuth from './Controllers/userAuth.js';
 import friendRoute from './routes/userFriend.js';
 import snglFriendRoute from './routes/userSinglefriend.js';
-
+import bodyParser from 'body-parser';
 dotenv.config();
 const app = express();
 
-
+// app.use(express.raw({ type: 'multipart/form-data' }));
 app.use(cors({
     origin:process.env.BASE_URL,
     credentials:true,
@@ -22,8 +22,10 @@ app.use(cors({
 
 // middlewares
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+// app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
 // console.log(process.env.BASE_URL);
 app.use("/user/s1",userRoute)
 app.use("/user/b1",blogRoute)
