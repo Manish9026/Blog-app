@@ -17,15 +17,16 @@ const register = () => {
 
 const [authMethod,setAuthMethod]=useState("sign-up")
 const {loading,status}=useSelector(state=>state.userAuth)
-
+const [profileImage,setProfileImage]=useState("");
 const dispatch=useDispatch();
 
 useEffect(()=>{
 dispatch(isVerified())
+
 },[status])
 
     const SignUP=()=>{
-      const [image,setImage]=useState();
+
       const [errorField,setErrorField]=useState({
         email:0,
         name:0,
@@ -35,16 +36,19 @@ dispatch(isVerified())
       })
       
       const [formData,setformData]=useState({
-        file:null,
+        file:"",
         userName:"",
         userEmail:"",
         password:"",
         cnfPassword:"",
 
       })
+
       const [file,setFile]=useState(null);
 
+let image;
 const onchangeHandler=async(e)=>{
+  e.preventDefault();
   // console.log(e);
   let {files,name,value}=e.target;
   // console.log(files,name,value);
@@ -66,18 +70,20 @@ const onchangeHandler=async(e)=>{
 
   if(files){
 
-  // console.log(files);
  
-      setformData((prev)=>{return {
-        ...prev,[name]:files[0]
-      }})
-   
-      // setFile(files[0]);
-   
+
+  
+
+
+  setformData((prev)=>{ return {
+    ...prev,[name]:files[0]
+  }})
+ 
   }else{
     setformData((prev)=>{return {
       ...prev,[name]:value
     }})
+    
   }
 
 
@@ -90,94 +96,79 @@ const submitHandler=(e)=>{
 
 
 
-console.log(formData);
-// if(!formData.file){
-//   setErrorField(prev=>{
-//     return {
-//       ...prev,image:true
+console.log(formData,file);
+if(!formData.file){
+  setErrorField(prev=>{
+    return {
+      ...prev,image:true
 
-//   }})
-//   toast("kindly upload your profile image")
-// }
+  }})
+  toast("kindly upload your profile image")
+}
 
-// else if(!formData.userName){
-//   setErrorField(prev=>{
-//     return {
-//       ...prev,name:true
+else if(!formData.userName){
+  setErrorField(prev=>{
+    return {
+      ...prev,name:true
 
-//   }})
-// toast("please enter userName")
-//   return
-// }
-// else if(!formData.userEmail){
-//   setErrorField(prev=>{
-//     return {
-//       ...prev,email:true
+  }})
+toast("please enter userName")
+  return
+}
+else if(!formData.userEmail){
+  setErrorField(prev=>{
+    return {
+      ...prev,email:true
 
-//   }})
-// toast("please enter userEmail")
+  }})
+toast("please enter userEmail")
 
-//   return
+  return
 
-// }
-// else if(!formData.password){
+}
+else if(!formData.password){
   
 
-//   setErrorField(prev=>{
-//     return {
-//       ...prev,password:1
+  setErrorField(prev=>{
+    return {
+      ...prev,password:1
 
-//   }})
-//   toast("empty  password")
-//   return 
+  }})
+  toast("empty  password")
+  return 
 
-// }
+}
 
-// else if(formData.password!=formData.cnfPassword){
+else if(formData.password!=formData.cnfPassword){
 
-//   setErrorField(prev=>{
-//     return {
-//       ...prev,cnfPassword:1
+  setErrorField(prev=>{
+    return {
+      ...prev,cnfPassword:1
 
-//   }})
-// toast("please enter same password")
+  }})
+toast("please enter same password")
 
-//   return
+  return
 
-// }
+}
 
-// else{
+else{
   // console.log(formData);
   dispatch(getRegister(formData))
-// }
+}
 
 
 
 
 }
 
-axios.defaults.baseURL=url;
 
-const upload =async(e)=>{
-  e.preventDefault();
-// console.log(file);
-//   const formData=new FormData();
-//   formData.append("file",file)
-//   formData.append("name","manish");
-//   formData.append("email","manishmaurya11365@gmail.com");
-//   await axios.post("/user/s1/upload",formData,{}).then(res=>{
-//     console.log(res.data);
-//   })
-
-dispatch(await getRegister(formData))
-  
-}
      
         return(
             <div className="register-section">
             <form className="input-section" >
               <label  htmlFor="fileUP" className={`profile-pk-field  wrong-in`} style={errorField.image?{backgroundColor:"rgba(255, 57, 30, 0.28)",borderColor:"rgba(249, 60, 94, 0.59)"}:{}}>
-                <img className="user-icons" src={formData.file} />
+                <img className="user-icons" src={image || headerIcons.avtar} alt='image' />
                 <h5 className="upload ">upload</h5>
                 <input type="file"  id='fileUP' style={{display:"none"}} name='file'  onChange={(e)=>{onchangeHandler(e)}}/>
 
@@ -196,7 +187,7 @@ dispatch(await getRegister(formData))
                   <input className="input-text" value={formData.cnfPassword} placeholder='confirm password' type='password'  name='cnfPassword' onChange={(e)=>onchangeHandler(e)}  />
                 </div>
               </div>
-              <div className="sub-btn" onClick={(e)=>upload(e)}>
+              <div className="sub-btn" onClick={(e)=>submitHandler(e)}>
                 <button className="submit">submit</button>
               </div>
             </form>
@@ -314,6 +305,21 @@ dispatch(getLogin(formData))
 
 
 }
+
+{/* <div className="login-method">
+  <span className="logo">
+    <img src={headerIcons.google} alt="" />
+  </span>
+  <span className="logo">
+    <img src={headerIcons.fb} alt="" />
+  </span> 
+  <span className="logo">
+    <img src={headerIcons.gmail} alt="" />
+  </span> 
+  <span className="logo">
+    <img src={headerIcons.githup} alt="" />
+  </span> 
+</div> */}
     </div>
   </div>
   

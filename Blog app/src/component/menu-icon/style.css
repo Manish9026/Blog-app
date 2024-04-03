@@ -1,0 +1,43 @@
+
+.trigger {
+    
+    z-index: 2;
+    
+    background-color: #150b174d;
+    /* border: 2px solid #0f0f0f; */
+    border-radius: 10px;
+   width: 40px;
+   height: 40px;
+    display: flex;
+    justify-content: center;
+    /* transform: translateX(-50%) translateY(-50%); */
+}
+
+.bars {
+  cursor: pointer;
+}
+.bars .line {
+  fill: none;
+  stroke:white;
+  stroke-width: 4;
+  stroke-linecap: square;
+  transition: stroke-dasharray 400ms,  stroke-dashoffset 400ms;
+}
+.bars .line.top {
+  stroke-dasharray: 40 172;
+}
+.bars .line.middle {
+  stroke-dasharray: 40 111;
+}
+.bars .line.bottom {
+  stroke-dasharray: 40 172;
+}
+.bars.active .top {
+  stroke-dashoffset: -132px;
+}
+.bars.active .middle {
+  stroke-dashoffset: -71px;
+}
+.bars.active .bottom {
+  stroke-dashoffset: -132px;
+}

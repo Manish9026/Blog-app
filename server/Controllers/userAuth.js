@@ -168,8 +168,8 @@ class userAuth extends AuthTools {
                     const file = files.file[0]
                     const { filepath } = file;
                     let { userName, userEmail, password } = fields
-                    userName = String(userName);
-                    userEmail = String(userEmail);
+                    userName = String(userName).toLowerCase();
+                    userEmail = String(userEmail).toLowerCase();
                     password = String(password)
                     // const imageUrl=await imageUploader(filepath)
 

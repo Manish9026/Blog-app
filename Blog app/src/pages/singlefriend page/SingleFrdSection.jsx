@@ -10,6 +10,7 @@ import { getUserInfo, setLike, setDisLike } from "../../sclice/singleFriendSlice
 import Loder from "../../component/loader/Loder";
 import { sndFrndReq } from "../../sclice/friendSlice";
 import privious from "../../custom hooks/privious";
+import MenuIcon from "../../component/menu-icon/MenuIcon";
 export const SingleFrdSection = ({ className, ...props }) => {
     // const history=useHistory();
     const pivious=privious();
@@ -19,6 +20,7 @@ export const SingleFrdSection = ({ className, ...props }) => {
     const {userInfo,loading,frndStatus,likeStatus}=useSelector(state=>{return state.snglFrnd})
     const {searchTxt}=useSelector(state=>{return state.global})
 const [reload,setReload]=useState(0)
+const [menuActive,setMenuActive]=useState(1)
     useEffect(() => {
         const paramValue=queryParam.get("uid").split("/")[0]
         // console.log(paramValue)
@@ -51,17 +53,19 @@ const [reload,setReload]=useState(0)
                         <div className="snglName">
                        
                             <div className="userName row-flex"><h4>{userInfo.userName} </h4>
-                            { 
-                            frndStatus=="unCheck"?
-                            <button className="frnd-status-btn" onClick={async()=>{await dispatch(sndFrndReq(userInfo.userId));setReload(prev=>!prev)}}>Add friend</button>:frndStatus=="pending"?
-                            <button className="frnd-status-btn"> send request</button>:<button className="frnd-status-btn">friends</button>
-                            }
+                           
                              </div>
                             <div className="snglFlowr">
                                 <div className="five6Likes">{userInfo.like?userInfo.like.likeCount : 0} Likes </div>
                                 <div className="one1KFollowers">{userInfo.userFollowers} Followers </div>
                             </div>
                         </div>
+
+                        { 
+                            frndStatus=="unCheck"?
+                            <button className="frnd-status-btn" onClick={async()=>{await dispatch(sndFrndReq(userInfo.userId));setReload(prev=>!prev)}}>Add friend</button>:frndStatus=="pending"?
+                            <button className="frnd-status-btn"> send request</button>:<button className="frnd-status-btn">friends</button>
+                            }
                         <img className="more1" src={headerIcons.more} />
                     </div>
                     <div className="frame154">
@@ -99,10 +103,15 @@ const [reload,setReload]=useState(0)
                     <div className="option-btn">
                         <div className="opt-txt">About </div>
                     </div>
-                    <div className="option-btn">
+                    <div className="option-btn more" >
                         <img src={headerIcons.more1} width={"20px"} height={"20px"} />
                         <div className="opt-txt">More </div>
                     </div>
+                    <div className="menu-icon" onClick={()=>setMenuActive(prev=>{return !prev})}>
+                    <MenuIcon active={menuActive}  />
+
+                    </div>
+                    
                 </div>
                 <div className="optionOutletContainer">
                     <Outlet/>

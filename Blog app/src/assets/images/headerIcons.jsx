@@ -14,6 +14,7 @@ import logout from './logout.png'
 import notFound from './no-results.png'
 import more from './more.png'
 import more1 from './more1.png'
+import avtar from './avtar.jpeg'
 
 import like from './thumb-up.png'
 export const headerIcons={
@@ -29,7 +30,8 @@ export const headerIcons={
     like,
     more,
     more1,
-    logout
+    logout,
+    avtar
     
 
 
