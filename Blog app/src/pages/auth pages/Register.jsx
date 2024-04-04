@@ -26,10 +26,6 @@ const navigate=useNavigate();
 
 useEffect(()=>{
 dispatch(isVerified())
-console.log(status);
-if(status){
-  navigate(-1)
-}
 
 },[status])
 
@@ -228,10 +224,10 @@ else{
         })
       }
 
-      const onSubmit=()=>{
-
+      const onSubmit=(e)=>{
+        e.preventDefault();
         // toast("hfhh")
-console.log(formData);
+// console.log(formData);
 dispatch(getLogin(formData))
 
       }
