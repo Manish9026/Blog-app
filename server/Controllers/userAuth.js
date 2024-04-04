@@ -352,7 +352,7 @@ class userAuth extends AuthTools {
                 console.log(match);
                 if (match) {
                     res.status(201).json({
-                        message: " user Already login",
+                        message:" user Already login",
                         status: true,
                         path: '/',
 

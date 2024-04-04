@@ -37,7 +37,7 @@ setLayoutState(1)
 
 <div style={{width:"100%",height:"100%",position:"relative"}}>
    <ToastContainer
-position="top-right"
+position={layoutState?"top-right":"bottom-center"}
 autoClose={5000}
 limit={2}
 hideProgressBar={false}
@@ -50,7 +50,7 @@ pauseOnHover
 theme="light"
 transition={Bounce}
 style={{position:"absolute",textTransform:"capitalize"}}
-
+className={"Toastify"}
 />
 
 

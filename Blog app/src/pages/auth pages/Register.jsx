@@ -8,20 +8,28 @@ import { getLogin, getRegister, isVerified } from '../../sclice/authSlice/authSl
 import Loder from '../../component/loader/Loder'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import '../../index.css'
+import '../../index.scss'
 import privious from '../../custom hooks/privious'
 import axios from 'axios'
 import { url } from '../../tools/serverURL'
+import { IoCloseSharp } from 'react-icons/io5'
+import { FaArrowRight } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
 const register = () => {
 
 const [authMethod,setAuthMethod]=useState("sign-up")
 const {loading,status}=useSelector(state=>state.userAuth)
-const [profileImage,setProfileImage]=useState("");
+const [methodChanger,setMethodChanger]=useState(false);
 const dispatch=useDispatch();
+const navigate=useNavigate();
 
 useEffect(()=>{
 dispatch(isVerified())
+console.log(status);
+if(status){
+  navigate(-1)
+}
 
 },[status])
 
@@ -168,7 +176,7 @@ else{
             <div className="register-section">
             <form className="input-section" >
               <label  htmlFor="fileUP" className={`profile-pk-field  wrong-in`} style={errorField.image?{backgroundColor:"rgba(255, 57, 30, 0.28)",borderColor:"rgba(249, 60, 94, 0.59)"}:{}}>
-                <img className="user-icons" src={image || headerIcons.avtar} alt='image' />
+                <img className="user-icons" src={formData.file?URL.createObjectURL(formData.file) : headerIcons.avtar} alt='image' />
                 <h5 className="upload ">upload</h5>
                 <input type="file"  id='fileUP' style={{display:"none"}} name='file'  onChange={(e)=>{onchangeHandler(e)}}/>
 
@@ -253,11 +261,12 @@ dispatch(getLogin(formData))
             <button className="submit">submit</button>
           </div>
         </div>
-        <div className="signup-link">
+        
+      </div>
+      <div className="signup-link">
           <div className="create-new-account">create new account ?</div>
           <a className="sign-up" onClick={()=>setAuthMethod("sign-up")}>sign up</a>
         </div>
-      </div>
     </div>
     
         )
@@ -281,22 +290,22 @@ dispatch(getLogin(formData))
     
 
       <div className="key-login-container">
-        <div className="logo-section1">
+        <div className="logo-section  section1">
           <img className="auth-icons" src={headerIcons.google} />
-          <div className="login-with-google">login with google</div>
+          <p>login with google</p>
         </div>
-        <div className="logo-section2">
+        <div className="logo-section section2">
           <img className="auth-icons" src={headerIcons.fb} />
-          <div className="login-with-facebook">login with facebook</div>
+          <p>login with facebook</p>
         </div>
-        <div className="logo-section3">
+        <div className="logo-section section3">
           <img className="auth-icons" src={headerIcons.githup} />
-          <div className="login-with-github">login with github</div>
+          <p>login with github</p>
         </div>
         <div className="or">or</div>
-        <div className="logo-section3">
+        <div className="logo-section  section3">
           <img className="auth-icons" src={headerIcons.gmail} />
-          <div className="login-with-email">login with Email</div>
+          <p>login with email</p>
         </div>
       </div>
 {
@@ -306,20 +315,43 @@ dispatch(getLogin(formData))
 
 }
 
-{/* <div className="login-method">
-  <span className="logo">
+<button className='loginOther' onClick={()=>setMethodChanger(prev=>!prev)}>
+ <p>Login with other</p>
+  <FaArrowRight className='arrow-icon'/>
+</button>
+
+<div className="login-method" style={methodChanger?{display:"flex"}:{display:"none"}}>
+  <div className='heading row-flex'>
+    <p>login with</p>
+    <span className='close-icon' onClick={()=>setMethodChanger(prev=>!prev)}>
+
+    <IoCloseSharp className='icon'/>
+    </span>
+  </div>
+  <div className="method-container">
+
+  <span className="logo  section1">
     <img src={headerIcons.google} alt="" />
+    <p>google</p>
   </span>
-  <span className="logo">
+  <span className="logo section2">
     <img src={headerIcons.fb} alt="" />
+    <p>facebook</p>
+
   </span> 
-  <span className="logo">
+  <span className="logo section3">
     <img src={headerIcons.gmail} alt="" />
+    <p>gmail</p>
+
   </span> 
-  <span className="logo">
+  <span className="logo section3">
     <img src={headerIcons.githup} alt="" />
+    <p>github</p>
+
   </span> 
-</div> */}
+  </div>
+  
+</div>
     </div>
   </div>
   

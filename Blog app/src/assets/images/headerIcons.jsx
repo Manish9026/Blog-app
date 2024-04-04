@@ -42,5 +42,5 @@ const navLinks=[
     "/friends","saved-story","/user/message","/user/comments","history"
   ]
 export const navTitle=[
-    [hm,"Home","/"],[fr,"friends","/friends"],[bk,"/saved Story","/saved-story"],[ms,"messages","/user/message"],[cmt," your comments","/user/comments"],[hs,"history","/history"]
+    [hm,"Home","/"],[fr,"friends","/friends"],["","new Blog","/create-blog"],[bk,"/saved Story","/saved-story"],[ms,"messages","/user/message"],[cmt," your comments","/user/comments"],[hs,"history","/history"]
 ]

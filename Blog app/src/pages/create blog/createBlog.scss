@@ -1,3 +1,4 @@
+@import '../../css-configration/mixins.scss';
 .ct-blog-container,
 .ct-blog-container * {
   box-sizing: border-box;
@@ -46,6 +47,20 @@ height: 100%;
         height: 100%;
     }
   
+
+    @include sm{
+      .ct-form{
+        flex-direction: column;
+        .ct-img{
+          max-width: 100%;
+          height: 50px;
+          object-fit: cover;
+          flex: 0;
+          border-radius: 5px;
+
+        }
+      }
+    }
 }
 .ct-heading {
   padding: 12px 20px 12px 20px;
@@ -110,10 +125,7 @@ height: 100%;
   align-items: center;
   justify-content: center;
   align-self: stretch;
-  flex-shrink: 0;
-  height: 323px;
-  min-width: 100px;
-  min-height: 100px;
+  flex: 1;
   position: relative;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   overflow: hidden;
@@ -178,6 +190,10 @@ height: 100%;
   min-width: 300px;
   min-height: 100px;
   position: relative;
+  textarea{
+    flex: 1;
+    height: 100%;
+  }
 }
 
 .ct-btn-section {

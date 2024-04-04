@@ -41,25 +41,120 @@ button{
     flex: 1;
     position: relative;
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
     height: 100%;
 
 
+  .loginOther{
+    display: none;
+  }
+
     @include sm{
       .auth-container {
+        flex-direction: column;
+        gap: 50px;
         .key-login-container {
           display: none;
         }
-        .login-method{
-          display: none;
-          gap: 10px;
+        .register-section{
+          flex: 0;
+        }
+        .login-section{
+          flex:0;
+          overflow: visible;
+        }
+        .loginOther{
+         display: flex;
+         align-items: center;
+         justify-content: center;
+          padding: 5px 20px;
+          min-width: 100px;
           width: 100%;
-          height: 100px;
+          max-width: 200px;
+          background: -webkit-linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Chrome 10-25, Safari 5.1-6 */
+          background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+          color: #efcb04c6;
+          border-radius: 5px;
+          
+          .arrow-icon{
+            position: relative;
+            top: 2px;
+            color: #096027;
+            animation: 1.5s ease mover infinite;
+          }
+          @keyframes mover {
+            0%{
+              transform: translatex(0px);
+            }
+            100%{
+              color: #0e5efa;
+              transform: translatex(20px);
+            }
+            
+          }
+         
+        }
+     
+        .login-method{
+          // display: none;
+          // gap: 10px;
+          position: fixed;
+          padding:5px  20px;
+          width: 100%;
+          min-height: 150px;
+          background-color: #333131;
+          display: flex;
+          gap: 10px;
+         flex-direction: column;
+         justify-content: center;
+          align-items: center;
+          bottom: 0;
+          .heading{
+            width: 100%;
+            padding: 5px ;
+            justify-content: center;
+            p{font-size: large;
+              color: #000000;
+              -webkit-text-stroke: 1px #2c09aa;
+              border-bottom:2px solid white ;
+            }
+            .close-icon{
+              cursor: pointer;
+              position: absolute;
+              right: 0;
+              box-shadow: inset 1px 1px 1px gray,inset -1px -1px 1px gray;
+              padding: 2px;
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .icon{
+
+              }
+              
+            }
+          }
+          .method-container{
+            display: flex;
+            flex-wrap: wrap;
+           gap: 10px;
+          }
           .logo{
-           
+            cursor: pointer;
+            color: white;
+           min-width: 130px;
+           max-width: 300px;
+           display: flex;
+           gap: 10px;
+           flex: 1;
+           align-items: center;
+           padding: 5px 10px;
+           border-radius: 15px;
             img{
-              width: 50px;
-              height: 50px;
+              width: 35px;
+              height: 35px;
               object-fit: cover;
               
             }
@@ -83,7 +178,32 @@ button{
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
       0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     overflow: hidden;
+    .section1{
+      background: linear-gradient(
+        109.93deg,
+        rgba(255, 3, 3, 1) 21.59622758626938%,
+        rgba(55, 24, 244, 0.48) 60.231608152389526%
+      ),
+      linear-gradient(to left, rgba(201, 72, 72, 0.01), rgba(201, 72, 72, 0.01));
+    }
+    .section2{
+      background: linear-gradient(to left, #1c56eb, #1c56eb),
+      linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0.01),
+        rgba(255, 255, 255, 0.01)
+      );
+    }
+    .section3{
+      background: linear-gradient(to left, #3e3939, #3e3939),
+      linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0.01),
+        rgba(255, 255, 255, 0.01)
+      );
+    }
   }
+
   .key-login-container {
     border-style: solid;
     border-color: transparent;
@@ -100,182 +220,49 @@ button{
     max-width: 350px;
     position: relative;
     overflow: hidden;
-  }
-  .logo-section1{
-    background: linear-gradient(
-        109.93deg,
-        rgba(255, 3, 3, 1) 21.59622758626938%,
-        rgba(55, 24, 244, 0.48) 60.231608152389526%
-      ),
-      linear-gradient(to left, rgba(201, 72, 72, 0.01), rgba(201, 72, 72, 0.01));
-    border-radius: 50px;
-    border-style: solid;
-    border-color: #ffffff;
-    border-width: 1px;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    gap: 0px;
-    align-items: center;
-    justify-content: center;
-    align-self: stretch;
-    flex-shrink: 0;
-    height: 50px;
-    position: relative;
-    box-shadow: inset -10px -10px 20.8px 0px rgba(0, 0, 0, 0.34),
-      inset 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
+    .logo-section{
+    cursor: pointer;
+      border-radius: 50px;
+      border-style: solid;
+      border-color: #ffffff;
+      border-width: 1px;
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: row;
+      gap: 0px;
+      align-items: center;
+      justify-content: flex-start;
+      align-self: stretch;
+      flex-shrink: 0;
+      height: 50px;
+      position: relative;
+      box-shadow: inset -10px -10px 20.8px 0px rgba(0, 0, 0, 0.34),
+        inset 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+
+      img{
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        position: absolute;
+        left: 10px;
+      }
+      p{
+        position: relative;
+        left: 30px;
+        color: rgba(248, 235, 235, 0.89);
+        // text-align: left;
+        font-family: "Inter-Regular", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        flex: 1;
+      }
+    }
+  
   }
 
-  .auth-icons{
-    width: 35px;
-    height: 35px;
-    // flex: 1;
-    left: -20px;
-    position: relative;
-    // object-fit: cover;
-  }
-  .google {
-    height: 100%;
-    flex: 1;
-    max-width: 50px;
-    max-height: 50px;
-    position: relative;
-    object-fit: cover;
-  }
-  .login-with-google {
-    color: #ffffff;
-    text-align: center;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .logo-section2 {
-    background: linear-gradient(to left, #1c56eb, #1c56eb),
-      linear-gradient(
-        to left,
-        rgba(255, 255, 255, 0.01),
-        rgba(255, 255, 255, 0.01)
-      );
-    border-radius: 50px;
-    border-style: solid;
-    border-color: #ffffff;
-    border-width: 1px;
-    padding: 0px 10px 0px 10px;
-    display: flex;
-    flex-direction: row;
-    gap: 0px;
-    align-items: center;
-    justify-content: center;
-    align-self: stretch;
-    flex-shrink: 0;
-    height: 50px;
-    position: relative;
-    box-shadow: inset -10px -10px 20.8px 0px rgba(0, 0, 0, 0.34),
-      inset 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-  }
-  .facebook {
-    height: 100%;
-    flex: 1;
-    max-width: 50px;
-    max-height: 40px;
-    position: relative;
-    object-fit: cover;
-  }
-  .login-with-facebook {
-    color: #ffffff;
-    text-align: center;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .logo-section3 {
-    background: linear-gradient(to left, #3e3939, #3e3939),
-      linear-gradient(
-        to left,
-        rgba(255, 255, 255, 0.01),
-        rgba(255, 255, 255, 0.01)
-      );
-    border-radius: 50px;
-    border-style: solid;
-    border-color: #ffffff;
-    border-width: 1px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    align-self: stretch;
-    flex-shrink: 0;
-    height: 50px;
-    position: relative;
-    box-shadow: inset -10px -10px 20.8px 0px rgba(0, 0, 0, 0.34),
-      inset 10px 10px 20px 0px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-  }
-  .auth-logo {
-    height: 100%;
-    flex: 1;
-    max-width: 40px;
-    max-height: 40px;
-    position: relative;
-    object-fit: cover;
-  }
-  .login-with-github {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .or {
-    color: #000000;
-    text-align: center;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    position: relative;
-    width: 85px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .gmail-logo {
-    flex-shrink: 0;
-    width: 40px;
-    height: 38px;
-    max-width: 40px;
-    max-height: 40px;
-    position: relative;
-    object-fit: cover;
-  }
-  .login-with-email {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    position: relative;
-    align-self: stretch;
-    width: 150px;
-    min-width: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
+
+ 
   .register-section {
     border-style: solid;
     border-color: transparent;
@@ -291,7 +278,7 @@ button{
     min-width: 222px;
     max-width: 500px;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
   }
   .input-section {
     border-style: solid;
@@ -306,7 +293,7 @@ button{
     align-self: stretch;
     flex-shrink: 0;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
   }
   .profile-pk-field {
     background: linear-gradient(
@@ -330,7 +317,7 @@ button{
     min-width: 150px;
     max-width: 300px;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
   }
   .user-icons {
     background: linear-gradient(
@@ -380,7 +367,7 @@ button{
     align-self: stretch;
     flex-shrink: 0;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
   }
 
   .in-field{
@@ -504,7 +491,7 @@ max-height: 50px;
     padding: 0px 9px 0px 9px;
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 5px;
     align-items: center;
     justify-content: center;
     align-self: stretch;
@@ -523,9 +510,9 @@ max-height: 50px;
     justify-content: flex-start;
     align-self: stretch;
     flex-shrink: 0;
-    height: 365px;
+    min-height:280px ;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
   }
   .header {
     padding: 10px;
@@ -715,20 +702,16 @@ background-color: #ae1919;
     justify-content: center;
   }
   .signup-link {
-    padding: 7px 35px 7px 35px;
+    // padding: 7px 35px 7px 35px;
     display: flex;
     flex-direction: row;
     gap: 5px;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    height: 10.47%;
-    position: absolute;
-    right: 0px;
-    left: 0px;
-    bottom: 0%;
-    top: 89.53%;
-    overflow: hidden;
+    width: 100%;
+    flex-wrap: wrap;
+   
   }
   .create-new-account {
     color: #000000;

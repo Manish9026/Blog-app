@@ -1,3 +1,4 @@
+@import './css-configration/mixins.scss';
 .row-flex{
     display: flex;
     justify-content: flex-start;
@@ -44,4 +45,22 @@
 }
 .text-in{
     text-transform: capitalize;
+}
+.Toastify{
+   position: relative;
+
+
+    @include sm{
+        position: fixed;
+        --toastify-toast-min-height: 40px;
+        
+      bottom: 20px;
+      display: flex;
+  justify-content: center;
+  align-items: center;
+      border-radius: 5px;
+      .Toastify__toast{
+        border-radius: 10px;
+      }
+    }
 }

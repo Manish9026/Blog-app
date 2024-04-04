@@ -4,7 +4,7 @@ import { navTitle } from '../../../assets/images/headerIcons'
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { navTogle } from '../../../sclice/navsliderSlice';
-import { getUserInfo } from '../../../sclice/authSlice/authSlice';
+import { getUserInfo, logout } from '../../../sclice/authSlice/authSlice';
 
 const MenuBar = () => {
     const {slideStatus}=useSelector(state=>{return state.navSlider})
@@ -77,7 +77,8 @@ const MenuBar = () => {
                 
             </div>
             <div className="bottom-section">
-                <button className="logout-btn">
+                <button className="logout-btn" onClick={()=>dispatch(logout())}>
+
                     <div className="logout">logout </div>
                 </button>
             </div>

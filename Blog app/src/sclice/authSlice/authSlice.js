@@ -38,20 +38,7 @@ export const getRegister=createAsyncThunk("getRegister/userAuth",async(data)=>{
 // login function
 export const getLogin=createAsyncThunk("getLogin/userAuth",async(data)=>{
     return await axios.post("/user/s1/login",data,{withCredentials:true}).then(res=>{
-  
-      // console.log(res.data.message)
-      
-      if(res.data.status){
-        toast.success(res.data.message) 
-        // Navigate(-1)
-      window.history.back();
-
-      }else{
-        toast.error(res.data.message)
-      }
-     
-      
-  
+    
       return res.data
     }).catch(err=>{
   
@@ -80,15 +67,15 @@ export const isVerified=createAsyncThunk("isVerified/userAuth",()=>{
     const {path,status}=res.data
     console.log(res.data);
     
-    if(status){
-     console.log("login succ");
-      window.history.back();
-      // window.location.reload();
-    }
-    else{
+    // if(status){
+    //  console.log("login succ");
+    //   window.history.back();
+    //   // window.location.reload();
+    // }
+    // else{
      
-      window.history.pushState({},"",path)
-    }
+    //   window.history.pushState({},"",path)
+    // }
 
     return res.data
   }).catch(error=>{
@@ -138,7 +125,7 @@ const authSlice=createSlice({
         builder.addCase(getRegister.fulfilled,(state,{payload})=>{
             state.loading=false;
             state.message=payload.message
-            state.status=true
+            state.status=payload.status;
 
         })
         builder.addCase(getRegister.rejected,(state,{payload})=>{
@@ -172,7 +159,13 @@ const authSlice=createSlice({
         //isVerified extra reducer
         builder.addCase(getUserInfo.fulfilled,(state,{payload})=>{
           state.userInfo=payload || [];
+
         })
+        builder.addCase(isVerified.fulfilled,(state,{payload})=>{
+          state.status=payload.status
+        })
+
+
         
         
 
