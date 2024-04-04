@@ -69,7 +69,7 @@ dispatch(getNotificData())
              
               <Link to={`/single-friend?uid=${friend._id}`} className="save-fd" key={indx}>
             <div className="save-fd-img">
-              <img className="manish-img-1" src={friend.profile.profileImage}/>
+              <img className="manish-img-1" width={"100%"} height={"100%"} src={friend.profile.profileImage}/>
             </div>
             <div className="save-fd-txt">
               <div className="save-fd-name">{friend.userName}</div>
