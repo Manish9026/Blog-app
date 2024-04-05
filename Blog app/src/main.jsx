@@ -16,6 +16,7 @@ import Friend from './pages/friend page/Friend.jsx'
 import { SingleFrdSection } from './pages/singlefriend page/SingleFrdSection.jsx'
 import Friends from './pages/singlefriend page/Friends.jsx'
 import MenuBar from './component/hearder/mobileMenuBar/MenuBar.jsx'
+import ImageShow from './component/imageShow/ImageShow.jsx'
 
 // console.log("fsdfjhgdf")
 const router = createBrowserRouter(
@@ -74,8 +75,8 @@ const router = createBrowserRouter(
       ],
     },
     {
-      path:"/menu",
-      element:<MenuBar/>
+      path:"/show",
+      element:<ImageShow/>
     }
 
   ]

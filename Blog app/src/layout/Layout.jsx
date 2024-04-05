@@ -7,6 +7,7 @@ import SideNav from '../component/hearder/SideNav'
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MenuBar from '../component/hearder/mobileMenuBar/MenuBar'
+import ImageShow from '../component/imageShow/ImageShow'
 const Layout = () => {
 const [layoutState,setLayoutState]=useState(1)
 const widthRef=useRef();
@@ -30,6 +31,7 @@ setLayoutState(1)
   return (<>
 
    <div className='destop-layout blog-app' ref={widthRef}>
+      <ImageShow />
  {  layoutState?
    <Header/>:<MenuBar/>}
    <div className='outlet-container'>

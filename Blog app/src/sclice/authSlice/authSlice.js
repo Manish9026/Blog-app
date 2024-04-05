@@ -138,6 +138,7 @@ const authSlice=createSlice({
 
         })
         builder.addCase(getRegister.fulfilled,(state,{payload})=>{
+          
             state.loading=false;
             state.message=payload.message
             state.status=payload.status;

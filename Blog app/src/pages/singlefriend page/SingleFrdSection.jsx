@@ -11,6 +11,7 @@ import Loder from "../../component/loader/Loder";
 import { sndFrndReq } from "../../sclice/friendSlice";
 import privious from "../../custom hooks/privious";
 import MenuIcon from "../../component/menu-icon/MenuIcon";
+import { showImage } from "../../sclice/globalSlice";
 export const SingleFrdSection = ({ className, ...props }) => {
     // const history=useHistory();
     const pivious=privious();
@@ -42,7 +43,7 @@ const [menuActive,setMenuActive]=useState(1)
                 </div>
                 <div className="snglFrdProNameContainer">
                     <div className="snglContf">
-                        <div className="snglImg">
+                        <div className="snglImg"  onClick={()=>dispatch(showImage(userInfo.profile.profileImage))}>
                             <div className="userImg">
                                 <img
                                     alt="profile-image"
