@@ -88,8 +88,9 @@ class userAuth extends AuthTools {
 
             console.log(req.body);
 
-            const { userEmail, password, tc, } = req.body;
-
+            let { userEmail, password, tc, } = req.body;
+            userEmail=userEmail.toLowerCase();
+            console.log(userEmail);
             if (userEmail && password && tc) {
                 const match = await userModel.findOne({ userEmail })
                 console.log(match);
