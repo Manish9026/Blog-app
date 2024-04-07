@@ -13,7 +13,9 @@ const Friends = () => {
     const {searchTxt}=useSelector(state=>{return state.global})
 const dispatch=useDispatch()
 useEffect(()=>{
-   const param=queryParam.get("uid").split('/')[0];
+    const param=queryParam.get("uid")
+    if(param)
+param.split('/')[0];
     dispatch(getAllFrnd({userId:param,type:"other"}))
 },[searchTxt])
 

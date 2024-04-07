@@ -21,3 +21,5 @@ messageIcon:FaFacebookMessenger
 
 
 }
+
+// export const aboutTitle= [["Add bio", "",GiSecretBook], ["Personal detail", "personal-detail",<FaUser/>], ["Education and work", "education-and-work",FaUserGraduate], ["Family details", "",PiHouseLineFill], ["Detail about you ", "",RiEditBoxLine]]

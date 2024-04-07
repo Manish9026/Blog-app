@@ -19,6 +19,8 @@ export const SingleFrdSection = ({ className, ...props }) => {
     const queryParam = new URLSearchParams(location.search)
     const dispatch=useDispatch();
     const {userInfo,loading,frndStatus,likeStatus}=useSelector(state=>{return state.snglFrnd})
+
+
     const {searchTxt}=useSelector(state=>{return state.global})
 const [reload,setReload]=useState(0)
 const [menuActive,setMenuActive]=useState(1)

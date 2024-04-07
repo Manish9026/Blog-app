@@ -17,6 +17,8 @@ import { SingleFrdSection } from './pages/singlefriend page/SingleFrdSection.jsx
 import Friends from './pages/singlefriend page/Friends.jsx'
 import MenuBar from './component/hearder/mobileMenuBar/MenuBar.jsx'
 import ImageShow from './component/imageShow/ImageShow.jsx'
+import UserProfile from './pages/profile page/UserProfile.jsx'
+import UserAbout, { BioForm, PersonalForm, UserEdu } from './pages/profile page/UserAbout.jsx'
 
 // console.log("fsdfjhgdf")
 const router = createBrowserRouter(
@@ -70,14 +72,38 @@ const router = createBrowserRouter(
             },
           ]
         }
+        , 
+        {
+          path:"user/profile",
+          element:<UserProfile/>,
+          children:[
+            {
+              path:'',
+              element:<UserAbout/>,
+              children:[{
+                path:"",
+                element:<BioForm/>
+              },
+            {
+              path:"personal-detail",
+              element:<PersonalForm/>
+            },
+            {
+              path:"education-and-work",
+              element:<UserEdu/>
+            },
+          ]
+            }, {
+              path:'./friends',
+              element:<Friends/>
+            }
+          ]
+        }
 
 
       ],
     },
-    {
-      path:"/show",
-      element:<ImageShow/>
-    }
+   
 
   ]
 )
