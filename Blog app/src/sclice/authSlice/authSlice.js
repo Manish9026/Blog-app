@@ -82,17 +82,17 @@ export const isVerified=createAsyncThunk("isVerified/userAuth",()=>{
     const {path,status}=res.data
     console.log(res.data);
     
-    if(status){
-     console.log("login succ");
-      window.history.back();
-      // window.location.reload();
-    }
-    else{
+    // if(status){
+    //  console.log("login succ");
+    //   window.history.back();
+    //   // window.location.reload();
+    // }
+    // else{
      
-      window.history.pushState({},"",path)
-      // window.location.reload();
+    //   window.history.pushState({},"",path)
+    //   // window.location.reload();
       
-    }
+    // }
 
     return res.data
   }).catch(error=>{
