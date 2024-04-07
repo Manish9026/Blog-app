@@ -90,6 +90,8 @@ export const isVerified=createAsyncThunk("isVerified/userAuth",()=>{
     else{
      
       window.history.pushState({},"",path)
+      // window.location.reload();
+      
     }
 
     return res.data

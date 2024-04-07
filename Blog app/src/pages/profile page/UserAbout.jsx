@@ -10,6 +10,9 @@ import { GiSecretBook } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { PiHouseLineFill } from "react-icons/pi";
 import { RiEditBoxLine } from "react-icons/ri";
+import {useDispatch} from 'react-redux'
+import { useEffect } from 'react';
+import { isVerified } from '../../sclice/authSlice/authSlice';
 const show = (e) => {
     const node = e.parentNode;
     if (node.className == "f-container") {

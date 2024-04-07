@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import './style.scss'
 import { banner } from '../../assets/backgroundImg/background';
 import { headerIcons } from '../../assets/images/headerIcons';
@@ -7,10 +7,24 @@ import MenuIcon from '../../component/menu-icon/MenuIcon';
 import { Outlet, useLocation } from "react-router-dom";
 import { IoAdd, IoCamera } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
+import { isVerified } from '../../sclice/authSlice/authSlice';
+import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
     const {userInfo,loading,frndStatus,likeStatus}=useSelector(state=>{return state.snglFrnd})
     const [menuActive,setMenuActive]=useState(1)
     const dispatch=useDispatch();
+    const {status}=useSelector(state=>state.userAuth)
+    const navigate=useNavigate();
+
+useEffect(()=>{
+
+    dispatch(isVerified())
+
+    console.log(status);
+    if(!status){
+        navigate("/auth/sign-in")
+    }
+},[status])
     return (
         <div className="profile-section">
 {
