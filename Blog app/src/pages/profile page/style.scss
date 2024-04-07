@@ -393,10 +393,10 @@
                     width: calc( 100px);
                     z-index: 5;
                     border: 1px solid rgb(203, 95, 95);
-                    animation:    2s ease  infinite mover;
+                    animation:    2s ease  infinite lineMover;
                     // animation-direction: reverse;
                 }
-                @keyframes mover {
+                @keyframes lineMover {
                     0% {
                         // transform: translateX(0%);
                         left: 0%;

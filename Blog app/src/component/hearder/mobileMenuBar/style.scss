@@ -21,7 +21,7 @@
   border-style: solid;
   border-color: rgba(255, 246, 246, 0.5);
   border-width: 0px 0px 1px 0px;
-  padding: 30px 10px 0px 10px;
+  padding: 60px 10px 0px 10px;
   display: flex;
   flex-direction: column;
   gap: 0px;
@@ -29,7 +29,7 @@
   justify-content: center;
   align-self: stretch;
   flex-shrink: 0;
-  height: 194px;
+  min-height: 194px;
   position: relative;
   box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
     inset 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -423,4 +423,47 @@ height: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+
+.auth-btn{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 10px ;
+  .loginBtn{
+  display: flex;
+
+    align-items: center;
+    justify-content: center;
+    font-family: "Work Sans", sans-serif;
+font-weight: 450;
+    background-color: #ba7c1e;
+    border-radius: 5px;
+    min-width: 50px;
+    max-width: 150px;
+   
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    .icon{
+      font-size: 12px;
+      transition: all 1s ease;
+      color: #d2b8b8;
+      animation: mover 1s linear infinite;
+    }
+  }
+ 
+
+  @keyframes mover {
+    0% {
+      transform: translate(0px);
+  }
+  100% {
+      transform: translate(15px);
+      color: #24d6ee;
+  }
+    
+  }
 }

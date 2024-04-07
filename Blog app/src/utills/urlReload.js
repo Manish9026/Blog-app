@@ -13,7 +13,7 @@ export const urlLoader=({statusCode,message,status})=>{
     }
 
     if(statusCode==65){
-        window.history.pushState({},"","/sign-up")
+        window.history.pushState({},"","/auth/sign-in")
         window.location.reload();
     }
    

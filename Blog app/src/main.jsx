@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.scss'
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Login from './pages/login page/Login.jsx'
-import Register from './pages/auth pages/Register.jsx';
+// import Login from './pages/login page/Login.jsx'
+import Register, { Login, SignUP } from './pages/auth pages/Register.jsx';
 import Home from './pages/home/Home.jsx'
 import Layout from './layout/Layout.jsx'
 import Tool from './component/Tool.jsx'
@@ -19,8 +19,8 @@ import MenuBar from './component/hearder/mobileMenuBar/MenuBar.jsx'
 import ImageShow from './component/imageShow/ImageShow.jsx'
 import UserProfile from './pages/profile page/UserProfile.jsx'
 import UserAbout, { BioForm, PersonalForm, UserEdu } from './pages/profile page/UserAbout.jsx'
-
 // console.log("fsdfjhgdf")
+
 const router = createBrowserRouter(
   [
     {
@@ -32,14 +32,21 @@ const router = createBrowserRouter(
           path: "/",
           element: <Home />
         },
+       
         {
+          path: "/auth",
+          element: < Register/>,
+          children:[{
+            path:"sign-in",
+            element:<Login/>
 
-          path: "/login",
-          element: <Login />,
-        },
-        {
-          path: "/sign-up",
-          element: < Register/>
+          },
+          {
+            path:"sign-up",
+            element:<SignUP/>
+
+          },
+        ]
         },
         {
           path: "/upload",

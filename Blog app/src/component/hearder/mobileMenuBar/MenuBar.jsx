@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { navTogle } from '../../../sclice/navsliderSlice';
 import { getUserInfo, logout } from '../../../sclice/authSlice/authSlice';
+import { FaArrowRight } from 'react-icons/fa';
 
 const MenuBar = () => {
     const {slideStatus}=useSelector(state=>{return state.navSlider})
@@ -19,6 +20,7 @@ const MenuBar = () => {
    
   dispatch(getUserInfo())
    },[location.pathname])
+   console.log("jhhg",userInfo);
     return (
         <section className={"menu-bar-section "}
         style={slideStatus?{transform:"translatex(0)"}:{transform:"translatex(-600px)"}} >
@@ -32,7 +34,7 @@ const MenuBar = () => {
                         <p className="pro-txt">5 </p>
                         <h6 className="followers">followers </h6>
                     </div>
-                    <div className="user-name">{userInfo?userInfo.userName : <p>userName</p>} </div>
+                    <div className="user-name">{userInfo?userInfo.userName:<p>userName</p>} </div>
                     <div className="img-section">
                         <img className="manish-img-2" src={userInfo.profile?userInfo.profile.profileImage : ""} />
                     </div>
@@ -51,6 +53,18 @@ const MenuBar = () => {
                         <div className="posts">posts </div>
                     </div>
                 </div>
+
+               {!(userInfo.length!=0 && userInfo)? 
+                <div className="auth-btn">
+                    <Link to={"/auth/sign-in"} className='loginBtn' onClick={()=>dispatch(navTogle("onclick"))}>
+                    
+                    <button>login now</button>
+                    <FaArrowRight className='icon'/>
+                    </Link>
+                    
+                </div>:""}
+
+
                 <button className="close-icon" onClick={()=>dispatch(navTogle("onclick"))}>
                     X
                 </button>

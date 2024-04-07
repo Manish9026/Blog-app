@@ -363,7 +363,7 @@ class userAuth extends AuthTools {
                     res.status(404).json({
                         message: "kindly you login again",
                         status: false,
-                        path: "/sign-up"
+                        path: "/auth/sign-up"
 
                     })
                 }
@@ -372,7 +372,7 @@ class userAuth extends AuthTools {
                 res.status(201).json({
                     message: "kindly you login again",
                     status: false,
-                    path: "/sign-up"
+                    path: "/auth/sign-up"
 
 
                 })
