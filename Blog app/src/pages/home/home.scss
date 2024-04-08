@@ -16,7 +16,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   min-height: 100vh;
   max-height: 100%;
     max-height: max-content;
@@ -33,7 +33,7 @@
   /* min-width: 37.3125rem; */
   min-width: 450px;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   @include sm{
     min-width: 200px;
   }

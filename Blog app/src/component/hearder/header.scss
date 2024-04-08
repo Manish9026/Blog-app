@@ -367,7 +367,8 @@ transition: all 1.5s ease;
     flex-shrink: 0;
     height: 3.5625rem;
     min-width: 38.125rem;
-    position: relative;
+    top: 0;
+    position: sticky;
     z-index: 5;
     /* overflow: hidden; */
     .logo-section {

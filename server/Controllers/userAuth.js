@@ -257,7 +257,7 @@ class userAuth extends AuthTools {
 
     static logout = async (req, res) => {
         try {
-            console.log("dsfhjs");
+           
             res.clearCookie('uid', {
                 sameSite: 'None',
                 secure: true
@@ -345,7 +345,7 @@ class userAuth extends AuthTools {
         // console.log(req.cookies);
         try {
             const { uid } = req.cookies;
-            console.log("asdjjagh", uid);
+           
             if (uid) {
                 const { userId } = await this.tokenVerifier(uid)
                 console.log(userId);
