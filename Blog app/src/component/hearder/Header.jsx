@@ -51,7 +51,7 @@ const UserProfile=()=>{
         <div className="user-icon">
           <img className={"male-user"} src={headerIcons.userIcons} />
         </div>   
- <Link  to={"/sign-up"} className="login-btn">
+ <Link  to={"/auth/sign-up"} state={{prevUrl:"/"}} className="login-btn">
  <div className="s-ign-up">SIgn Up</div>
 </Link>
         

@@ -15,14 +15,17 @@ const UserProfile = () => {
     const dispatch=useDispatch();
     const {status}=useSelector(state=>state.userAuth)
     const navigate=useNavigate();
-
+    const location=useLocation();
 useEffect(()=>{
 
-    dispatch(isVerified())
-
-    console.log(status);
     if(!status){
-        navigate("/auth/sign-in")
+  navigate("/auth/sign-in",{
+            state:{
+                prevUrl:location.pathname
+            }
+        })
+    }else{
+        // api calling section
     }
 },[status])
     return (

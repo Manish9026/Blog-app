@@ -14,20 +14,36 @@ import axios from 'axios'
 import { url } from '../../tools/serverURL'
 import { IoCloseSharp } from 'react-icons/io5'
 import { FaArrowRight } from 'react-icons/fa'
-import { Link, useNavigate,Outlet } from 'react-router-dom'
+import { Link, useNavigate,Outlet ,useLocation} from 'react-router-dom'
 
 
 
 const register = () => {
 
-const [authMethod,setAuthMethod]=useState("sign-up")
+
 const {loading,status}=useSelector(state=>state.userAuth)
 const [methodChanger,setMethodChanger]=useState(false);
 const dispatch=useDispatch();
 const navigate=useNavigate();
+const location=useLocation();
 
 useEffect(()=>{
-dispatch(isVerified())
+if(status){
+
+console.log(location.state);
+if(location.state){
+navigate(location.state.prevUrl)
+return
+}
+navigate(-1)
+   
+}else{
+  navigate("/auth/sign-in",{
+    state:{
+      prevUrl:"/"
+    }
+  })
+}
 
 },[status])
 

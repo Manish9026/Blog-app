@@ -183,6 +183,10 @@ const authSlice=createSlice({
           state.status=payload.status
         })
 
+        builder.addCase(logout.fulfilled,(state)=>{
+          state.status=false
+        })
+
 
         
         

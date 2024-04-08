@@ -14,13 +14,13 @@ const MenuBar = () => {
     const location=useLocation()
 
     const dispatch=useDispatch()
-   console.log(navTitle,slideStatus,userInfo);
+//    console.log(navTitle,slideStatus,userInfo);
 
    useEffect(()=>{
    
   dispatch(getUserInfo())
    },[location.pathname])
-   console.log("jhhg",userInfo);
+//    console.log("jhhg",userInfo);
     return (
         <section className={"menu-bar-section "}
         style={slideStatus?{transform:"translatex(0)"}:{transform:"translatex(-600px)"}} >
@@ -56,7 +56,7 @@ const MenuBar = () => {
 
                {!(userInfo.length!=0 && userInfo)? 
                 <div className="auth-btn">
-                    <Link to={"/auth/sign-in"} className='loginBtn' onClick={()=>dispatch(navTogle("onclick"))}>
+                    <Link to={"/auth/sign-in"} state={{prevUrl:"/"}} className='loginBtn' onClick={()=>dispatch(navTogle("onclick"))}>
                     
                     <button>login now</button>
                     <FaArrowRight className='icon'/>
@@ -74,7 +74,7 @@ const MenuBar = () => {
                 {
                     navTitle.map((title,indx)=>{
                         return(
-                            <Link to={title[2]} className="title-box" key={indx} 
+                            <Link to={title[2]} state={{prevUrl:title[2]}} className="title-box" key={indx} 
                             onClick={()=>dispatch(navTogle("onclick"))}>
                     <div className="icon-section">
                         <img className="manish-img-2" src={title[0]} width={"100%"} height={"100%"}/>

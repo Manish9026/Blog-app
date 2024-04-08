@@ -6,7 +6,7 @@ import { showImage} from '../../sclice/globalSlice'
 const ImageShow = ({image}) => {
     const dispatch=useDispatch();
     const {imageShow}=useSelector(state=>state.global);
-    console.log(imageShow);
+    // console.log(imageShow);
   return (
     <section className='image-show-section row-flex' style={imageShow.toggle? {display:"flex"}:{display:"none"}}>
 

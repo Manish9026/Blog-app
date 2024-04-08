@@ -19,107 +19,222 @@ import MenuBar from './component/hearder/mobileMenuBar/MenuBar.jsx'
 import ImageShow from './component/imageShow/ImageShow.jsx'
 import UserProfile from './pages/profile page/UserProfile.jsx'
 import UserAbout, { BioForm, PersonalForm, UserEdu } from './pages/profile page/UserAbout.jsx'
+
 // console.log("fsdfjhgdf")
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "",
-      element: <Layout />,
-      children: [
 
-        {
-          path: "/",
-          element: <Home />
-        },
-       
-        {
-          path: "/auth",
-          element: < Register/>,
-          children:[{
-            path:"sign-in",
-            element:<Login/>
+import { useDispatch } from 'react-redux'
+import { isVerified } from './sclice/authSlice/authSlice.js'
+const RoutePath = () => {
+
+  const dispatch = useDispatch();
+
+  const router = createBrowserRouter(
+    [
+      {
+        path: "",
+        element: <Layout />,
+        children: [
+
+          {
+            path: "/",
+            element: <Home />
+          },
+
+          {
+            path: "/auth",
+            element: < Register />,
+            loader:async()=>await dispatch(isVerified()),
+            children: [{
+              path: "sign-in",
+              element: <Login />
+
+            },
+            {
+              path: "sign-up",
+              element: <SignUP />
+
+            },
+            ]
+          },
+          {
+            path: "/upload",
+            element: <Tool />
+          },
+          {
+            path: "/loader",
+            element: <Loder />
+          },
+          {
+            path: '/create-blog',
+            element: <CreateBlog />
 
           },
           {
-            path:"sign-up",
-            element:<SignUP/>
-
+            path: '/friends',
+            loader:async()=>await dispatch(isVerified()),
+            element: <Friend />
           },
-        ]
-        },
-        {
-          path: "/upload",
-          element: <Tool/>
-        },
-        {
-          path: "/loader",
-          element: <Loder/>
-        },
-        {
-          path:'/create-blog',
-          element:<CreateBlog/>
-
-        },
-        {
-          path:'/friends',
-          element:<Friend/>
-        },
-        {
-          path:'single-friend',
-          element:<SingleFrdSection/>,
-          children:[
-            {
-              path:'',
-              element:<Friends/>
-            },
-            {
-              path:'./blogs',
-              element:<Friends/>
-            },
-          ]
-        }
-        , 
-        {
-          path:"user/profile",
-          element:<UserProfile/>,
-          children:[
-            {
-              path:'',
-              element:<UserAbout/>,
-              children:[{
-                path:"",
-                element:<BioForm/>
+          {
+            path: 'single-friend',
+            element: <SingleFrdSection />,
+            children: [
+              {
+                path: '',
+                element: <Friends />
               },
-            {
-              path:"personal-detail",
-              element:<PersonalForm/>
-            },
-            {
-              path:"education-and-work",
-              element:<UserEdu/>
-            },
-          ]
-            }, {
-              path:'./friends',
-              element:<Friends/>
-            }
-          ]
-        }
+              {
+                path: './blogs',
+                element: <Friends />
+              },
+            ]
+          }
+          ,
+          {
+            path: "user/profile",
+            element: <UserProfile />,
+            loader:async()=>await dispatch(isVerified()),
+
+            children: [
+              {
+                path: '',
+                element: <UserAbout />,
+                children: [{
+                  path: "",
+                  element: <BioForm />
+                },
+                {
+                  path: "personal-detail",
+                  element: <PersonalForm />
+                },
+                {
+                  path: "education-and-work",
+                  element: <UserEdu />
+                },
+                ]
+              }, {
+                path: './friends',
+                element: <Friends />
+              }
+            ]
+          }
 
 
-      ],
-    },
-   
+        ],
+      },
 
-  ]
-)
+
+    ]
+  )
+
+
+  return <RouterProvider router={router} />
+
+}
+// const router = createBrowserRouter(
+//   [
+//     {
+//       path: "",
+//       element: <Layout/>,
+//       children: [
+
+//         {
+//           path: "/",
+//           element: <Home />
+//         },
+
+//         {
+//           path: "/auth",
+//           element: < Register />,
+//           children: [{
+//             path: "sign-in",
+//             element: <Login />
+
+//           },
+//           {
+//             path: "sign-up",
+//             element: <SignUP />
+
+//           },
+//           ]
+//         },
+//         {
+//           path: "/upload",
+//           element: <Tool />
+//         },
+//         {
+//           path: "/loader",
+//           element: <Loder />
+//         },
+//         {
+//           path: '/create-blog',
+//           element: <CreateBlog />
+
+//         },
+//         {
+//           path: '/friends',
+//           element: <Friend />
+//         },
+//         {
+//           path: 'single-friend',
+//           element: <SingleFrdSection />,
+//           children: [
+//             {
+//               path: '',
+//               element: <Friends />
+//             },
+//             {
+//               path: './blogs',
+//               element: <Friends />
+//             },
+//           ]
+//         }
+//         ,
+//         {
+//           path: "user/profile",
+//           element: <UserProfile />,
+//           // loader:async()=>await dispatch(isVerified()),
+
+//           children: [
+//             {
+//               path: '',
+//               element: <UserAbout />,
+//               children: [{
+//                 path: "",
+//                 element: <BioForm />
+//               },
+//               {
+//                 path: "personal-detail",
+//                 element: <PersonalForm />
+//               },
+//               {
+//                 path: "education-and-work",
+//                 element: <UserEdu />
+//               },
+//               ]
+//             }, {
+//               path: './friends',
+//               element: <Friends />
+//             }
+//           ]
+//         }
+
+
+//       ],
+//     },
+
+
+//   ]
+// )
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <>
-  <Provider store={store}>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+    {/* <RouterProvider router={router} /> */}
+    <RoutePath/>
     </Provider>
   </>
 

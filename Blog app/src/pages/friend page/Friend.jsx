@@ -4,7 +4,7 @@ import './friend.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { isVerified } from '../../sclice/authSlice/authSlice';
 import { cnfFrndReq, getAllFrnd, getFriendPageData, getNotificData } from '../../sclice/friendSlice';
-import { Link } from 'react-router-dom';
+import { Link ,useLocation,useNavigate} from 'react-router-dom';
 import Loder from '../../component/loader/Loder';
 import { Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css/navigation';
@@ -17,14 +17,28 @@ const Friend = () => {
   const {slideStatus}=useSelector(state=>state.navSlider)
 const {friends,notifiData,loading}=useSelector(state=>{return state.userFriend})
 const containerRef=useRef();
+const location=useLocation();
+const navigate=useNavigate();
 const dispatch=useDispatch();
+const {status}=useSelector(state=>state.userAuth)
+
   useEffect(()=>{
 
-dispatch(getAllFrnd({type:"self"}));
-dispatch(getNotificData())
+    if(status){
+      dispatch(getAllFrnd({type:"self"}));
+      dispatch(getNotificData())
+    }
+    else{
+      navigate("/auth/sign-in",{
+        state:{
+            prevUrl:location.pathname
+        }
+    })
+    }
 
 
-  },[])
+
+  },[status])
 
   useEffect(()=>{
    window.addEventListener("resize",widthHandler)
