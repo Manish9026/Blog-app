@@ -19,6 +19,7 @@ const UserProfile = () => {
 useEffect(()=>{
 
     if(!status){
+        console.log(location);
   navigate("/auth/sign-in",{
             state:{
                 prevUrl:location.pathname
@@ -27,7 +28,7 @@ useEffect(()=>{
     }else{
         // api calling section
     }
-},[status])
+},[])
     return (
         <div className="profile-section">
 {

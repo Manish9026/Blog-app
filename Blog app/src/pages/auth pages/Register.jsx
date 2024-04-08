@@ -14,7 +14,7 @@ import axios from 'axios'
 import { url } from '../../tools/serverURL'
 import { IoCloseSharp } from 'react-icons/io5'
 import { FaArrowRight } from 'react-icons/fa'
-import { Link, useNavigate,Outlet ,useLocation} from 'react-router-dom'
+import { Link, useNavigate,Outlet ,useLocation,redirect} from 'react-router-dom'
 
 
 
@@ -27,20 +27,25 @@ const dispatch=useDispatch();
 const navigate=useNavigate();
 const location=useLocation();
 
+// console.log(location.state);
+
 useEffect(()=>{
 if(status){
 
-console.log(location.state);
 if(location.state){
-navigate(location.state.prevUrl)
-return
+
+  navigate(-1)
+
+//  navigate(location.state.prevUrl)
+
+ return
 }
 navigate(-1)
    
 }else{
   navigate("/auth/sign-in",{
     state:{
-      prevUrl:"/"
+      prevUrl:location.state.prevUrl
     }
   })
 }

@@ -21,7 +21,7 @@ const location=useLocation();
 const navigate=useNavigate();
 const dispatch=useDispatch();
 const {status}=useSelector(state=>state.userAuth)
-
+// console.log(location);
   useEffect(()=>{
 
     if(status){
@@ -29,6 +29,7 @@ const {status}=useSelector(state=>state.userAuth)
       dispatch(getNotificData())
     }
     else{
+      // console.log(location);
       navigate("/auth/sign-in",{
         state:{
             prevUrl:location.pathname
@@ -38,7 +39,7 @@ const {status}=useSelector(state=>state.userAuth)
 
 
 
-  },[status])
+  },[])
 
   useEffect(()=>{
    window.addEventListener("resize",widthHandler)
@@ -50,7 +51,7 @@ const {status}=useSelector(state=>state.userAuth)
       containerRef.current.classList.remove("newContainer")
     
     }
-    console.log("sjds",containerRef.current.offsetWidth);
+    // console.log("sjds",containerRef.current.offsetWidth);
 
     return ()=>{window.removeEventListener('resize', widthHandler);}
   },[])

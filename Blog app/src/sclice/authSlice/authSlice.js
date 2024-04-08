@@ -108,6 +108,7 @@ export const logout =createAsyncThunk("logout",async()=>{
       window.location.reload();
     }
     
+    return res.data
   }).catch(err=>{
     alert(err)
   })
@@ -183,7 +184,7 @@ const authSlice=createSlice({
           state.status=payload.status
         })
 
-        builder.addCase(logout.fulfilled,(state)=>{
+        builder.addCase(logout.fulfilled,(state,{payload})=>{
           state.status=false
         })
 
