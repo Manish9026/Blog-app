@@ -5,8 +5,8 @@ const userPersonal=new mongoose.Schema({
 
  gender:{
         type:String,
-        enum:["male","female","other"],
-        default:"null"
+        enum:["male","female","other","none"],
+        default:"none"
     },
     DOB:{
         type:Date,
@@ -15,10 +15,13 @@ const userPersonal=new mongoose.Schema({
     },
     phoneNumber:{
         type:Number,
-        max:12,
+        min:12,
         default:null
 
     }
+,
+    createDate: { type: Date, default: Date.now },
+    updateDate: { type: Date, default: Date.now }
 
 },{_id:false})
 
@@ -47,6 +50,9 @@ const userEducation=new mongoose.Schema({
             type:Boolean
         }
     }]
+    ,
+    createDate: { type: Date, default: Date.now },
+    updateDate: { type: Date, default: Date.now }
 },{_id:false})
 
 const userProfileSchema = new mongoose.Schema({
@@ -59,11 +65,44 @@ const userProfileSchema = new mongoose.Schema({
     coverImagePath:{
         type:String
     },
-    personal:[userPersonal],
-    education:[userEducation]
+    personal:{type:userPersonal,
+    default:{}},
+    education:{
+        type:userEducation,
+        default:{}
+    },
+    userBio:{
+        type:String,
+        default:null
+    }
+    ,
+    
+    createDate: { type: Date, default: Date.now },
+    updateDate: { type: Date, default: Date.now }
     
 
 })
+
+
+
+// middlewares of mongoose
+
+userPersonal.pre('save', function(next) {
+    this.updateDate = new Date();
+    next();
+});
+
+userEducation.pre('save', function(next) {
+    this.updateDate = new Date();
+    next();
+});
+userProfileSchema.pre('save', function(next) {
+    // console.log(this,"gfdfdf");
+    this.updateDate = new Date();
+    next();
+});
+
+
 
  export const userProfileModel = mongoose.model("userProfiles",userProfileSchema);
 

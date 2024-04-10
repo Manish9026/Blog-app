@@ -10,6 +10,7 @@ import userAuth from './Controllers/userAuth.js';
 import friendRoute from './routes/userFriend.js';
 import snglFriendRoute from './routes/userSinglefriend.js';
 import bodyParser from 'body-parser';
+import userProfileRoute from './routes/userProfile.js';
 dotenv.config();
 const app = express();
 
@@ -31,6 +32,8 @@ app.use("/user/s1",userRoute)
 app.use("/user/b1",blogRoute)
 app.use("/user/f1",friendRoute)
 app.use('/user/sf',snglFriendRoute)
+app.use('/user/profile',userProfileRoute)
+
 DB_connection()
 // app.post('/image',userBlog.convertBaseUrl)
 const port = process.env.PORT || 8080

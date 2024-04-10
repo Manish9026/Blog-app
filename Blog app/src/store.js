@@ -5,6 +5,7 @@ import navsliderSlice from "./sclice/navsliderSlice";
 import singleFriendSlice from "./sclice/singleFriendSlice";
 import globalSlice from "./sclice/globalSlice";
 import friendSlice from "./sclice/friendSlice";
+import userProfileSlice from "./sclice/userProfileSlice";
 
 
 
@@ -16,7 +17,8 @@ const store=configureStore({
         navSlider:navsliderSlice,
         snglFrnd:singleFriendSlice,
         global:globalSlice,
-        userFriend:friendSlice
+        userFriend:friendSlice,
+        userProfile:userProfileSlice
     },
 
 })

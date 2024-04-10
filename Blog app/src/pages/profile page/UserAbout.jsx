@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { BiSolidSchool, BiSolidUpArrow } from 'react-icons/bi';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
@@ -10,25 +10,33 @@ import { GiSecretBook } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { PiHouseLineFill } from "react-icons/pi";
 import { RiEditBoxLine } from "react-icons/ri";
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import { useEffect } from 'react';
 import { isVerified } from '../../sclice/authSlice/authSlice';
+import { resetBoxStatus, setBoxStatus, updateProfile } from '../../sclice/userProfileSlice';
 const show = (e) => {
-    const node = e.parentNode;
-    if (node.className == "f-container") {
-        console.log(node.childNodes);
+   
 
-        const show = node.childNodes[0]
-        const hide = node.childNodes[1]
 
-        show.style.display = "none";
-        hide.style.display = "flex";
-
-        return
+        const node = e.parentNode;
+        if (node.className == "f-container") {
+        
+    
+            const show = node.childNodes[0]
+            const hide = node.childNodes[1]
+    
+            show.style.display = "none";
+            hide.style.display = "flex";
+           
+    
+            // console.log(node);
+            return node
+        }
+       return show(node)
     }
-    show(node)
+  
 
-}
+
 const hide = (e) => {
     const node = e.parentNode;
     if (node.className == "f-container") {
@@ -39,10 +47,10 @@ const hide = (e) => {
 
         show.style.display = "flex";
         hide.style.display = "none";
-
-        return
+       
+        return node
     }
-    hide(node)
+   return hide(node)
 }
 
 const UserAbout = () => {
@@ -85,6 +93,8 @@ const UserAbout = () => {
 }
 
 export const BioForm = ({ title }) => {
+    const {data}=useSelector(state=>{return state.userProfile})
+    const dispatch=useDispatch();
     return (
         <div className='F-section open-sans' >
             <h4>Add bio</h4>
@@ -113,7 +123,47 @@ export const BioForm = ({ title }) => {
 }
 
 export const PersonalForm = (e) => {
+  
+    const {data}=useSelector(state=>{return state.userProfile})
+    const [fieldValue,setFieldValue]=useState("");
+    const dispatch=useDispatch();
+    let ref=useRef(null);
+    let [dob,setDOB]=useState(new Date(data.profile.personal.DOB));
+    
+    useEffect(()=>{
+        
+        // setDOB(dob.toLocaleDateString('en-GB'))
+    },[])
+    const inputHandler=(e)=>{
+        console.log(e.target.value);
+        setFieldValue({[e.target.name]:e.target.value})
+    }
+    const updateHandler=async(e)=>{
+        await dispatch(updateProfile({type:"personal",field:fieldValue}))
+       hide(e);
+       ref.current=null;
+        console.log(ref);
+    }
 
+
+    const editHandler=(e)=>{
+          
+       
+        if(ref.current){
+
+           alert("close form then update other fields")
+        }else{
+            e.stopPropagation(); 
+            ref.current=show(e.currentTarget);
+        }
+       
+    }
+
+    const cancelHandler=(e)=>{
+        e.stopPropagation();
+        hide(e.currentTarget)
+        ref.current=null;
+    }
 
     return (
 
@@ -127,19 +177,19 @@ export const PersonalForm = (e) => {
                         <span className="logo-icon ">
                             <MdPersonPinCircle />
                         </span>
-                        <span className="name"><p>Manish</p>
+                        <span className="name"><p>{data?data.userName:"Manish"}</p>
                             <p>name</p></span>
-                        <button className="icon" onClick={(e) => { e.stopPropagation(); show(e.currentTarget) }}>
+                        <button className="icon" onClick={(e) => {editHandler(e) }}>
 
                             <MdOutlineModeEdit />
                         </button>
                     </div>
 
                     <div className="form-hide">
-                        <input type="text" name="userName" id="" className='inField' placeholder=' userName' />
+                        <input type="text" name="userName" id="" defaultValue={data.userName} onChange={(e)=>{inputHandler(e)}} className='inField' placeholder=' userName' />
                         <div className="btn">
-                            <button >save</button>
-                            <button onClick={(e) => { e.stopPropagation(); console.log(e); hide(e.currentTarget) }}>cancel</button>
+                            <button onClick={(e)=>updateHandler(e.target)} >save</button>
+                            <button onClick={(e) => {cancelHandler(e) }}>cancel</button>
                         </div>
                     </div>
 
@@ -151,24 +201,26 @@ export const PersonalForm = (e) => {
                         <span className="logo-icon ">
                             <MdPersonPinCircle />
                         </span>
-                        <span className="name"><p>user</p>
+                        <span className="name"><p>{data.profile.personal.gender || "none"}</p>
                             <p>gender</p></span>
-                        <button className="icon" onClick={(e) => { e.stopPropagation(); show(e.currentTarget) }}>
+                        <button className="icon" onClick={(e) => {{editHandler(e) } }}>
 
                             <MdOutlineModeEdit />
                         </button>
                     </div>
 
                     <div className="form-hide">
-                        <select className='inField'>
-                            <option value="male">male</option>
+                        <select className='inField' defaultValue={data.profile.personal.gender} name='gender' onChange={(e)=>inputHandler(e)}>
+                            <option value="male" style={{display:"none"}} >male</option>
+                            <option value="male"  >male</option>
+
                             <option value="female">female</option>
                             <option value="other">other</option>
 
                         </select>
                         <div className="btn">
-                            <button >save</button>
-                            <button onClick={(e) => { e.stopPropagation(); console.log(e); hide(e.currentTarget) }}>cancel</button>
+                            <button onClick={(e)=>updateHandler(e.target)}>save</button>
+                            <button onClick={(e) => {cancelHandler(e) }}>cancel</button>
                         </div>
                     </div>
 
@@ -180,19 +232,19 @@ export const PersonalForm = (e) => {
                         <span className="logo-icon ">
                             <MdPersonPinCircle />
                         </span>
-                        <span className="name"><p>Manish@gmail.com</p>
+                        <span className="name"><p>{data.userEmail || "email "}</p>
                             <p>Email</p></span>
-                        <button className="icon" onClick={(e) => { e.stopPropagation(); show(e.currentTarget) }}>
+                        <button className="icon" onClick={(e) => {{editHandler(e) } }}>
 
                             <MdOutlineModeEdit />
                         </button>
                     </div>
 
                     <div className="form-hide">
-                        <input type="text" name="userName" id="" className='inField' placeholder='Email' />
+                        <input type="text" name="userEmail" id="" defaultValue={data.userEmail} onChange={(e)=>inputHandler(e)}className='inField' placeholder='Email' />
                         <div className="btn">
-                            <button >save</button>
-                            <button onClick={(e) => { e.stopPropagation(); console.log(e); hide(e.currentTarget) }}>cancel</button>
+                            <button onClick={(e)=>updateHandler(e.target)}>save</button>
+                            <button onClick={(e) => { cancelHandler(e)}}>cancel</button>
                         </div>
                     </div>
 
@@ -204,19 +256,19 @@ export const PersonalForm = (e) => {
                         <span className="logo-icon ">
                             <MdPersonPinCircle />
                         </span>
-                        <span className="name"><p>91+ 9026123956</p>
+                        <span className="name"><p>{data.profile.personal.phoneNumber || 0}</p>
                             <p>phone no</p></span>
-                        <button className="icon" onClick={(e) => { e.stopPropagation(); show(e.currentTarget) }}>
+                        <button className="icon" onClick={(e) => { {editHandler(e) } }}>
 
                             <MdOutlineModeEdit />
                         </button>
                     </div>
 
                     <div className="form-hide">
-                        <input type="number" name="userName" id="" className='inField' placeholder='Contact No.' />
+                        <input type="number" name="phoneNumber" id="" defaultValue={data.profile.personal.phoneNumber} className='inField' onChange={(e)=>inputHandler(e)} placeholder='Contact No.' />
                         <div className="btn">
-                            <button >save</button>
-                            <button onClick={(e) => { e.stopPropagation(); console.log(e); hide(e.currentTarget) }}>cancel</button>
+                            <button onClick={(e)=>updateHandler(e.target)}>save</button>
+                            <button onClick={(e) => { cancelHandler(e) }}>cancel</button>
                         </div>
                     </div>
 
@@ -227,19 +279,19 @@ export const PersonalForm = (e) => {
                         <span className="logo-icon ">
                             <MdPersonPinCircle />
                         </span>
-                        <span className="name"><p>24Nov 2002</p>
+                        <span className="name"><p>{`${dob.getDay()}/${dob.getMonth()}/${dob.getFullYear()} `|| "24Nov 2002"}</p>
                             <p>DOB</p></span>
-                        <button className="icon" onClick={(e) => { e.stopPropagation(); show(e.currentTarget) }}>
+                        <button className="icon" onClick={(e) => {editHandler(e) } }>
 
                             <MdOutlineModeEdit />
                         </button>
                     </div>
 
                     <div className="form-hide">
-                        <input type="date" name="userName" id="" className='inField' placeholder='Contact No.' />
+                        <input type="date" name="DOB" onChange={(e)=>inputHandler(e)} defaultValue={data.profile.personal.DOB} id="" className='inField' placeholder='Contact No.' />
                         <div className="btn">
-                            <button >save</button>
-                            <button onClick={(e) => { e.stopPropagation(); console.log(e); hide(e.currentTarget) }}>cancel</button>
+                            <button onClick={(e)=>updateHandler(e.target)}>save</button>
+                            <button onClick={(e) => { cancelHandler(e) }}>cancel</button>
                         </div>
                     </div>
 

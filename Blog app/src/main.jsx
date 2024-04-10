@@ -25,6 +25,7 @@ import UserAbout, { BioForm, PersonalForm, UserEdu } from './pages/profile page/
 
 import { useDispatch } from 'react-redux'
 import { isVerified } from './sclice/authSlice/authSlice.js'
+import { getUserProfile } from './sclice/userProfileSlice.js'
 const RoutePath = () => {
 
   const dispatch = useDispatch();
@@ -105,7 +106,11 @@ const RoutePath = () => {
                 },
                 {
                   path: "personal-detail",
-                  element: <PersonalForm />
+                  element: <PersonalForm />,
+                  loader:async()=>{
+                    await dispatch(getUserProfile("personal"))
+                    return null
+                  }
                 },
                 {
                   path: "education-and-work",

@@ -45,7 +45,7 @@ navigate(-1)
 }else{
   navigate("/auth/sign-in",{
     state:{
-      prevUrl:location.state.prevUrl
+      prevUrl:location.state?location.state.prevUrl : '/'
     }
   })
 }

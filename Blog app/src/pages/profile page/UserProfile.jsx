@@ -102,7 +102,10 @@ useEffect(()=>{
                     
                 </div>
                 <div className="optionOutletContainer">
-                    <Outlet/>
+                    {
+                        status?
+                    <Outlet/>:""
+                    }
                 </div>
             </div>
         </div>

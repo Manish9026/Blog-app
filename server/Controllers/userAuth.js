@@ -174,7 +174,7 @@ class userAuth extends AuthTools {
                     password = String(password)
                     // const imageUrl=await imageUploader(filepath)
 
-                    console.log(userName, userEmail, password);
+                    console.log(userName, userEmail, password,filepath);
 
                     if( userEmail && userName && password){
                         console.log("sadbhsd");
@@ -185,7 +185,7 @@ class userAuth extends AuthTools {
                         if(!match){
                             const imageUrl=await imageUploader(filepath)
 
-                            // console.log(new mongoose.Types.ObjectId);
+                            console.log("hggff");
                         const userDetail= await userModel({
 
                             userName,
@@ -204,11 +204,12 @@ class userAuth extends AuthTools {
                            userDetail.profile=profile._id;
                            userDetail.userId=userDetail._id;
                         // userDetail.save()
-                        // await userProfileModel.save();
+                        //  userProfileModel.save();
 
 
 
                        if(await userDetail.save()){
+                        
                         res.status(200).json({
                             message:"successfully register",
                             status:true

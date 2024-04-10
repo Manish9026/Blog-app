@@ -54,4 +54,9 @@ const userSchema = new mongoose.Schema({
 
 })
 
+// userSchema.post('save', function(next) {
+//     // console.log(this,"gfdfdf");
+//     // this.updateDate = new Date();
+//     // next();
+// });
 export const userModel = mongoose.model("user", userSchema);
