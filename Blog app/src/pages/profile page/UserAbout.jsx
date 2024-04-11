@@ -128,15 +128,25 @@ export const PersonalForm = (e) => {
     const [fieldValue,setFieldValue]=useState("");
     const dispatch=useDispatch();
     let ref=useRef(null);
-    let [dob,setDOB]=useState(new Date(data.profile.personal.DOB));
+    let [dob,setDOB]=useState( new Date(data.profile.personal.DOB));
     
     useEffect(()=>{
-        
-        // setDOB(dob.toLocaleDateString('en-GB'))
+
     },[])
     const inputHandler=(e)=>{
+        // if(e.target.name=="DOB"){
+
+        //     const DOB=new Date(e.target.value)
+        //     console.log(DOB);
+        // setFieldValue({[e.target.name]:DOB})
+
+
+        // }else{
+
+        
         console.log(e.target.value);
         setFieldValue({[e.target.name]:e.target.value})
+        // }
     }
     const updateHandler=async(e)=>{
         await dispatch(updateProfile({type:"personal",field:fieldValue}))
@@ -279,7 +289,7 @@ export const PersonalForm = (e) => {
                         <span className="logo-icon ">
                             <MdPersonPinCircle />
                         </span>
-                        <span className="name"><p>{`${dob.getDay()}/${dob.getMonth()}/${dob.getFullYear()} `|| "24Nov 2002"}</p>
+                        <span className="name"><p>{dob.toLocaleDateString('en-GB') || "24Nov 2002"}</p>
                             <p>DOB</p></span>
                         <button className="icon" onClick={(e) => {editHandler(e) } }>
 
@@ -288,7 +298,10 @@ export const PersonalForm = (e) => {
                     </div>
 
                     <div className="form-hide">
-                        <input type="date" name="DOB" onChange={(e)=>inputHandler(e)} defaultValue={data.profile.personal.DOB} id="" className='inField' placeholder='Contact No.' />
+                        {/* <label htmlFor="12">
+                        <input type="text" id='12' defaultValue={dob.toLocaleDateString()} className='inField'/>
+                        </label> */}
+                        <input type="date" name="DOB" onChange={(e)=>inputHandler(e)} width={"40px"} defaultValue={dob.toLocaleDateString()} id="12" className='inField' placeholder='Contact No.' />
                         <div className="btn">
                             <button onClick={(e)=>updateHandler(e.target)}>save</button>
                             <button onClick={(e) => { cancelHandler(e) }}>cancel</button>
