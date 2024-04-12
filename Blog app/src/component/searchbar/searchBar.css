@@ -6,9 +6,10 @@
   align-items: center;
   justify-content: center;
   bottom: -50px;
- 
-  min-width: 200px;
+ left: 0;
+  min-width: 100px;
   width: 100%;
+  flex: 1;
   height: 50px;
   z-index:4;
 

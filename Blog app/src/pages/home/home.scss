@@ -30,10 +30,12 @@
   justify-content: flex-start;
   align-self: stretch;
   flex: 1;
-  /* min-width: 37.3125rem; */
+
+  min-width: 37.3125rem; 
   min-width: 450px;
   position: relative;
   // overflow: hidden;
+
   @include sm{
     min-width: 200px;
   }

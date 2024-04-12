@@ -21,7 +21,7 @@
 
 
   @include sm{
-    width: 100vw;
+    width: 100%;
     .snglFrdPro{
       height: max-content;
       .snglFrdProBgImg{
@@ -360,7 +360,7 @@
   display: flex;
   flex-direction: row;
   gap: 8px;
-  width: 100vw;
+  width: 100%;
   align-items: center;
   justify-content: center;
   align-self: stretch;

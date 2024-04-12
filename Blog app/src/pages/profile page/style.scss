@@ -224,6 +224,7 @@
                 flex-direction: column;
                
                 .f-container {
+                    position: relative;
                     padding: 10px;
                     background-color: #38383f8b;
                   
@@ -276,6 +277,7 @@
                     }
         
                     .form-hide{
+                        
                         display: none;
                         justify-content: flex-start;
                         // align-items: center;

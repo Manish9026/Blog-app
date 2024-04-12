@@ -20,7 +20,7 @@ return()=>{
 
 },[])
 const widthHandler=()=>{
- if(widthRef.current.offsetWidth<600){
+ if(widthRef.current.offsetWidth<650){
 setLayoutState(0)
  }else{
 setLayoutState(1)

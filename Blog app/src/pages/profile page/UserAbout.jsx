@@ -14,6 +14,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import { useEffect } from 'react';
 import { isVerified } from '../../sclice/authSlice/authSlice';
 import { resetBoxStatus, setBoxStatus, updateProfile } from '../../sclice/userProfileSlice';
+import ProLoder from './loader/ProLoder';
 const show = (e) => {
    
 
@@ -124,7 +125,7 @@ export const BioForm = ({ title }) => {
 
 export const PersonalForm = (e) => {
   
-    const {data}=useSelector(state=>{return state.userProfile})
+    const {data,loading}=useSelector(state=>{return state.userProfile})
     const [fieldValue,setFieldValue]=useState("");
     const dispatch=useDispatch();
     let ref=useRef(null);
@@ -196,6 +197,10 @@ export const PersonalForm = (e) => {
                     </div>
 
                     <div className="form-hide">
+
+                    {
+                      loading && <ProLoder/>
+                        }
                         <input type="text" name="userName" id="" defaultValue={data.userName} onChange={(e)=>{inputHandler(e)}} className='inField' placeholder=' userName' />
                         <div className="btn">
                             <button onClick={(e)=>updateHandler(e.target)} >save</button>
@@ -208,6 +213,7 @@ export const PersonalForm = (e) => {
                 <div className="f-container">
 
                     <div className="form-show " >
+                        
                         <span className="logo-icon ">
                             <MdPersonPinCircle />
                         </span>
@@ -220,6 +226,10 @@ export const PersonalForm = (e) => {
                     </div>
 
                     <div className="form-hide">
+                        {
+                         loading && <ProLoder/>
+                        }
+                    
                         <select className='inField' defaultValue={data.profile.personal.gender} name='gender' onChange={(e)=>inputHandler(e)}>
                             <option value="male" style={{display:"none"}} >male</option>
                             <option value="male"  >male</option>
@@ -251,6 +261,10 @@ export const PersonalForm = (e) => {
                     </div>
 
                     <div className="form-hide">
+
+                    {
+                         loading && <ProLoder/>
+                        }
                         <input type="text" name="userEmail" id="" defaultValue={data.userEmail} onChange={(e)=>inputHandler(e)}className='inField' placeholder='Email' />
                         <div className="btn">
                             <button onClick={(e)=>updateHandler(e.target)}>save</button>
@@ -275,6 +289,9 @@ export const PersonalForm = (e) => {
                     </div>
 
                     <div className="form-hide">
+                    {
+                         loading && <ProLoder/>
+                        }
                         <input type="number" name="phoneNumber" id="" defaultValue={data.profile.personal.phoneNumber} className='inField' onChange={(e)=>inputHandler(e)} placeholder='Contact No.' />
                         <div className="btn">
                             <button onClick={(e)=>updateHandler(e.target)}>save</button>
@@ -301,6 +318,9 @@ export const PersonalForm = (e) => {
                         {/* <label htmlFor="12">
                         <input type="text" id='12' defaultValue={dob.toLocaleDateString()} className='inField'/>
                         </label> */}
+                         {
+                         loading && <ProLoder/>
+                        }
                         <input type="date" name="DOB" onChange={(e)=>inputHandler(e)} width={"40px"} defaultValue={dob.toLocaleDateString()} id="12" className='inField' placeholder='Contact No.' />
                         <div className="btn">
                             <button onClick={(e)=>updateHandler(e.target)}>save</button>

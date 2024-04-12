@@ -6,6 +6,11 @@
   font-weight:400;
   font-style: normal;
   }
+
+//  body::-webkit-scrollbar {
+//     width: 0;  /* Remove scrollbar space */
+//     background: transparent;  /* Optional: just make scrollbar invisible */
+// }
 .row-flex{
     display: flex;
     justify-content: flex-start;

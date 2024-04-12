@@ -23,7 +23,7 @@ const MenuBar = () => {
 //    console.log("jhhg",userInfo);
     return (
         <section className={"menu-bar-section "}
-        style={slideStatus?{transform:"translatex(0)"}:{transform:"translatex(-600px)"}} >
+        style={slideStatus?{transform:"translatex(0)"}:{transform:"translatex(-650px)"}} >
             <div className="top-section">
                 <div className="pro-container">
                     <div className="like-box">
