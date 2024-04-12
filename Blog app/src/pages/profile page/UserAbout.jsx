@@ -133,6 +133,7 @@ export const PersonalForm = (e) => {
     
     useEffect(()=>{
 
+        console.log(loading);
     },[])
     const inputHandler=(e)=>{
         // if(e.target.name=="DOB"){
@@ -199,7 +200,7 @@ export const PersonalForm = (e) => {
                     <div className="form-hide">
 
                     {
-                      loading && <ProLoder/>
+                      loading ?<ProLoder/>:""
                         }
                         <input type="text" name="userName" id="" defaultValue={data.userName} onChange={(e)=>{inputHandler(e)}} className='inField' placeholder=' userName' />
                         <div className="btn">
@@ -226,8 +227,8 @@ export const PersonalForm = (e) => {
                     </div>
 
                     <div className="form-hide">
-                        {
-                         loading && <ProLoder/>
+                       {
+                      loading ?<ProLoder/>:""
                         }
                     
                         <select className='inField' defaultValue={data.profile.personal.gender} name='gender' onChange={(e)=>inputHandler(e)}>
@@ -262,8 +263,8 @@ export const PersonalForm = (e) => {
 
                     <div className="form-hide">
 
-                    {
-                         loading && <ProLoder/>
+                   {
+                      loading ?<ProLoder/>:""
                         }
                         <input type="text" name="userEmail" id="" defaultValue={data.userEmail} onChange={(e)=>inputHandler(e)}className='inField' placeholder='Email' />
                         <div className="btn">
@@ -289,8 +290,8 @@ export const PersonalForm = (e) => {
                     </div>
 
                     <div className="form-hide">
-                    {
-                         loading && <ProLoder/>
+                   {
+                      loading ?<ProLoder/>:""
                         }
                         <input type="number" name="phoneNumber" id="" defaultValue={data.profile.personal.phoneNumber} className='inField' onChange={(e)=>inputHandler(e)} placeholder='Contact No.' />
                         <div className="btn">
@@ -318,8 +319,8 @@ export const PersonalForm = (e) => {
                         {/* <label htmlFor="12">
                         <input type="text" id='12' defaultValue={dob.toLocaleDateString()} className='inField'/>
                         </label> */}
-                         {
-                         loading && <ProLoder/>
+                        {
+                      loading ?<ProLoder/>:""
                         }
                         <input type="date" name="DOB" onChange={(e)=>inputHandler(e)} width={"40px"} defaultValue={dob.toLocaleDateString()} id="12" className='inField' placeholder='Contact No.' />
                         <div className="btn">

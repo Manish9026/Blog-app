@@ -60,7 +60,7 @@ extraReducers:(builder)=>{
     })
     builder.addCase(getUserProfile.fulfilled,(state,{payload})=>{
         
-        state.loading=true;       
+        state.loading=false;       
         state.data=payload.data || [];
         state.status=payload.status;
     })
