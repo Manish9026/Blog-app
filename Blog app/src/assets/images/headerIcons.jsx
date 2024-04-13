@@ -37,10 +37,21 @@ export const headerIcons={
 
 
 }
-const navLinks=[
-    "/",
-    "/friends","saved-story","/user/message","/user/comments","history"
-  ]
+// const navLinks=[
+//     "/",
+//     "/friends","saved-story","/user/message","/user/comments","history"
+//   ]
+
+
+  import { AiFillHome } from "react-icons/ai";
+  import { FaUserFriends } from "react-icons/fa";
+  import { SiGooglemessages } from "react-icons/si";
+  import { MdOutlineHistory } from "react-icons/md";
+  import { FaBookmark } from "react-icons/fa";
+  import { FaComments } from "react-icons/fa6";
+  import { MdOutlineAdd } from "react-icons/md";
+  import { FaUser } from "react-icons/fa6";
+
 export const navTitle=[
-    [hm,"Home","/"],["","profile","/user/profile"],[fr,"friends","/friends"],["","new Blog","/create-blog"],[bk,"saved Story","/saved-story"],[ms,"messages","/user/message"],[cmt," your comments","/user/comments"],[hs,"history","/history"]
+    [ <AiFillHome />,"Home","/"],[<FaUser />,"profile","/user/profile"],[  <FaUserFriends />,"friends","/friends"],[ <MdOutlineAdd />,"new Blog","/create-blog"],[<FaBookmark />,"saved Story","/saved-story"],[ <SiGooglemessages />,"messages","/user/message"],[<FaComments />," your comments","/user/comments"],[  <MdOutlineHistory />,"history","/history"]
 ]

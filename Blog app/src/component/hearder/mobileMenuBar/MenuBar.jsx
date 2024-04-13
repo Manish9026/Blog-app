@@ -77,6 +77,7 @@ const MenuBar = () => {
                             <Link to={title[2]} state={{prevUrl:title[2]}} className="title-box" key={indx} 
                             onClick={()=>dispatch(navTogle("onclick"))}>
                     <div className="icon-section">
+                        {title[0]}
                         <img className="manish-img-2" src={title[0]} width={"100%"} height={"100%"}/>
                     </div>
                     <div className="title">

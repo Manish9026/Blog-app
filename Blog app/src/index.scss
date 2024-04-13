@@ -1,5 +1,11 @@
 @import './css-configration/mixins.scss';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+
 .open-sans{
     font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
@@ -11,6 +17,10 @@
 //     width: 0;  /* Remove scrollbar space */
 //     background: transparent;  /* Optional: just make scrollbar invisible */
 // }
+p{
+    margin: 0;
+    padding: 0;
+}
 .row-flex{
     display: flex;
     justify-content: flex-start;

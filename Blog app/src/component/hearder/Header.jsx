@@ -7,6 +7,10 @@ import { getUserInfo, logout } from '../../sclice/authSlice/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { navTogle } from '../../sclice/navsliderSlice'
 
+
+
+import { TbLogout } from "react-icons/tb";
+
 const Header = () => {
   const {slideStatus}=useSelector(state=>{return state.navSlider})
 const location=useLocation()
@@ -27,13 +31,12 @@ useEffect(()=>{
 const UserProfile=()=>{
   return(
     <div className="user-prp">
-  <div className="prp-icon">
+  
     <img className="prp-img" src={userInfo.profile.profileImage} />
-  </div>
-  <div className="prp-name-c">
-    <p className="prp-helo">Hello,</p>
-    <p className="prp-name">{userInfo.userName}</p>
-  </div>
+  <ul className="prp-name-c">
+    <li>Hello,</li>
+    <li>{userInfo.userName}</li>
+  </ul>
 </div>
 
   )
@@ -41,24 +44,27 @@ const UserProfile=()=>{
   return (
     
     
-    <div className="left-nav" style={slideStatus?{minWidth:"82px",flex:"0"}:{}} onMouseEnter={()=>dispatch(navTogle("hover"))} >
+    <div className="left-nav" style={slideStatus?{minWidth:"80px",flex:"0"}:{}} onMouseEnter={()=>dispatch(navTogle("hover"))} >
       <div className="ellipse-10"></div>
+      <div className="top-nav">
 
       {
        userInfo.length!=0? <UserProfile/>
-      :
-      <div className="top-nav">
+      :<div>
         <div className="user-icon">
-          <img className={"male-user"} src={headerIcons.userIcons} />
+          {/* <img className={"male-user"} src={headerIcons.userIcons} /> */}
+        
         </div>   
  <Link  to={"/auth/sign-up"} state={{prevUrl:"/"}} className="login-btn">
  <div className="s-ign-up">SIgn Up</div>
 </Link>
+</div>
         
        
 
-      </div>
-}
+      }
+        </div>
+
 
       <div className="bottom-nav">
 
@@ -68,12 +74,15 @@ const UserProfile=()=>{
             return(
              <Link to={item[2]} style={{display:"flex",width:"100%"}} key={indx}>
 <div className="nav-title" style={{width:"100%"}}>
-          <div className="title-icon" >
-            <img className="nav-icon" src={item[0]} />
+          
+          <div className="iconContainer">
+            {/* <img className="nav-icon" src={item[0]} /> */}
+           { item[0] }
           </div>
-          <div className="title-btn" >
-            <div className="home">{item[1]}</div>
-          </div>
+         
+          <ul className='menuText'>
+            <li>{item[1]}</li>
+          </ul>
         </div>
         </Link>
             )
@@ -82,12 +91,13 @@ const UserProfile=()=>{
 }
 <div style={{display:"flex",width:"100%"}}  onClick={()=>dispatch(logout())}>
 <div className="nav-title" style={{width:"100%"}}>
-          <div className="title-icon" >
-            <img className="nav-icon" src={headerIcons.logout} />
-          </div>
-          <div className="title-btn" >
-            <div className="home">logout</div>
-          </div>
+         <div className="iconContainer">
+         <TbLogout />
+          
+         </div>
+         <ul className='menuText'>
+            <li>logout</li>
+          </ul>
         </div>
         </div>
       </div>

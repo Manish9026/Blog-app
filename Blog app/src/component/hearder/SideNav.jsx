@@ -3,10 +3,11 @@ import { icons } from '../../assets/react-icons'
 import SearchBar from '../searchbar/SearchBar'
 import { Link, useSearchParams } from 'react-router-dom'
 import { mainLogo } from '../../assets/backgroundImg/background'
-import { MdOutlineMenu } from "react-icons/md";
+import { MdOutlineAdd, MdOutlineMenu } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
 import { navTogle } from '../../sclice/navsliderSlice'
 import { NtficSection } from '../notification/NtficSection'
+import { FaUserFriends } from 'react-icons/fa'
 const SideNav = () => {
   // const {slideStatus}=useSelector(state=>{return state.navSlider})
   const dispatch = useDispatch();
@@ -26,21 +27,23 @@ const SideNav = () => {
         {/* <div className="logo">logo</div> */}
       </div>
       <div className="h-nav-title">
-        <button className="search-icon" onClick={() => setSearchActive(prev => !prev)}>
-          <icons.searchIcon className="icon l-txt" />
-        </button>
-        <button className="home-icon">
-          <icons.homeIcon className="icon l-txt" src="home1.png" />
-        </button>
-        <button className="notification" onClick={()=>{setNotificActive(prev=>!prev)}}>
-          <icons.bellIcon className="icon l-txt" src="notification1.png" />
-          <div className="_5">5</div>
-        </button>
+        <span className="sideNavIcon" onClick={() => setSearchActive(prev => !prev)}>
+          <icons.searchIcon className="icon" />
+        </span>
+        <span className="sideNavIcon">
+          <icons.homeIcon className="icon"/>
+        </span>
+        <span className="sideNavIcon" onClick={()=>{setNotificActive(prev=>!prev)}}>
+          <icons.bellIcon className="icon"  />
+          <div className="num">5</div>
+        </span>
         <Link to={"/create-blog"} className="h-title-btn">
-          <div className="create-blog">create blog</div>
+          <MdOutlineAdd/>
+         <p>Create blog</p>
         </Link>
         <div className="h-title-btn">
-          <div className="friends">friends</div>
+          <FaUserFriends/>
+         <p>Friends</p>
         </div>
       </div>
    
