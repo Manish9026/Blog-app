@@ -74,6 +74,9 @@ transition: all 1.5s ease;
     max-width: 300px;
     overflow: scroll;
     height: 100vh;
+    &::-webkit-scrollbar{
+      display: none;
+    }
 
     .top-nav{
       // background-color: #fff;
@@ -116,7 +119,22 @@ transition: all 1.5s ease;
           }
         }
       }
+      .userAuth{
+        @extend .flex, .fullWidth;
+        padding: 10px 0px;
+        gap: 10px;
+       
+        .iconContainer{
+          @extend .flex, .fullWidth;
+          flex: 0;
+          max-width:50px;
+          max-height: 50px;
+          border-radius: 50%;
+          background-color: #a3949431;
 
+        }
+      }
+     
     }
 
 
@@ -279,6 +297,7 @@ transition: all 1.5s ease;
         position: absolute;
         font-size: small;
         font-family: "Work Sans",sans-serif;
+        cursor: pointer;
       }
     }
     

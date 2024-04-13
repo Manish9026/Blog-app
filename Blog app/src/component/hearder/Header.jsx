@@ -1,7 +1,7 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import './header.scss'
 import { headerIcons, navTitle } from '../../assets/images/headerIcons'
-import { Link, useLocation} from 'react-router-dom'
+import { Link, NavLink, useLocation} from 'react-router-dom'
 import { useEffect } from 'react'
 import { getUserInfo, logout } from '../../sclice/authSlice/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,10 +15,7 @@ const Header = () => {
   const {slideStatus}=useSelector(state=>{return state.navSlider})
 const location=useLocation()
   const {userInfo}=useSelector(state=>state.userAuth)
-const navLinks=[
-  "/",
-  "/friends","saved-story","/user/message","/user/comments","history"
-]
+const [isActive,setIsActive]=useState(false);
 const dispatch=useDispatch();
 
 useEffect(()=>{
@@ -50,14 +47,18 @@ const UserProfile=()=>{
 
       {
        userInfo.length!=0? <UserProfile/>
-      :<div>
-        <div className="user-icon">
-          {/* <img className={"male-user"} src={headerIcons.userIcons} /> */}
-        
-        </div>   
- <Link  to={"/auth/sign-up"} state={{prevUrl:"/"}} className="login-btn">
- <div className="s-ign-up">SIgn Up</div>
-</Link>
+      :<div className="userAuth">
+        <div className='iconContainer'>
+          <img src={headerIcons.userIcons} />
+        </div> 
+          
+{ isActive?<NavLink  to={"/auth/sign-in"} state={{prevUrl:"/"}} className={({ isActive, isPending })=>{setIsActive(!isActive)}} >
+
+ <p>Login now</p>
+
+</NavLink>:<NavLink  to={"/auth/sign-up"} state={{prevUrl:"/"}} className={({ isActive, isPending })=>{console.log(isActive); setIsActive(isActive)}} >
+ <p>Sign-up</p>
+</NavLink>}
 </div>
         
        
