@@ -1,0 +1,12 @@
+@import './variables.scss';
+
+// box shadow 
+$xLength:4px;
+$yLength:4px;
+$color:rgba(241, 233, 233, 0.148);
+$blur:100px;
+$range:1px;
+
+.lightShadow{
+    box-shadow: inset $xLength $yLength $blur $range $color , inset -1*$xLength -1*$yLength $blur $range $color;
+}

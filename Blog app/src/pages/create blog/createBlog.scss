@@ -1,6 +1,8 @@
 @use '../../index.scss';
 @import '../../css-configration/mixins.scss';
 @import '../../css-configration/variables.scss';
+@import '../../css-configration/classes.scss';
+
 .ct-blog-container  {
 
 
@@ -66,9 +68,10 @@ font-weight: 500;
   justify-content: center;
   align-self: stretch;
   flex-shrink: 0;
+  padding: 10px;
 //   height: 505px;
 width: 100%;
-height: 100%;
+min-height: 100vh;
   position: relative;
   overflow: hidden;
 
@@ -284,4 +287,244 @@ height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+$storyPadding:10px 20px;
+$storyMaxWidth:600px;
+$storyMinHeight:600px;
+$inputShadoColor: rgb(255, 255, 255);
+
+.story-section{
+  @extend .flex ,.lightShadow;
+  // flex: 0;
+  flex-direction: column;
+  padding: $storyPadding;
+  background-color: #f3e1e141;
+  border-radius: $lgBorderRadius;
+  // box-shadow: $lightShadow;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: $storyMaxWidth - 100 ;
+  min-height:$storyMinHeight ;
+
+  header{
+    position: relative;
+    width: 100%;
+    flex: 0;
+    
+    // padding: 
+    // background-color: red;
+  }
+
+  .top-sec{
+    @extend .flex;
+    flex: 0;
+    justify-content: center;
+    align-items: center;
+    background:linear-gradient(135deg ,blue 5%,skyBlue ) ;
+    border: $lightBorder;
+    min-height: 350px;
+    max-width: $storyMaxWidth/2;
+    border-radius: $smBorderRadius;
+    .title{
+      @extend .flex;
+      flex-direction: column;
+      & li:nth-child(1){
+       
+        
+        background-color: #fff;
+        padding: 5px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: $fullBorderRadius;
+        width: 50px;
+        height: 50px;
+        .icon{
+          color: black;
+         font-size:20px;
+        }
+       
+      }
+      & li:nth-child(2){
+      // font-family:$smothFont;
+      
+     color: white;
+       
+        
+      }
+    }
+  }
+  .mid-sec{
+    @extend .flex;
+flex: 0;
+width: 100%;
+  max-width: $storyMaxWidth/2;
+  flex-direction: column;
+  min-height: $storyMinHeight/6;
+  gap: 10px;
+  .select{
+    width: 100%;
+    background-color: #6e2590;
+    border-radius: $smBorderRadius;
+    transition: 5s linear;
+    
+  }
+ 
+   .show-container{
+    // flex: 1;
+    padding: 5px 10px;
+    display: inline-flex;
+    align-items: center;
+    width:100%;
+    border-radius: $smBorderRadius;
+    gap: .8rem;
+    background-color: #6e2590;
+    min-height: 50px;
+    .icon{
+      cursor: pointer;
+      background-color: #eff1ea3a;
+      min-width:35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height:35px;
+      color: #0b0a0a;
+      border-radius: $smBorderRadius;
+      font-size: 20px;
+    }
+    p{
+      cursor: pointer;
+      color: white;
+      font-family:$smothFont;
+    }
+   }
+   .hide-container{
+    display: none;
+    width: 100%;
+    background-color: #6e2590;
+border-top: $lightBorder;
+   }
+   .add-txt{
+    width: 100%;
+
+     padding: 5px ;
+     display: flex;
+     flex-direction: column;
+     gap: 5px;
+     // border: $lightBorder;
+     border-radius: $smBorderRadius;
+     & :first-child{
+       flex: 1;
+       height: 50px;
+       border-radius: $smBorderRadius;
+ 
+       background-color: #867c7c9f;
+       box-shadow: inset 1px 1px 1px 0px $inputShadoColor,inset -1px -1px 1px 0px $inputShadoColor;
+     }
+     & :last-child{
+       flex: 1;
+       text-align: center;
+       max-width: 100px;
+       height: 50px;
+       background-color: #26ccdc;
+       border-radius: $smBorderRadius;
+     }
+ 
+    }
+    .song-section{
+      width: 100%;
+      display: flex;
+      padding: 10px 20px;
+      // flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      max-height: 550px;
+      gap: 5px;
+      overflow: auto;
+
+ .srch-section{
+  display: flex;
+  align-items: center;
+  border: $lightBorder;
+  border-radius: $smBorderRadius - 2;
+  padding: 0px 10px ;
+
+  .icon{
+    display: none;
+  }
+  input[type=search]{
+    width: 100%;
+    // background-color: #fff;
+  
+    color: #c9a1a1d6;
+    font-family: "Work Sans", sans-serif;
+    font-size: 1rem;
+  }
+  
+
+
+ }
+ overflow: visible;
+ .card-section{
+
+  width: 100%;
+  min-height: 200px;
+  flex-wrap: wrap;
+  display: flex;
+  flex: 1;
+  gap: 5px;
+
+  .card{
+  //  max-width: 150px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2px;
+   min-width: 100px;
+  width: 100%;
+   flex-direction: row;
+  min-height: 50px;
+    background-color: #f4e9e999;
+    .img{
+      width: 50px;
+      height: 100%;
+      border-radius: $smBorderRadius;
+      background-color: #f13030;
+      // display: flex;
+      img{
+        // flex: 1;
+      border-radius: $smBorderRadius - 2;
+
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .content{
+      color: #18191a ;
+      font-family: "Work Sans", sans-serif;
+      padding: 0px 5px;
+      line-height: 1rem;
+      text-wrap: wrap;
+
+      & :nth-child(1){
+        font-size: 15px;
+      }
+      & :nth-child(2){
+        font-size: 15px;
+        // text
+      }
+      & :nth-child(3){
+        font-size: 10px;
+      }
+    }
+  }
+ }
+   
+    }
+  }
 }
