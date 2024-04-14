@@ -15,7 +15,7 @@ import notFound from './no-results.png'
 import more from './more.png'
 import more1 from './more1.png'
 import avtar from './avtar.jpeg'
-
+import pro from './planning.png'
 import like from './thumb-up.png'
 export const headerIcons={
     userIcons: user,
@@ -31,7 +31,8 @@ export const headerIcons={
     more,
     more1,
     logout,
-    avtar
+    avtar,
+    pro
     
 
 
@@ -53,5 +54,5 @@ export const headerIcons={
   import { FaUser } from "react-icons/fa6";
 
 export const navTitle=[
-    [ <AiFillHome />,"Home","/"],[<FaUser />,"profile","/user/profile"],[  <FaUserFriends />,"friends","/friends"],[ <MdOutlineAdd />,"new Blog","/create-blog"],[<FaBookmark />,"saved Story","/saved-story"],[ <SiGooglemessages />,"messages","/user/message"],[<FaComments />," your comments","/user/comments"],[  <MdOutlineHistory />,"history","/history"]
+    [ <AiFillHome />,"Home","/"],[<FaUser />,"profile","/user/profile"],[  <FaUserFriends />,"friends","/friends"],[ <MdOutlineAdd />,"new Blog","/create/blog"],[<FaBookmark />,"saved Story","/saved-story"],[ <SiGooglemessages />,"messages","/user/message"],[<FaComments />," your comments","/user/comments"],[  <MdOutlineHistory />,"history","/history"]
 ]

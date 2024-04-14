@@ -11,7 +11,7 @@ import Tool from './component/Tool.jsx'
 import { Provider } from 'react-redux'
 import { store } from './store.js'
 import Loder from './component/loader/Loder.jsx'
-import CreateBlog from './pages/create blog/CreateBlog.jsx'
+import BlogSection, { CreateBlog, CreateStory } from './pages/create blog/BlogSection.jsx'
 import Friend from './pages/friend page/Friend.jsx'
 import { SingleFrdSection } from './pages/singlefriend page/SingleFrdSection.jsx'
 import Friends from './pages/singlefriend page/Friends.jsx'
@@ -67,8 +67,16 @@ const RoutePath = () => {
             element: <Loder />
           },
           {
-            path: '/create-blog',
-            element: <CreateBlog />
+            path: '/create',
+            element: <BlogSection />,
+            children:[{
+              path:"blog",
+              element:<CreateBlog/>
+            },
+            {
+              path:"story",
+              element:<CreateStory/>
+            }]
 
           },
           {

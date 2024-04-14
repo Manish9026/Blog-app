@@ -9,6 +9,11 @@ const globalSlice=createSlice({
             img:"https://res.cloudinary.com/dztzqqiex/image/upload/v1712292456/g5parlhrritrijl22jed.jpg",
             toggle:0
         }
+        ,
+        popupStatus:{
+            isActive:0,
+            message:""
+        }
     },reducers:{
         setSrhValue(state,{payload}){
             state.searchTxt=payload
@@ -16,9 +21,14 @@ const globalSlice=createSlice({
         showImage(state,{payload}){
             state.imageShow.img=payload;
             state.imageShow.toggle=!state.imageShow.toggle;
+        },
+        popupHandler({popupStatus},{payload}){
+            popupStatus.isActive=!popupStatus.isActive;
+           popupStatus.message=payload;
+
         }
     }
 })
 
-export const {setSrhValue,showImage}=globalSlice.actions
+export const {setSrhValue,showImage,popupHandler}=globalSlice.actions
 export default globalSlice.reducer

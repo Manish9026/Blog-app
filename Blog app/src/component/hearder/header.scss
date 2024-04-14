@@ -54,7 +54,11 @@ color:$midHeadingColor;
 $navPadding:5px 10px;
 $navTitleColor:white;
 
-
+.active{
+  background-color: #1e2f66;
+  
+  border-radius: 10px;
+}
 .left-nav {
     position: sticky;
     top: 0;
@@ -200,6 +204,7 @@ transition: all 1.5s ease;
       
     // }
   }
+
 
  
 

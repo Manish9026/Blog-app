@@ -73,8 +73,8 @@ const UserProfile=()=>{
           navTitle.map((item,indx)=>{
 
             return(
-             <Link to={item[2]} style={{display:"flex",width:"100%"}} key={indx}>
-<div className="nav-title" style={{width:"100%"}}>
+             <NavLink to={item[2]} style={{display:"flex",width:"100%"}} key={indx}  >
+<div style={{width:"100%"}} className="nav-title" >
           
           <div className="iconContainer">
             {/* <img className="nav-icon" src={item[0]} /> */}
@@ -85,7 +85,7 @@ const UserProfile=()=>{
             <li>{item[1]}</li>
           </ul>
         </div>
-        </Link>
+        </NavLink>
             )
           })
         

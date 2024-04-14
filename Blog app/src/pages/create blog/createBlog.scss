@@ -1,8 +1,47 @@
+@use '../../index.scss';
 @import '../../css-configration/mixins.scss';
-.ct-blog-container,
-.ct-blog-container * {
-  box-sizing: border-box;
+@import '../../css-configration/variables.scss';
+.ct-blog-container  {
+
+
+  .toggleBtn{
+    @extend .flex;
+    position: relative;
+    max-width: 300px;
+    max-height: 50px;
+    border-radius:$lgBorderRadius ;
+    background-color: #fff;
+    transition: all 1s ease;
+   .tglBtn{
+    width: 50%;
+    
+    border-radius: $lgBorderRadius;
+    height: 100%;
+z-index: 2;
+
+   }
+   .btnTracker{
+    @extend .tglBtn;
+    position: absolute;
+    background-color: #18bac8;
+left: 0;
+
+z-index: 1;
+transition: all 1s ease;
+
+   }
+ 
+  
+  }
+
+
+
+
 }
+
+
+
+
 
 textarea{
 background-color: transparent;
@@ -14,6 +53,10 @@ font-weight: 500;
         color: #0b0a0a;
 
 }
+
+
+
+
 
 .ct-blog-container {
   display: flex;

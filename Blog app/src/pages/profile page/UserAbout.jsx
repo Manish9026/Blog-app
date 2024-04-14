@@ -3,7 +3,7 @@ import { BiSolidSchool, BiSolidUpArrow } from 'react-icons/bi';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { MdOutlineModeEdit, MdPersonPinCircle } from 'react-icons/md';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 // import { aboutTitle } from '../../assets/react-icons';
 import { FaUserGraduate } from "react-icons/fa";
 import { GiSecretBook } from "react-icons/gi";
@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import { isVerified } from '../../sclice/authSlice/authSlice';
 import { resetBoxStatus, setBoxStatus, updateProfile } from '../../sclice/userProfileSlice';
 import ProLoder from './loader/ProLoder';
+import { popupHandler } from '../../sclice/globalSlice';
 const show = (e) => {
    
 
@@ -55,7 +56,7 @@ const hide = (e) => {
 }
 
 const UserAbout = () => {
-    const title = [["Add bio", "",<GiSecretBook/>], ["Personal detail", "personal-detail",<FaUser/>], ["Education and work", "education-and-work",<FaUserGraduate/>], ["Family details", "",<PiHouseLineFill/>], ["Detail about you ", "",<RiEditBoxLine/>]]
+    const title = [["Add bio", "",<GiSecretBook/>], ["Personal detail", "personal-detail",<FaUser/>], ["Education and work", "education-and-work",<FaUserGraduate/>], ["Family details", "family-detail",<PiHouseLineFill/>], ["Detail about you ", "about-self",<RiEditBoxLine/>]]
 
 
 
@@ -70,12 +71,12 @@ const UserAbout = () => {
 
                         title.map((title, indx) => {
                             return (
-                                <Link to={title[1]} key={indx} className='title-header'>
+                                <NavLink to={title[1]} key={indx} className='title-header' end>
                                     <i className='icon'>
                                         {title[2]}
                                     </i>
                                     <h5>{title[0]}</h5>
-                                </Link>
+                                </NavLink>
                             )
                         })
                     }
@@ -151,6 +152,11 @@ export const PersonalForm = (e) => {
         // }
     }
     const updateHandler=async(e)=>{
+if(!fieldValue){
+    dispatch(popupHandler("No changes track in input field"))
+    return
+}
+
         await dispatch(updateProfile({type:"personal",field:fieldValue}))
        hide(e);
        ref.current=null;
@@ -160,10 +166,11 @@ export const PersonalForm = (e) => {
 
     const editHandler=(e)=>{
           
-       
+    //    setFieldValue(e.target.value)
+    console.log(e.target.closest(".inField"));
         if(ref.current){
 
-           alert("close form then update other fields")
+          dispatch(popupHandler("First save new record"))
         }else{
             e.stopPropagation(); 
             ref.current=show(e.currentTarget);
@@ -191,7 +198,7 @@ export const PersonalForm = (e) => {
                         </span>
                         <span className="name"><p>{data?data.userName:"Manish"}</p>
                             <p>name</p></span>
-                        <button className="icon" onClick={(e) => {editHandler(e) }}>
+                        <button className="icon" onClick={(e) => {editHandler(e) ;}}>
 
                             <MdOutlineModeEdit />
                         </button>

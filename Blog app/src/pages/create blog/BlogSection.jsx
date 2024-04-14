@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import  './createBlog.scss'
 import { bg, uploadBg } from '../../assets/backgroundImg/background'
-const CreateBlog = () => {
+import { Outlet, useNavigate } from 'react-router-dom'
+const BlogSection = () => {
+
+  const navigate=useNavigate();
+  const [isActive,setIsActive]=useState(true)
   return (
     <div
   className="ct-blog-container"
@@ -14,7 +18,25 @@ const CreateBlog = () => {
   <div className="ct-heading">
     <div className="ct-txt">create own blog</div>
   </div>
-  <div className="ct-form">
+
+  <div className="toggleBtn">
+    <span className="btnTracker" style={isActive?{left:"0"}:{left:"50%"}}></span>
+    <button className="tglBtn" onClick={()=>{navigate("/create/blog");setIsActive(true)} }>blog</button>
+    <button className="tglBtn" onClick={()=>{navigate("/create/story");setIsActive(0)}}>story</button>
+  </div>
+ 
+ {/* {
+  isActive?<CreateBlog/>:<CreateStory/>
+ } */}
+ <Outlet/>
+ {/* <CreateBlog/> */}
+</div>
+
+  )
+}
+export const CreateBlog=()=>{
+  return(
+    <div className="ct-form">
     <label 
       className="ct-img"
       style={{
@@ -47,9 +69,14 @@ const CreateBlog = () => {
       </div>
     </form>
   </div>
-</div>
-
   )
 }
+export const CreateStory=()=>{
+return (
+  <section>
+    story section
+  </section>
+)
+}
 
-export default CreateBlog
+export default BlogSection
