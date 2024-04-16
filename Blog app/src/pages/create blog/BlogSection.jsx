@@ -161,12 +161,12 @@ if(audioRef.current[0] && audioRef.current[0].id==audio.id){
     if(audioRef.current[0].paused){
       audioRef.current[0].play();
       play();
-      return
+      // return
     }
     else{
       audioRef.current[0].pause();
       stop();
-      return
+      // return
 
     }
 
@@ -176,9 +176,9 @@ else{
   audioRef.current[0] && audioRef.current[0].pause();
   audio.src=url;
   audio.play();
-  play();
   audioRef.current[0]=audio;
   audioRef.current[1]=player;
+  play();
 }
 
 
