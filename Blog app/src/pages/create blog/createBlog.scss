@@ -468,7 +468,7 @@ border-top: $lightBorder;
 
 
  }
- overflow: visible;
+//  overflow: visible;
  .card-section{
 
   width: 100%;
@@ -490,13 +490,16 @@ border-top: $lightBorder;
   min-height: 50px;
     background-color: #f4e9e999;
     .img{
-      width: 50px;
+      max-width: 50px;
       height: 100%;
       border-radius: $smBorderRadius;
       background-color: #f13030;
+      max-height: 50px;
       // display: flex;
-      img{
+      width: 100%;
         // flex: 1;
+
+      img{
       border-radius: $smBorderRadius - 2;
 
         width: 100%;
@@ -510,7 +513,11 @@ border-top: $lightBorder;
       padding: 0px 5px;
       line-height: 1rem;
       text-wrap: wrap;
-
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      height: 100%;
       & :nth-child(1){
         font-size: 15px;
       }

@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import  './createBlog.scss'
 import { bg, uploadBg } from '../../assets/backgroundImg/background'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { GrGallery } from "react-icons/gr";
 import { MdOutlineAdd } from 'react-icons/md';
 import { FaXmark } from 'react-icons/fa6';
+import {  getSongUrl } from './getSongApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSong } from '../../sclice/songSlice';
 const BlogSection = () => {
 
   const navigate=useNavigate();
@@ -78,6 +81,7 @@ export const CreateBlog=()=>{
 }
 export const CreateStory=()=>{
 
+  const audioRef=useRef(null);
   const song=[
     {
       "title": "Shape of You",
@@ -98,11 +102,73 @@ export const CreateStory=()=>{
       "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1qBO9_29-Srd5d9KPhocsv-z-EXYYJ02HsjvJfnbUoxaFuYipyP0vVeXwEtqp5ZpO2k&usqp=CAU"
     }
   ]
+  // const [loading,setLoading]=useState(true)
   const [fieldValue,setFieldValue]=useState("")
+// const [songData,setSongData]=useState({});
+const [songAudio,setSongAudio]=useState({});
+
+const {loading,songData}=useSelector(state=>{return state.songList})
+const dispatch=useDispatch();
+  const show = async(e,type) => {
+   
+
+
+    const node = e.parentNode;
+    if (node.className == "select") {
+    
+  
+     
+        // const show = node.childNodes[0]
+        const hide = node.childNodes[1]
+        let {display} =hide.style;
+        console.log(display);
+        if(display=="none" || display.length==0 ){
+          hide.style.display = "flex";
+  
+          if(type=="music"){
+           
+        dispatch(await getSong({srhQuery:"hindi song",offset:0,limit:20}))
+         
+
+          }
+  
+        }else{
+          hide.style.display = "none";
+  
+        }
+        // show.style.display = "none";
+       
+  
+        // console.log(node);
+        return node
+    }
+   return show(node)
+  }
+
+  const songHandler=async(e,id)=>{
+//  let node = e.parentNode;
+const url=await getSongUrl(id)
+const audio=e.childNodes[2];
+  // console.log(e,node);
+  if(audioRef.current){
+
+    audioRef.current.pause();
+    audio.src=url;
+    audio.play();
+    audioRef.current=audio;
+  }else{
+    audio.src=url; 
+    audio.play();
+    audioRef.current=audio;
+  }
+
+
+  }
+  console.log(loading,songData);
 return (
   <section className='story-section'>
     <header><p>your Story</p></header>
-   <div className="top-sec">
+   <div className="top-sec" onClick={()=>console.log(songData)}>
  <ul className="title">
 <li><GrGallery className='icon' /></li>
 <li>Add photo</li>
@@ -136,7 +202,7 @@ return (
    
 
 <div className="select">
-<span className='show-container' onClick={(e)=>show(e.currentTarget)}>
+<span className='show-container' onClick={(e)=>show(e.currentTarget,"music")}>
         <span className='icon'>
         <MdOutlineAdd/>
         </span>
@@ -149,46 +215,54 @@ return (
   
     <div className="song-section">
     <span className="srch-section"  onFocus={(e)=>{console.log(e.currentTarget);e.currentTarget.childNodes[1].style.display="block"}}>
-      <input  type="search" name="" value={fieldValue} onChange={(e)=>setFieldValue(e.target.value)} placeholder='search song' id="srh" />
+      <input  type="search" name="" value={fieldValue} onChange={async(e)=>{setFieldValue(e.target.value);dispatch(await getSong({srhQuery:e.target.value,offset:0,limit:20}))}} placeholder='search song' id="srh" />
       <FaXmark className='icon' onClick={(e)=>{setFieldValue("");e.currentTarget.style.display="none"}} />
     </span>
     <div className="card-section">
+{ 
+loading?
+   <div className="card-section"> {
+Array(5).fill(0).map((item,index)=>{
+  return(
+    <div className="card" key={index}>
+  <span className='img circle'>
+    <img src={""} alt="" />
+  </span>
+  <span className="content">
+    <p className='box-skeleton'></p>
+    <p className='box-skeleton'></p>
+    {/* <p>{item.album.slice(0,10)}</p> */}
+  </span>
+  <audio src='' ></audio>
+  </div>
+  )
+})}
+</div>  
 
-   
-      {
- song.map((item,index)=>{
-  return(
-    <div className="card">
-    <span className='img'>
-      <img src={item.image_url} alt="" />
-    </span>
-    <span className="content">
-    <p>Title:{item.title.slice(0,15)}</p>
-      <p>Artist:{item.artist.slice(0,20)}</p>
-      <p>{item.album.slice(0,10)}</p>
-    </span>
-    </div>
-  )
- })
     
-      }
-        {
- song.map((item,index)=>{
-  return(
-    <div className="card">
-    <span className='img'>
-      <img src={item.image_url} alt="" />
-    </span>
-    <span className="content">
-      <p>Title:{item.title.slice(0,15)}</p>
-      <p>Artist:{item.artist.slice(0,20)}</p>
-      <p>{item.album.slice(0,10)}</p>
-    </span>
-    </div>
-  )
- })
-    
-      }
+:
+songData.items && 
+songData.items.map((item,index)=>{
+ // console.log(item);
+ return(
+   <div className="card" key={item.data.id} onClick={async(e)=>{songHandler(e.currentTarget,item.data.id)}}>
+   <span className='img'>
+     <img src={item.data.albumOfTrack.coverArt.sources[0].url} alt="" />
+   </span>
+   <span className="content">
+     <p>{item.data.name.slice(0,15)}</p>
+     <p>{item.data.artists.items[0].profile.name}</p>
+     {/* <p>{item.album.slice(0,10)}</p> */}
+   </span>
+   <audio src='' ></audio>
+   </div>
+ )
+})
+
+
+
+
+}
        </div>
      
     </div>
@@ -201,33 +275,7 @@ return (
 )
 }
 
-const show = (e) => {
-   
 
-
-  const node = e.parentNode;
-  if (node.className == "select") {
-  
-
-      // const show = node.childNodes[0]
-      const hide = node.childNodes[1]
-      let {display} =hide.style;
-      console.log(display);
-      if(display=="none" || display.length==0 ){
-       hide.style.display = "flex";
-
-      }else{
-        hide.style.display = "none";
-
-      }
-      // show.style.display = "none";
-     
-
-      // console.log(node);
-      return node
-  }
- return show(node)
-}
 
 
 export default BlogSection

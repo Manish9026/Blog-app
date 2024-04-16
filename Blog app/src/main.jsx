@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.scss'
+import './css-configration/classes.scss'
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
 // import Login from './pages/login page/Login.jsx'
 import Register, { Login, SignUP } from './pages/auth pages/Register.jsx';
@@ -26,6 +27,7 @@ import UserAbout, { BioForm, PersonalForm, UserEdu } from './pages/profile page/
 import { useDispatch } from 'react-redux'
 import { isVerified } from './sclice/authSlice/authSlice.js'
 import { getUserProfile } from './sclice/userProfileSlice.js'
+import { ImOpt } from 'react-icons/im'
 const RoutePath = () => {
 
   const dispatch = useDispatch();

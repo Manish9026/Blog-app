@@ -6,6 +6,7 @@ import singleFriendSlice from "./sclice/singleFriendSlice";
 import globalSlice from "./sclice/globalSlice";
 import friendSlice from "./sclice/friendSlice";
 import userProfileSlice from "./sclice/userProfileSlice";
+import songSlice from "./sclice/songSlice";
 
 
 
@@ -18,7 +19,8 @@ const store=configureStore({
         snglFrnd:singleFriendSlice,
         global:globalSlice,
         userFriend:friendSlice,
-        userProfile:userProfileSlice
+        userProfile:userProfileSlice,
+        songList:songSlice
     },
 
 })
