@@ -480,6 +480,7 @@ border-top: $lightBorder;
 
   .card{
   //  max-width: 150px;
+  cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -506,28 +507,41 @@ border-top: $lightBorder;
         height: 100%;
         object-fit: cover;
       }
+      img[src=""],
+img:not([src]){
+  opacity: 0;
+}
     }
     .content{
-      color: #18191a ;
+      color: #1e1f20 ;
       font-family: "Work Sans", sans-serif;
-      padding: 0px 5px;
+      
       line-height: 1rem;
+      padding: 5px;
       text-wrap: wrap;
       width: 100%;
-      display: flex;
+      // display: flex;
       flex-direction: column;
       gap: 5px;
       height: 100%;
       & :nth-child(1){
+        color: #1e1f20 ;
+
         font-size: 15px;
       }
       & :nth-child(2){
-        font-size: 15px;
-        // text
+      color: #4c4a4e ;
+
+        font-size: 12px;
+        // font-family: "Urbanist", sans-serif;
+        font-weight: 400;
+        // letter-spacing: 1px;
+      // text
       }
       & :nth-child(3){
         font-size: 10px;
       }
+      
     }
     // play & pause buttonn
   

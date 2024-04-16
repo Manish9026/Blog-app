@@ -3,12 +3,13 @@ import axios from "axios";
 
 export const getSong=createAsyncThunk("getSong/songList",async({srhQuery,offset,limit})=>{
     try {
+        // console.log(srhQuery || "hindi song ");\
         
         const options = {
             method: 'GET',
             url: 'https://spotify-web2.p.rapidapi.com/search/',
             params: {
-              q:srhQuery,
+              q:srhQuery || "hindi song " ,
               type: 'tracks',
               offset:offset,
               limit:limit,
