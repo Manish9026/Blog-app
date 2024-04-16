@@ -8,6 +8,8 @@ import { FaXmark } from 'react-icons/fa6';
 import {  getSongUrl } from './getSongApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSong } from '../../sclice/songSlice';
+import { IoPlay } from 'react-icons/io5';
+import { TiMediaPause } from "react-icons/ti";
 const BlogSection = () => {
 
   const navigate=useNavigate();
@@ -81,7 +83,7 @@ export const CreateBlog=()=>{
 }
 export const CreateStory=()=>{
 
-  const audioRef=useRef(null);
+  const audioRef=useRef([]);
   const song=[
     {
       "title": "Shape of You",
@@ -149,20 +151,51 @@ const dispatch=useDispatch();
 //  let node = e.parentNode;
 const url=await getSongUrl(id)
 const audio=e.childNodes[2];
-  // console.log(e,node);
-  if(audioRef.current){
+  // console.log(e.childNodes);
+  const player=e.childNodes[3]
+  let pauseIcon=player.childNodes[0].style;
+  let playIcon=player.childNodes[1].style;
 
-    audioRef.current.pause();
-    audio.src=url;
-    audio.play();
-    audioRef.current=audio;
-  }else{
-    audio.src=url; 
-    audio.play();
-    audioRef.current=audio;
+if(audioRef.current[0] && audioRef.current[0].id==audio.id){
+
+    if(audioRef.current[0].paused){
+      audioRef.current[0].play();
+      play();
+      return
+    }
+    else{
+      audioRef.current[0].pause();
+      stop();
+      return
+
+    }
+
+}  
+else{
+  stop()
+  audioRef.current[0] && audioRef.current[0].pause();
+  audio.src=url;
+  audio.play();
+  play();
+  audioRef.current[0]=audio;
+  audioRef.current[1]=player;
+}
+
+
+
+
   }
-
-
+  const stop=()=>{
+    if (audioRef.current[1]){
+      audioRef.current[1].childNodes[0].style.display="block";
+      audioRef.current[1].childNodes[1].style.display="none";
+    }
+  }
+  const play=()=>{
+    if (audioRef.current[1]){
+      audioRef.current[1].childNodes[0].style.display="none";
+      audioRef.current[1].childNodes[1].style.display="block";
+    }
   }
   console.log(loading,songData);
 return (
@@ -254,7 +287,14 @@ songData.items.map((item,index)=>{
      <p>{item.data.artists.items[0].profile.name}</p>
      {/* <p>{item.album.slice(0,10)}</p> */}
    </span>
-   <audio src='' ></audio>
+   <audio src='' id={item.data.id}></audio>
+ 
+ <span className='player'>
+ <IoPlay  className='play' style={{display:"block"}} onClick={(e)=>{console.log("play");}}/>
+   <TiMediaPause className='pause' style={{display:"none"}}/>
+ </span>
+ 
+
    </div>
  )
 })

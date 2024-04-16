@@ -529,6 +529,45 @@ border-top: $lightBorder;
         font-size: 10px;
       }
     }
+    // play & pause buttonn
+  
+  .player{
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 50%;
+    width:100%;
+    height: 100%;
+    background-color: #e5e2e250;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 10px;
+    padding: 0;
+    
+    z-index: 2;
+    
+    &::before{
+      
+      content: "";
+      position: absolute;
+     width: 25px;
+     border-radius: 50%;
+     height: 25px;
+    
+   background-color: #e5e2e250;
+      z-index:-1;
+     
+
+    }
+    & :nth-child(1){
+      color: #775674;
+    }
+    & :nth-child(2){
+       color: #775674;
+      
+    }
+  }
   }
  }
    
