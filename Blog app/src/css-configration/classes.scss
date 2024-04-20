@@ -20,7 +20,11 @@ $avatar-offset: 52 + 16;
     box-shadow: inset $xLength $yLength $blur $range $color , inset -1*$xLength -1*$yLength $blur $range $color;
 }
 
-
+.flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 // skeleton css
 .circle{
     background-color: #474444;
