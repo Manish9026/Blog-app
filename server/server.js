@@ -11,6 +11,7 @@ import friendRoute from './routes/userFriend.js';
 import snglFriendRoute from './routes/userSinglefriend.js';
 import bodyParser from 'body-parser';
 import userProfileRoute from './routes/userProfile.js';
+import userStoryRoute from './routes/story.js';
 dotenv.config();
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/user/b1",blogRoute)
 app.use("/user/f1",friendRoute)
 app.use('/user/sf',snglFriendRoute)
 app.use('/user/profile',userProfileRoute)
+app.use('/user/story',userStoryRoute)
 
 DB_connection()
 // app.post('/image',userBlog.convertBaseUrl)

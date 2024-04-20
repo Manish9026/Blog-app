@@ -8,6 +8,8 @@ import { userModel } from "../Models/userModel.js";
         if(uid){
           const {userId} =await AuthTools.getUserId(req)
           if(await userModel.findOne({userId})){
+
+           req.userId=userId;
            next();
    
           }

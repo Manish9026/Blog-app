@@ -7,11 +7,13 @@ import globalSlice from "./sclice/globalSlice";
 import friendSlice from "./sclice/friendSlice";
 import userProfileSlice from "./sclice/userProfileSlice";
 import songSlice from "./sclice/songSlice";
+import storySlice from "./sclice/storySlice";
 
 
 
 const store=configureStore({
     reducer:{
+
 
         userAuth:authSlice,
         searchUser:searchSlice,
@@ -20,7 +22,8 @@ const store=configureStore({
         global:globalSlice,
         userFriend:friendSlice,
         userProfile:userProfileSlice,
-        songList:songSlice
+        songList:songSlice,
+        userStory:storySlice
     },
 
 })

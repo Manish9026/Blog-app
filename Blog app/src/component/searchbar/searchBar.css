@@ -11,7 +11,10 @@
   width: 100%;
   flex: 1;
   height: 50px;
-  z-index:4;
+  /* z-index:4;
+   */
+   transform: translatey(-200px);
+   z-index: 100;
 
   /* overflow:scroll; */
 }
@@ -19,10 +22,10 @@
 .form{
   position: relative;
 
-  transform: translatey(-200px);
+  /* transform: translatey(-200px);
+  z-index: 100; */
   /* position: absolute; */
 transition: all linear .5s;
-z-index: 100;
 
   top: 0;
   max-width: 500px;

@@ -14,7 +14,7 @@ const dispatch=useDispatch();
   const SrchResComponent=()=>{
     const {status,data}=useSelector(state=>{return state.searchUser})
     return(
-      <div className="srh-section">
+      <div className="srh-section" >
         {
           status?
         
@@ -45,9 +45,9 @@ const dispatch=useDispatch();
     )
   }
   return (
-    <section className='search-section'>
+    <section className='search-section' style={style?{transform:"translatey(0px)"}:{transform:"translatey(-180px)"}}>
       
-    <form onSubmit={(e)=>e.preventDefault()} role="search" className="form" style={style?{transform:"translatey(0px)"}:{transform:"translatey(-180px)"}} >
+    <form onSubmit={(e)=>e.preventDefault()} role="search" className="form"  >
    
    <div className="row-flex srh"><input type="search" name="" id="" value={srhData} placeholder='Search friends' onChange={(e)=>{setSrhData(e.target.value); dispatch(getSrhRes(e.target.value))}} />
    <button onClick={()=>{console.log(srhData); dispatch(getSrhRes(srhData))}} ><BiSearch className='icon'/></button>

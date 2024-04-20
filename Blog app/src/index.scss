@@ -12,7 +12,8 @@
   font-weight:400;
   font-style: normal;
   }
-
+  
+  
 
   .flex{
     display: flex;
@@ -86,8 +87,11 @@ p,ul,li{
       display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 5px;
       border-radius: 5px;
       z-index: 5;
+      
       .Toastify__toast{
         border-radius: 10px;
       }

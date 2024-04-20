@@ -63,9 +63,8 @@ font-weight: 500;
 .ct-blog-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 40px;
   align-items: center;
-  justify-content: center;
   align-self: stretch;
   flex-shrink: 0;
   padding: 10px;
@@ -144,8 +143,11 @@ min-height: 100vh;
   width: 100%;
   flex-shrink: 0;
   max-width: 800px;
+  min-height: 300px;
+  // background-color: #fff;
   position: relative;
   overflow: hidden;
+  // flex: 1;
 }
 .ct-img {
 
@@ -308,26 +310,71 @@ $inputShadoColor: rgb(255, 255, 255);
   align-items: center;
   max-width: $storyMaxWidth - 100 ;
   min-height:$storyMinHeight ;
-
+ 
+.st-loader{
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  // flex: 1;
+  z-index: 10;
+  background-color: rgba(21, 20, 38, 0.4901960784);
+  & :nth-child(1){
+    position: relative;
+    width: 150px;
+    background: transparent;
+  }
+}
   header{
     position: relative;
     width: 100%;
-    flex: 0;
-    
-    // padding: 
+    max-width: $storyMaxWidth/2;
     // background-color: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn{
+      border: none;
+      border-radius: 10px;
+      background:linear-gradient(135deg,blue 50%,white 99%) ;
+    }
+    
+    p{
+      padding: 5px 10px;
+      font-family:"Work Sans" sans-serif;
+    }
   }
 
   .top-sec{
     @extend .flex;
     flex: 0;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     background:linear-gradient(135deg ,blue 5%,skyBlue ) ;
     border: $lightBorder;
     min-height: 350px;
     max-width: $storyMaxWidth/2;
+    position: relative;
     border-radius: $smBorderRadius;
+    z-index: 5;
+    input[type=file]{
+      
+      position: absolute;
+      width: 100%;
+      background-color: #fff;
+      z-index: 100;
+      height: 100%;
+    }
+    img{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      
+    }
     .title{
       @extend .flex;
       flex-direction: column;
@@ -361,9 +408,9 @@ $inputShadoColor: rgb(255, 255, 255);
     @extend .flex;
 flex: 0;
 width: 100%;
-  max-width: $storyMaxWidth/2;
+  max-width:calc( $storyMaxWidth/2);
   flex-direction: column;
-  min-height: $storyMinHeight/6;
+  min-height: $storyMinHeight / 6;
   gap: 10px;
   .select{
     width: 100%;
@@ -478,6 +525,9 @@ border-top: $lightBorder;
   flex: 1;
   gap: 5px;
 
+  .card:focus{
+    border: inset 2px solid #18bac8;
+  }
   .card{
   //  max-width: 150px;
   cursor: pointer;
@@ -490,6 +540,8 @@ border-top: $lightBorder;
    flex-direction: row;
   min-height: 50px;
     background-color: #f4e9e999;
+
+   
     .img{
       max-width: 50px;
       height: 100%;
@@ -544,7 +596,7 @@ img:not([src]){
       
     }
     // play & pause buttonn
-  
+
   .player{
     max-width: 30px;
     max-height: 30px;
@@ -559,8 +611,11 @@ img:not([src]){
     right: 10px;
     padding: 0;
     
-    z-index: 2;
-    
+    z-index: 5;
+    // background:conic-gradient( blue 0deg,#e5e2e250 0deg);
+    transition: 15s linear;
+    background:conic-gradient( blue 0deg,#e5e2e250 0deg);
+    // animation: 1s curcularLoading infinite linear;
     &::before{
       
       content: "";
@@ -581,10 +636,109 @@ img:not([src]){
        color: #775674;
       
     }
+
+
+
   }
+  .cir{
+    @for  $i from 1 through 160 {
+      background:conic-gradient( blue $i + deg,#e5e2e250 0deg);
+
+    }
+  }
+ 
+//   @keyframes curcularLoading {
+//     0%{
+// //  background-color: ;
+// background:conic-gradient( blue 0deg,#e5e2e250 0deg);
+//     }
+//     90%{
+//       background:conic-gradient( blue 360deg,#e5e2e250 0deg);
+//     }
+//     100%{
+//       //  background-color: ;
+//       background:conic-gradient( blue 0deg,#e5e2e250 0deg);
+//     }
+    
+//   }
   }
  }
    
     }
+  }
+}
+
+
+.rotat {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+  // margin: 20px;
+  border-radius: 50%;
+  transform: rotate3d(0, 0, 1, 0.001deg); /* clear artifacts*/
+  transition: 2s ;
+  justify-content: center;
+    display: flex;align-items: center;
+  // font-size: 5px;
+
+  .play1{
+    position: relative;
+    width: 90%;
+    height: 90%;
+    text-align: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;align-items: center;
+    color: hsl(0, 88%, 48%);
+    z-index: 4;
+  }
+}
+// .rotat:before,
+.rotat:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  clip-path: rect(0px, 75px, 150px, 0px);
+  background-color: rgb(246, 229, 229);
+  transform: rotate3d(0, 0, 1, 0deg);
+  // animation: 2s spin2 linear 4s infinite;
+  z-index: 2;
+}
+.rotat:after{
+  content: " ";
+  z-index: -1;
+  background: black;
+  // animation: 2s spin linear infinite ;
+}
+
+@keyframes spin {
+  0% {
+    background: black;
+
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  100% {
+    background: black;
+
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+}
+@keyframes spin2 {
+  0% {
+    background: black;
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+  99% {
+    background: black;
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+  100%{
+    background: rgb(240, 235, 235);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
 }
