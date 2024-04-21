@@ -2,6 +2,7 @@ import React from 'react'
 import './home.scss'
 import { user } from '../../assets/home image/image'
 import { FcNext } from "react-icons/fc";
+import { MdPublic } from "react-icons/md";
 const Home = () => {
   return (
    <section className="home-section">
@@ -38,11 +39,11 @@ const Home = () => {
   user.map((item,indx)=>{
     return(
 <span className="card" key={indx}>
-<img src={item[1]} alt="" />
+<img src={item[1]} alt="" loading='lazy'/>
 <span className="card-pro">
  <img src={item[2]} alt="" />
  <span className='content'>
- <p>{item[0]}</p>
+ <p>{item[0]}</p> 
  <p> post: 3:45 pm</p>
  </span>
 
@@ -62,7 +63,13 @@ const Home = () => {
 </div>
       </div>
 
-      <PostContainer/>
+
+{
+  user.map((item,index)=>{
+return <PostContainer user={item} key={index}/>
+  })
+}
+      
 
 
     </div>
@@ -109,19 +116,28 @@ const SuggestedFrnd=()=>{
   )
 }
 
-const PostContainer=()=>{
-  return(
-    <div className="post-container">
 
+import { SlLike } from "react-icons/sl";
+import { BiSolidLike } from "react-icons/bi";
+
+import { FaRegComment } from "react-icons/fa";
+import { PiShareFat } from "react-icons/pi";
+
+const PostContainer=({user})=>{
+  return(
+    
+<div className="post-container">
 <div className="head-part">
 <span className="p-part1">
   <span className="img">
-    <img src={user[0][2]} alt="" />
+    <img src={user[1]} alt="" />
   </span>
 <span className="content">
 
-  <p>{user[0][0]}</p>
+  <span><p>{user[0]}</p><button>follow</button></span>
   <p>Post At:</p>
+  <MdPublic />
+  
 </span>
 
 </span>
@@ -130,8 +146,32 @@ const PostContainer=()=>{
 </div>
 <div className="mid-part">
 
+<span className="content">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed in quisquam saepe magnam doloribus! Porro voluptatibus facilis earum nam illum voluptate, rem fugiat iusto voluptas voluptates, eaque enim aperiam debitis ad odit laborum corporis!
+</span>
+<span className='img-sec'>
+  <img src={user[2]} alt="" />
+
+</span>
+<span className='img-sec'>
+  <img src={user[2]} alt="" />
+
+</span>
 </div>
 <div className="bottom-part">
+  <div className="bt-part1">
+  <span>25k Likes </span>
+  <span> <p>100k comments</p>
+  <p>500k shares</p></span>
+
+  </div>
+  <div className="bt-part2">
+  <span className="btn">{ 1?
+<SlLike className='icon' /> :<BiSolidLike className='icon'/>} <p>like</p></span>
+<span className="btn">
+<FaRegComment className='icon' /><p>comment</p></span>
+<span className="btn"><PiShareFat className='icon'/> <p>share</p></span>
+  </div>
 
 </div>
     </div>

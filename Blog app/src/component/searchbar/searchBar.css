@@ -15,7 +15,8 @@
    */
    transform: translatey(-200px);
    z-index: 100;
-
+   background: #111120f7;
+  
   /* overflow:scroll; */
 }
 
@@ -47,8 +48,8 @@ transition: all linear .5s;
     padding: 0px 20px;
 background-color: transparent;
 border-radius: 5px 0px 0px 5px;
-box-shadow: inset 1px 1px 10px 1px gray,
-inset -1px -1px 10px 1px gray;
+box-shadow: inset 1px 1px 3px 0px gray, inset -1px -1px 3px 0px gray;
+color: white;
   }
   button{
     width: 80px;
