@@ -20,7 +20,8 @@ const Home = () => {
 </span>
 <div className="story-container">
 {
-  storyData.map((item,indx)=>{
+
+ storyData.length!=0 && storyData.map((item,indx)=>{
     return(
 <span className="card" key={indx} onClick={()=>dispatch(setStoryViewToggle(indx))}>{
   item.stories.map((story,indx)=>{
