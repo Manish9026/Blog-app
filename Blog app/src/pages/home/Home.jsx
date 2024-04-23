@@ -3,16 +3,46 @@ import './home.scss'
 import { user } from '../../assets/home image/image'
 import { FcNext } from "react-icons/fc";
 import { MdPublic } from "react-icons/md";
+
+const uploadedDate=(date)=>{
+  const  currentDate=new Date()
+  const createdDate=new Date(date)
+   // console.log(currentDate.toISOString(),createdDate);
+   if(createdDate.getHours()<currentDate.getHours()){
+ 
+
+     return currentDate.getHours - createdDate.getHours() + 'h ago';
+
+   }
+   else if(createdDate.getHours()==currentDate.getHours() ){
+     if(currentDate.getMinutes() == createdDate.getMinutes()){
+      return  currentDate.getSeconds() -createdDate.getSeconds() + "s ago";
+     }
+
+     return currentDate.getMinutes() - createdDate.getMinutes() + "m ago";
+   }
+   else{
+     // return currentDate.getSeconds()
+
+   }
+ }
 const Home = () => {
+
+
 
   const {storyData}=useSelector(state=>{return state.userStory})
   const {status}=useSelector(state=>{return state.global.storyViewToggle})
   const dispatch=useDispatch();
   console.log(storyData.length);
+ 
   return (
+
+    
+    status ? <StoryView/>:
    <section className="home-section">
 
-{status && <StoryView/>}
+
+
 
     <div className="part1">
       <div className="header-section">
@@ -35,7 +65,7 @@ return (
  <img src={item.profile.profileImage} alt="" />
  <span className='content'>
  <p>{item.userName}</p>
- <p>{new Date(storyData[0].stories[0].createdAt).getHours() + " h ago"}</p>
+ <p>{uploadedDate(item.stories[0].createdAt)}</p>
  </span>
 
  
@@ -145,6 +175,7 @@ import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
 import { setStoryViewToggle } from '../../sclice/globalSlice';
+import { current } from '@reduxjs/toolkit';
 const PostContainer=({user})=>{
 
   return(
@@ -231,14 +262,23 @@ const StoryView=()=>{
          <span className="content">
    
      <span><p>{item.userName}</p></span>
-     <p>Post At:</p>
+     <p>Post At:{uploadedDate(item.stories[0].createdAt)}</p>
      <MdPublic />
      
    </span>
         </div>
    { item.stories.map((story,index)=>{
-    return(
-      <img src={story.image} alt="" className='st-img' key={index} />
+    return(<>
+      <img src={story.image} alt="" className='st-img' key={index} onClick={(e)=>{
+      const audio=e.currentTarget.nextSibling;
+      
+      if(audio.src){
+        !audio.paused?audio.pause():audio.play()
+      }
+    }} />{
+      story.songUrl &&
+      <audio src={story.songUrl}  ></audio>}
+      </>
     )
    })
        }
@@ -253,7 +293,7 @@ const StoryView=()=>{
          <span className="content">
    
      <span><p>{item.userName}</p></span>
-     <p>Post At:</p>
+     <p>Post At:{uploadedDate(item.stories[0].createdAt)}</p>
      <MdPublic />
      
    </span>
@@ -274,6 +314,7 @@ const StoryView=()=>{
    
 
 }
+
 </div>
 
 <span className='icon' onClick={()=>dispatch(setStoryViewToggle(pos))}>
