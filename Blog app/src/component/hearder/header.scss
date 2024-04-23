@@ -78,6 +78,7 @@ transition: all 1.5s ease;
  min-width: 200px;
     max-width: 300px;
     overflow: scroll;
+    z-index: 500;
     height: 100vh;
     &::-webkit-scrollbar{
       display: none;

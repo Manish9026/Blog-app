@@ -24,12 +24,28 @@ export const createStory=createAsyncThunk("createStory/userStory",async({data,st
     }
 })
 
+
+export const getStories=createAsyncThunk("getStories/userStory",async()=>{
+    try {
+        
+       return await axios.get("/user/story/getStory",{withCredentials:true}).then(res=>{
+
+        console.log(res.data);
+        urlLoader(res.data)
+            
+            return res.data
+        })
+    } catch (error) {
+        alert(error)
+    }
+})
 const storySlice=createSlice({
     name:"userStory",
     initialState:{
         loading:false,
         error:null,
-        status:false
+        status:false,
+        storyData:[],
 
     },
     extraReducers:(builder)=>{
@@ -41,6 +57,14 @@ const storySlice=createSlice({
             state.loading=false;
             state.status=payload.status || false
         })
+
+        builder.addCase(getStories.pending,(state)=>{
+
+        })
+        builder.addCase(getStories.fulfilled,(state,{payload})=>{
+            state.storyData=payload.data;
+        })
+
     }
 })
 

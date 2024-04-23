@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './home.scss'
 import { user } from '../../assets/home image/image'
 import { FcNext } from "react-icons/fc";
 import { MdPublic } from "react-icons/md";
 const Home = () => {
+
+  const {storyData}=useSelector(state=>{return state.userStory})
+  const {status}=useSelector(state=>{return state.global.storyViewToggle})
+  const dispatch=useDispatch();
   return (
    <section className="home-section">
+
+{status && <StoryView/>}
 
     <div className="part1">
       <div className="header-section">
@@ -14,15 +20,20 @@ const Home = () => {
 </span>
 <div className="story-container">
 {
-  user.map((item,indx)=>{
+  storyData.map((item,indx)=>{
     return(
-<span className="card" key={indx}>
-<img src={item[1]} alt="" />
+<span className="card" key={indx} onClick={()=>dispatch(setStoryViewToggle(indx))}>{
+  item.stories.map((story,indx)=>{
+return (
+<img src={story.image} alt="" />
+
+)
+  })}
 <span className="card-pro">
- <img src={item[2]} alt="" />
+ <img src={item.profile.profileImage} alt="" />
  <span className='content'>
- <p>{item[0]}</p>
- <p> post: 3:45 pm</p>
+ <p>{item.userName}</p>
+ <p>{new Date(storyData[0].stories[0].createdAt).getHours() + " h ago"}</p>
  </span>
 
  
@@ -35,28 +46,32 @@ const Home = () => {
     )
   })
   }
+
+  
   {
-  user.map((item,indx)=>{
-    return(
-<span className="card" key={indx}>
-<img src={item[1]} alt="" loading='lazy'/>
-<span className="card-pro">
- <img src={item[2]} alt="" />
- <span className='content'>
- <p>{item[0]}</p> 
- <p> post: 3:45 pm</p>
- </span>
+//   user.map((item,indx)=>{
+//     return(
+// <span className="card" key={indx}>
+// <img src={item[1]} alt="" loading='lazy'/>
+// <span className="card-pro">
+//  <img src={item[2]} alt="" />
+//  <span className='content'>
+//  <p>{item[0]}</p> 
+//  <p> post: 3:45 pm</p>
+//  </span>
 
  
-</span>
-{/* <span className="card-foot">
-  <button>like</button>
-</span> */}
+// </span>
+// {/* <span className="card-foot">
+//   <button>like</button>
+// </span> */}
 
-</span>
-    )
-  })
+// </span>
+//     )
+//   })
   }
+
+
   <span className="end-sadow">
   <FcNext />
   </span>
@@ -122,11 +137,18 @@ import { BiSolidLike } from "react-icons/bi";
 
 import { FaRegComment } from "react-icons/fa";
 import { PiShareFat } from "react-icons/pi";
-
+import { IoBookmarkOutline } from "react-icons/io5";
+import { IoBookmark } from "react-icons/io5";
+import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
+import { IoClose } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux';
+import { setStoryViewToggle } from '../../sclice/globalSlice';
 const PostContainer=({user})=>{
+
   return(
     
 <div className="post-container">
+
 <div className="head-part">
 <span className="p-part1">
   <span className="img">
@@ -174,6 +196,88 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed in quisquam saepe m
   </div>
 
 </div>
+    </div>
+  )
+}
+
+const StoryView=()=>{
+  const {storyData}=useSelector(state=>{return state.userStory})
+  const {pos}=useSelector(state=>{return state.global.storyViewToggle})
+  const dispatch=useDispatch();
+
+  return(
+    <div className='story-view'>
+
+
+
+
+<div className="st-wrapper">
+
+
+{
+  storyData.map((item,index)=>{
+
+    if(index>=pos){
+      return(
+        <div className="st-container">
+
+        <div className="st-head st-move">
+         <span className="img">
+         <img src={item.profile.profileImage} alt="" />
+         </span>
+         
+         <span className="content">
+   
+     <span><p>{item.userName}</p></span>
+     <p>Post At:</p>
+     <MdPublic />
+     
+   </span>
+        </div>
+   { item.stories.map((story,index)=>{
+    return(
+      <img src={story.image} alt="" className='st-img' key={index} />
+    )
+   })
+       }
+   
+        <div className="st-foot">
+         
+         <span className="st-pro">
+         <span className="img">
+         <img src={item.profile.profileImage} alt="" />
+         </span>
+         
+         <span className="content">
+   
+     <span><p>{item.userName}</p></span>
+     <p>Post At:</p>
+     <MdPublic />
+     
+   </span>
+         </span>
+   
+         <ul className="st-menu">
+         <li><SlLike/></li>
+         <li><FaRegComment/></li>
+         <li><PiShareFat/></li>
+         <li>{1?<IoBookmarkOutline />:  <IoBookmark />}</li>
+         <li><PiDotsThreeOutlineVerticalFill /></li>
+         </ul>
+        </div>
+       </div>
+      )
+    }
+  })
+   
+
+}
+</div>
+
+<span className='icon' onClick={()=>dispatch(setStoryViewToggle(pos))}>
+
+<IoClose />
+</span>
     </div>
   )
 }

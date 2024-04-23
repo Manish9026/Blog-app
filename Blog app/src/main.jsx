@@ -28,6 +28,7 @@ import { useDispatch } from 'react-redux'
 import { isVerified } from './sclice/authSlice/authSlice.js'
 import { getUserProfile } from './sclice/userProfileSlice.js'
 import { ImOpt } from 'react-icons/im'
+import { getStories } from './sclice/storySlice.js'
 const RoutePath = () => {
 
   const dispatch = useDispatch();
@@ -41,7 +42,8 @@ const RoutePath = () => {
 
           {
             path: "/",
-            element: <Home />
+            element: <Home />,
+            loader:async()=>await dispatch(getStories())
           },
 
           {
