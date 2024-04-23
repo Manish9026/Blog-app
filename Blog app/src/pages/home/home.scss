@@ -221,6 +221,13 @@
     }
   }
   }
+
+  @include sm{
+    padding: 80px 10px;
+    .icon{
+      top: 20px;
+    }
+  }
 }
 
 .home-section{
