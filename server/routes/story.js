@@ -8,6 +8,6 @@ const router=express.Router();
 
 // protected routes
 router.post("/create",authMiddleWare,userStory.createStory)
-
+router.get("/getStory",authMiddleWare,userStory.getStory)
 
 export default router

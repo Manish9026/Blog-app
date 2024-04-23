@@ -47,6 +47,10 @@ const storySlice= new mongoose.Schema({
     seenUser:{
         type:[seenUserSlice]   
     }
+    ,createdAt:{
+        type:Date,
+        default: Date.now
+    }
     
 })
 
