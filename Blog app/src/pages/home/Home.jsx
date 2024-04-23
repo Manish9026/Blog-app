@@ -8,6 +8,7 @@ const Home = () => {
   const {storyData}=useSelector(state=>{return state.userStory})
   const {status}=useSelector(state=>{return state.global.storyViewToggle})
   const dispatch=useDispatch();
+  console.log(storyData.length);
   return (
    <section className="home-section">
 

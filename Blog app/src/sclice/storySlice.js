@@ -62,7 +62,7 @@ const storySlice=createSlice({
 
         })
         builder.addCase(getStories.fulfilled,(state,{payload})=>{
-            state.storyData=payload.data;
+            state.storyData=payload.data || [];
         })
 
     }
