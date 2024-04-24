@@ -46,6 +46,7 @@ const storySlice=createSlice({
         error:null,
         status:false,
         storyData:[],
+        selfStoryData:[]
 
     },
     extraReducers:(builder)=>{
@@ -63,6 +64,7 @@ const storySlice=createSlice({
         })
         builder.addCase(getStories.fulfilled,(state,{payload})=>{
             state.storyData=payload.data || [];
+            state.selfStoryData=payload.selfStory;
         })
 
     }

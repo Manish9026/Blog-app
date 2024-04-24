@@ -70,13 +70,35 @@ static createStory=async(req,res)=>{
 static getStory=async(req,res)=>{
     try {
         const {userId}=req;
-        console.log(userId);
         const todayDate= new Date;
 
         todayDate.setHours(23,59,59,999);
         const startDate= new Date();
         startDate.setHours(0,0,0,0);
-        console.log(startDate.toString());
+
+        // Promise.all([
+        //     await userFriendModel.findOne({userId}).populate({
+        //         path:"friends",
+        //         select:"stories profile userName",
+        //         match: { stories: { $exists: true, $ne: null }}
+        //         ,
+        //         populate:[{
+        //             path:"stories",
+        //         match: { $and:[{createdAt:{$lte:todayDate}},{createdAt:{$gte:startDate}}] },
+               
+        //         },{path:"profile",select:"profileImage"}]
+                
+        //     }),
+        //     await userStoryModel.find({userId})
+        // ]).then(([friendStory,selfStory])=>{
+
+        //     console.log(friendStory,selfStory);
+        //     res.send({
+        //         friendStory,
+        //         selfStory
+        //     })
+        // })
+
 
         await userFriendModel.findOne({userId}).populate({
             path:"friends",
@@ -89,7 +111,19 @@ static getStory=async(req,res)=>{
            
             },{path:"profile",select:"profileImage"}]
             
+        }).populate({
+            path:"userId",select:" userName profile",
+            match: { stories: { $exists: true, $ne: null }}
+            ,
+            populate:[{
+                path:"stories",
+            match: { $and:[{createdAt:{$lte:todayDate}},{createdAt:{$gte:startDate}}] },
+           
+            },{path:"profile",select:"profileImage"}]
         }).then(result=>{
+
+            console.log(result);
+            // res.send(result)
 
             const data=result.friends.filter((item)=>{
                 // console.log(item.stories);
@@ -100,6 +134,7 @@ static getStory=async(req,res)=>{
             if(data){
                 res.status(201).json({
                     data:data,
+                    selfStory:result.userId,
                     status:true
                 })
 

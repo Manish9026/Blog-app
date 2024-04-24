@@ -6,7 +6,7 @@ const userfriendSchema= new mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         require:true,
-
+        ref:"user"
 
     },
     friends:{

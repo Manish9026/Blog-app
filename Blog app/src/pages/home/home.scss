@@ -45,6 +45,43 @@
   }
 }
 
+.progress-container{
+
+  display: flex;
+  flex: 1;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  gap: 5px;
+
+
+  .progress {
+    background: rgba(72, 70, 70, 0.453);
+    justify-content: flex-start;
+    border-radius: 100px;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    // padding: 0 5px;
+    display: flex;
+    height: 5px;
+    min-width:50px ;
+    .progress-value {
+   
+      box-shadow: 0 10px 40px -10px #fff;
+      border-radius: 100px;
+      background: #411ee8ab;
+      height: 30px;
+      width: 0;
+    }
+    
+  
+  }
+}
+
+
+
+
 .story-view{
   display: flex;
   position: relative;
