@@ -31,15 +31,23 @@ const uploadedDate=(date)=>{
    }
  }
 
- const ProgressBar=({value,index})=>{
+ const ProgressBar=({value,index,id})=>{
+
+
+  useEffect(()=>{
+    // console.log(document.getElementById(id).duration);
+
+  },[id])
+
+
 
  
   return(
 
 
   
-  <div className="progress" >
-  <div className="progress-value" style={{width:value}}></div>
+  <div className="progress">
+  <div className="progress-value"  id={id} style={{width:value}}></div>
  
   
  
@@ -53,6 +61,7 @@ const ImageSlider=({story,userName,proPic,pos})=>{
   const dispatch=useDispatch();
 
 
+  if(story.length!=0)
   return(
     <span className="card" onMouseEnter={()=>setImgIndex(prev=>{return ( prev + 1 ) % story.length})} onMouseLeave={()=>setImgIndex(0)} >
   <img src={story[imgIndex].image} alt="" onClick={()=>{dispatch(setStoryViewToggle(pos || 0))}} />
@@ -283,7 +292,66 @@ const StoryView=()=>{
   const StoryViewCard=({story,userName,proPic})=>{
     const [stIndex,setStIndex]=useState(0)
     const audioRef=useRef(0);
+    const [ref,setRef]=useState(null);
+console.log("hello",story); 
+    // console.log(document.getElementById());
 
+//     useEffect(()=>{
+//  document.getElementById("")
+
+//  console.log(audioRef);
+//  const interval=setInterval(() => {
+//        console.log( audioRef.current.currentTime)
+//  },1000);
+
+
+// return ()=>{
+ 
+//    clearInterval(interval);
+//   }
+
+//     },[ref])
+
+
+  const onPlay=(audio)=>{
+ 
+    const time=Math.floor(audio.duration - audio.currentTime)
+   const  duration=Math.floor(audio.duration);
+    console.log(time,duration);
+    let interval;
+    const progress=document.getElementById(audio.src);
+   
+    if(audio.src){
+      // console.log(document.getElementById(audio.src),"fhhggghgh");
+      if(!audio.paused){
+        audio.pause()
+      }else{
+        audio.play()
+        
+    interval=setInterval(()=>{
+
+      // console.log("hello");
+      let current =Math.floor(audio.currentTime);
+      console.log(Math.floor(duration),Math.floor(audio.currentTime))
+      // progress.style
+      console.log((current/duration) *100);
+      progress.style.width=Math.floor((current/duration) *100)+'%';
+      if(duration==current-4){
+        clearInterval(interval)
+      }
+      else if(audio.paused){
+        clearInterval(interval)
+      }
+
+    },1000)
+      }
+      setTimeout(()=>{
+        setStIndex(prev=>{return (prev + 1) % story.length})
+            },time*1000)
+    }
+
+
+  }
     return(
       <div className="st-container">
 
@@ -292,7 +360,7 @@ const StoryView=()=>{
 {
   story.map((item,key)=>{
     return(
-      <ProgressBar value={"50%"} index={key} key={key}/>
+      <ProgressBar value={"50%"} id={item.songUrl} index={key} key={key}/>
     )
   })
 }
@@ -315,19 +383,13 @@ const StoryView=()=>{
 
     <img src={story[stIndex].image}  alt="" className='st-img'  onClick={(e)=>{
     const audio=e.currentTarget.nextSibling;
-    console.log(audio);
-    const time=Math.floor(audio.duration - audio.currentTime)
+    // console.log(audio);
+      // setRef()
+      onPlay(audio)
     
-    console.log(time);
-    setTimeout(()=>{
-setStIndex(prev=>{return (prev + 1) % story.length})
-    },audio.duration*1000)
-    if(audio.src){
-      !audio.paused?audio.pause():audio.play()
-    }
   }} />{
     story[stIndex].songUrl &&
-    <audio ref={audioRef} src={story[stIndex].songUrl}  loop ></audio>}
+    <audio ref={audioRef} src={story[stIndex].songUrl}   ></audio>}
   
  
      

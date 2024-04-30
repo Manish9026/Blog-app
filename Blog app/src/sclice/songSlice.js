@@ -7,7 +7,7 @@ export const getSong=createAsyncThunk("getSong/songList",async({srhQuery,offset,
         
         const options = {
             method: 'GET',
-            url: 'https://spotify-web2.p.rapidapi.com/search/',
+            url: 'https://spotify23.p.rapidapi.com/search/',
             params: {
               q:srhQuery || "hindi song " ,
               type: 'tracks',
@@ -17,7 +17,7 @@ export const getSong=createAsyncThunk("getSong/songList",async({srhQuery,offset,
             },
             headers: {
               'X-RapidAPI-Key': '283888f038mshec22b2d2318bdbap13c030jsn0d4b3fa639a1',
-              'X-RapidAPI-Host': 'spotify-web2.p.rapidapi.com'
+              'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
             }
           };
           const response = await axios.request(options);

@@ -37,7 +37,7 @@ export const getSongUrl=async(songId)=>{
               ids: songId
             },
             headers: {
-              'X-RapidAPI-Key': 'b371688177msh7e77dbb1331dbaep1ec891jsn553480282cf0',
+              'X-RapidAPI-Key': '283888f038mshec22b2d2318bdbap13c030jsn0d4b3fa639a1',
               'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
             }
           };

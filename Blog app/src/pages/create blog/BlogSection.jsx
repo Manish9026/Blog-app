@@ -320,7 +320,7 @@ else{
 
 
                     :
-                    songData.items &&
+                    songData && songData.items &&
                     songData.items.map((item, index) => {
                       // console.log(item);
                       return (
