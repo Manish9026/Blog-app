@@ -231,16 +231,19 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    min-height: 200px;
+    max-height: 80px;
     display: flex;
     justify-content: flex-end;
     .st-pro{
       @extend .st-head;
+      
       min-height: 40px;
       justify-content: flex-start;
       max-height: 50px;
       align-items: center;
       transition: 1s ease;
+      top: -180px;
+      z-index: 1;
 //  transform: translateX(-200px);
 
  .content{
@@ -249,18 +252,19 @@
  }
     }
     .st-menu{
-      position: relative;
+      position: absolute;
       width: 50px;
       min-height: 100%;
       background-color: rgb(44, 40, 40);
       // right: -100px;
       transition: 1s ease;
-      top: 0;
+      bottom: 0;
       @extend .flex;
       border-radius:10px 0px 0px 10px  ;
       flex-direction: column;
       gap: 5px;
       padding: 10px 5px ;
+      z-index: 2;
       li{
        
         min-width: 40px;

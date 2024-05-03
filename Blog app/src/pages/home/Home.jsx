@@ -292,12 +292,12 @@ const StoryView=()=>{
     const audioRef=useRef(0);
     const [playStatus,setPlayStatus]=useState(0)
   const onPlay=(audio)=>{
- 
-    // audioRef.current.pause();
-   
+
     if(audio.src){
       if(!audio.paused){
+      
         audio.pause()
+       
       }else{
         audio.play()
       }
@@ -309,7 +309,7 @@ const StoryView=()=>{
   const updateProgress=(audio)=>{
 
     if(audio.src){
-      const progress=document.getElementById(audio.src);
+      const progress=document.getElementById(audio.id);
      
 
     if(!audio.paused){
@@ -326,14 +326,14 @@ const StoryView=()=>{
 
   }
     return(
-      <div className={playStatus?"st-container play":"st-container pause"} onClick={()=>{onPlay(audioRef.current);setPlayStatus(prev=>!prev);}} onMouseEnter={()=>{setPlay(1);setPlayStatus(1);audioRef.current.play()}} onMouseLeave={()=>{setPlay(1);audioRef.current.pause()}}>
+      <div className={playStatus?"st-container play":"st-container pause"} onClick={(e)=>{onPlay(audioRef.current);setPlayStatus(prev=>!prev);}} onMouseEnter={()=>{setPlay(1);setPlayStatus(1);audioRef.current.play()}} onMouseLeave={()=>{setPlay(1);audioRef.current.pause()}}>
 
 <div className="progress-container">
 
 {
   story.map((item,key)=>{
     return(
-      <ProgressBar value={"0%"} id={item.songUrl} index={stIndex} key={key}/>
+      <ProgressBar value={"0%"} id={item._id} index={stIndex} key={key}/>
     )
   })
 }
@@ -356,7 +356,7 @@ const StoryView=()=>{
 
     <img src={story[stIndex].image}  alt="" className='st-img'  />{
     story[stIndex].songUrl &&
-    <audio autoPlay={play} onTimeUpdate={(e)=>{updateProgress(e.currentTarget)}} ref={audioRef} src={story[stIndex].songUrl}   ></audio>}
+    <audio autoPlay={play} id={story[stIndex]._id} onTimeUpdate={(e)=>{updateProgress(e.currentTarget)}} ref={audioRef} src={story[stIndex].songUrl}   ></audio>}
   
  
      
@@ -377,7 +377,7 @@ const StoryView=()=>{
  </span>
        </span>
  
-       <ul className="st-menu">
+       <ul className="st-menu" onClick={(e)=>{e.stopPropagation();}}>
        <li><SlLike/></li>
        <li><FaRegComment/></li>
        <li><PiShareFat/></li>
