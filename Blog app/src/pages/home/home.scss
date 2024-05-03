@@ -55,6 +55,12 @@
   gap: 5px;
 
 
+  .full{
+    width: 100%;
+  }
+  .empty{
+    width: 0%;
+  }
   .progress {
     background: rgba(72, 70, 70, 0.453);
     justify-content: flex-start;
@@ -72,7 +78,8 @@
       border-radius: 100px;
       background: #411ee8ab;
       height: 30px;
-      width: 0;
+      transition: all linear 1s;
+      // width: 0;
     }
     
   
@@ -120,6 +127,36 @@
     overflow: auto;
     scrollbar-width: none;
   }
+
+  
+  .pause{
+      
+    .st-foot{
+      .st-pro{
+        transform: translateX(0px);
+      }
+      .st-menu{
+        right: 0;
+      }
+    }
+    .st-move{
+      transform: translatey(-100px)
+    }
+  
+}
+.play{
+  .st-foot{
+    .st-pro{
+      transform: translateX(-200px);
+    }
+    .st-menu{
+      right: -100px;
+    }
+  }
+  .st-move{
+    transform: translatey(0px)
+  }
+}
   .st-container{
     border: $lightBorder;
     max-width: 400px;
@@ -131,19 +168,6 @@
     overflow: hidden;
     cursor: pointer;
 
-    &:hover{
-      .st-foot{
-        .st-pro{
-          transform: translateX(0px);
-        }
-        .st-menu{
-          right: 0;
-        }
-      }
-      .st-move{
-        transform: translatey(-100px)
-      }
-    }
     .st-head{
       @extend .flex;
       position: relative;
@@ -217,7 +241,7 @@
       max-height: 50px;
       align-items: center;
       transition: 1s ease;
- transform: translateX(-200px);
+//  transform: translateX(-200px);
 
  .content{
   color: white;
@@ -229,7 +253,7 @@
       width: 50px;
       min-height: 100%;
       background-color: rgb(44, 40, 40);
-      right: -100px;
+      // right: -100px;
       transition: 1s ease;
       top: 0;
       @extend .flex;

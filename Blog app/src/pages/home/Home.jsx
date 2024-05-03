@@ -34,10 +34,7 @@ const uploadedDate=(date)=>{
  const ProgressBar=({value,index,id})=>{
 
 
-  useEffect(()=>{
-    // console.log(document.getElementById(id).duration);
 
-  },[id])
 
 
 
@@ -47,7 +44,7 @@ const uploadedDate=(date)=>{
 
   
   <div className="progress">
-  <div className="progress-value"  id={id} style={{width:value}}></div>
+  <div className="progress-value"  id={id} ></div>
  
   
  
@@ -291,76 +288,52 @@ const StoryView=()=>{
 
   const StoryViewCard=({story,userName,proPic})=>{
     const [stIndex,setStIndex]=useState(0)
+    const [play,setPlay]=useState(0);
     const audioRef=useRef(0);
-    const [ref,setRef]=useState(null);
-console.log("hello",story); 
-    // console.log(document.getElementById());
-
-//     useEffect(()=>{
-//  document.getElementById("")
-
-//  console.log(audioRef);
-//  const interval=setInterval(() => {
-//        console.log( audioRef.current.currentTime)
-//  },1000);
-
-
-// return ()=>{
- 
-//    clearInterval(interval);
-//   }
-
-//     },[ref])
-
-
+    const [playStatus,setPlayStatus]=useState(0)
   const onPlay=(audio)=>{
  
-    const time=Math.floor(audio.duration - audio.currentTime)
-   const  duration=Math.floor(audio.duration);
-    console.log(time,duration);
-    let interval;
-    const progress=document.getElementById(audio.src);
+    // audioRef.current.pause();
    
     if(audio.src){
-      // console.log(document.getElementById(audio.src),"fhhggghgh");
       if(!audio.paused){
         audio.pause()
       }else{
         audio.play()
-        
-    interval=setInterval(()=>{
-
-      // console.log("hello");
-      let current =Math.floor(audio.currentTime);
-      console.log(Math.floor(duration),Math.floor(audio.currentTime))
-      // progress.style
-      console.log((current/duration) *100);
-      progress.style.width=Math.floor((current/duration) *100)+'%';
-      if(duration==current-4){
-        clearInterval(interval)
       }
-      else if(audio.paused){
-        clearInterval(interval)
-      }
-
-    },1000)
-      }
-      setTimeout(()=>{
-        setStIndex(prev=>{return (prev + 1) % story.length})
-            },time*1000)
     }
 
 
   }
+
+  const updateProgress=(audio)=>{
+
+    if(audio.src){
+      const progress=document.getElementById(audio.src);
+     
+
+    if(!audio.paused){
+     
+      const duration=Math.floor(audio.duration);
+      const current =Math.floor(audio.currentTime); 
+       progress.style.width=Math.floor((current/duration ) *100) + '%';
+
+       if(current==duration){
+         setStIndex(prev=>{return (prev + 1) % story.length})
+           }
+    }
+  }
+
+  }
     return(
-      <div className="st-container">
+      <div className={playStatus?"st-container play":"st-container pause"} onClick={()=>{onPlay(audioRef.current);setPlayStatus(prev=>!prev);}} onMouseEnter={()=>{setPlay(1);setPlayStatus(1);audioRef.current.play()}} onMouseLeave={()=>{setPlay(1);audioRef.current.pause()}}>
 
 <div className="progress-container">
 
 {
   story.map((item,key)=>{
     return(
-      <ProgressBar value={"50%"} id={item.songUrl} index={key} key={key}/>
+      <ProgressBar value={"0%"} id={item.songUrl} index={stIndex} key={key}/>
     )
   })
 }
@@ -381,15 +354,9 @@ console.log("hello",story);
       </div>
 
 
-    <img src={story[stIndex].image}  alt="" className='st-img'  onClick={(e)=>{
-    const audio=e.currentTarget.nextSibling;
-    // console.log(audio);
-      // setRef()
-      onPlay(audio)
-    
-  }} />{
+    <img src={story[stIndex].image}  alt="" className='st-img'  />{
     story[stIndex].songUrl &&
-    <audio ref={audioRef} src={story[stIndex].songUrl}   ></audio>}
+    <audio autoPlay={play} onTimeUpdate={(e)=>{updateProgress(e.currentTarget)}} ref={audioRef} src={story[stIndex].songUrl}   ></audio>}
   
  
      
