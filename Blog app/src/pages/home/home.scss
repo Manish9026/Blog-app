@@ -342,6 +342,11 @@
     background-image: linear-gradient(211deg, rgba(255, 255, 255, 0.0392156863) 9%, rgba(240, 248, 255, 0.4784313725) 143%);
     transition: 2s ease;
     max-height: calc(100vh - 100px);
+    .icon{
+top: 5px;
+right: 5px;
+z-index: 2;
+    }
 
     .empty-comment{
       display: flex;

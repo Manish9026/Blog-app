@@ -101,9 +101,9 @@ class userAuth extends AuthTools {
                         console.log(loginToken);
 
                         res.cookie("uid", loginToken, {
-                            // sameSite: 'None',
-                            secure: false,
-                            httpOnly: false,
+                            sameSite: 'None',
+                            secure: true,
+                            httpOnly: true,
                             expires: new Date(Date.now() + 3600000)
                         }).json({
                             message: "successfully login",
