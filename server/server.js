@@ -16,8 +16,9 @@ dotenv.config();
 const app = express();
 
 // app.use(express.raw({ type: 'multipart/form-data' }));
+
 app.use(cors({
-    origin:process.env.BASE_URL,
+    origin:[process.env.BASE_URL,process.env.BASE_URL2],
     credentials:true,
     methods:["POST","GET","DELETE","PATCH"]
 }))

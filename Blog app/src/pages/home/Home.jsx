@@ -5,78 +5,71 @@ import { FcNext } from "react-icons/fc";
 import { MdPublic } from "react-icons/md";
 
 
-const imageData=[
-  ["https://res.cloudinary.com/dztzqqiex/image/upload/v1713925640/gqxcvheyh28qicrpnuhp.jpg","https://res.cloudinary.com/dztzqqiex/image/upload/v1713902478/oe3whawhuj4uy4hgttiz.jpg","https://res.cloudinary.com/dztzqqiex/image/upload/v1713894523/uf3voqqxwgyla39x7v70.jpg"],
-  ["https://res.cloudinary.com/dztzqqiex/image/upload/v1713898889/qgbnorp0h75jaaopsblq.jpg","https://res.cloudinary.com/dztzqqiex/image/upload/v1713766639/osyno4vvvwfdzocdjvr6.jpg","https://res.cloudinary.com/dztzqqiex/image/upload/v1713763138/tdk0n8tl5gfzajkhtolv.jpg"]
+const imageData = [
+  ["https://res.cloudinary.com/dztzqqiex/image/upload/v1713925640/gqxcvheyh28qicrpnuhp.jpg", "https://res.cloudinary.com/dztzqqiex/image/upload/v1713902478/oe3whawhuj4uy4hgttiz.jpg", "https://res.cloudinary.com/dztzqqiex/image/upload/v1713894523/uf3voqqxwgyla39x7v70.jpg"],
+  ["https://res.cloudinary.com/dztzqqiex/image/upload/v1713898889/qgbnorp0h75jaaopsblq.jpg", "https://res.cloudinary.com/dztzqqiex/image/upload/v1713766639/osyno4vvvwfdzocdjvr6.jpg", "https://res.cloudinary.com/dztzqqiex/image/upload/v1713763138/tdk0n8tl5gfzajkhtolv.jpg"]
 ]
-const uploadedDate=(date)=>{
-  const  currentDate=new Date()
-  const createdDate=new Date(date)
+const uploadedDate = (date) => {
+  const currentDate = new Date()
+  const createdDate = new Date(date)
   //  console.log(currentDate.getHours(),createdDate.getHours());
-   if(createdDate.getHours()<currentDate.getHours()){
-     return (currentDate.getHours() - createdDate.getHours()) + 'h ago';
+  if (createdDate.getHours() < currentDate.getHours()) {
+    return (currentDate.getHours() - createdDate.getHours()) + 'h ago';
 
-   }
-   else if(createdDate.getHours()==currentDate.getHours() ){
-     if(currentDate.getMinutes() == createdDate.getMinutes()){
+  }
+  else if (createdDate.getHours() == currentDate.getHours()) {
+    if (currentDate.getMinutes() == createdDate.getMinutes()) {
 
-      return  currentDate.getSeconds() -createdDate.getSeconds() + "s ago";
+      return currentDate.getSeconds() - createdDate.getSeconds() + "s ago";
 
-     }
-     return currentDate.getMinutes() - createdDate.getMinutes() + "m ago";
-   }
-   else{
-     // return currentDate.getSeconds()
+    }
+    return currentDate.getMinutes() - createdDate.getMinutes() + "m ago";
+  }
+  else {
+    // return currentDate.getSeconds()
 
-   }
- }
+  }
+}
 
- const ProgressBar=({value,index,id})=>{
-
-
-
+const ProgressBar = ({ value, index, id, next }) => {
+  return (
 
 
 
- 
-  return(
+    <div className="progress" onClick={() => { next(index) }}>
+      <div className="progress-value" id={id} ></div>
 
 
-  
-  <div className="progress">
-  <div className="progress-value"  id={id} ></div>
- 
-  
- 
 
-</div>
+
+    </div>
   )
- }
-const ImageSlider=({story,userName,proPic,pos})=>{
+}
+const ImageSlider = ({ story, userName, proPic, pos }) => {
 
-  const [imgIndex,setImgIndex]=useState(0);
-  const dispatch=useDispatch();
-
-
-  if(story.length!=0)
-  return(
-    <span className="card" onMouseEnter={()=>setImgIndex(prev=>{return ( prev + 1 ) % story.length})} onMouseLeave={()=>setImgIndex(0)} >
-  <img src={story[imgIndex].image} alt="" onClick={()=>{dispatch(setStoryViewToggle(pos || 0))}} />
+  const [imgIndex, setImgIndex] = useState(0);
+  const dispatch = useDispatch();
 
 
+  if (story.length != 0)
+    return (
+      <span className="card" onMouseEnter={() => setImgIndex(prev => { return (prev + 1) % story.length })} onMouseLeave={() => setImgIndex(0)} >
+        <img src={story[imgIndex].image} alt="" onClick={() => { dispatch(setStoryViewToggle(pos || 0)) }} />
 
-<span className="card-pro">
- <img src={proPic} alt="" style={{transition:".5s linear"}} />
- <span className='content'>
- <p>{userName}</p>
- <p>{uploadedDate(story[imgIndex].createdAt)}</p>
- </span>
 
- 
-</span>
 
-</span>
-  )
+        <span className="card-pro">
+          <img src={proPic} alt="" style={{ transition: ".5s linear" }} />
+          <span className='content'>
+            <p>{userName}</p>
+            <p>{uploadedDate(story[imgIndex].createdAt)}</p>
+          </span>
+
+
+        </span>
+
+      </span>
+    )
 
   // return(
   // )
@@ -85,124 +78,125 @@ const Home = () => {
 
 
 
-  const {storyData,selfStoryData}=useSelector(state=>{return state.userStory})
-  const {status}=useSelector(state=>{return state.global.storyViewToggle})
-  const dispatch=useDispatch();
+  const { storyData, selfStoryData } = useSelector(state => { return state.userStory })
+  const { status } = useSelector(state => { return state.global.storyViewToggle })
+  const dispatch = useDispatch();
   console.log(storyData.length);
 
- 
+
   return (
 
-    
-    status ? <StoryView/>:
-   <section className="home-section">
+
+    status ? <StoryView /> :
+      <section className="home-section">
 
 
 
 
-    <div className="part1">
-      <div className="header-section">
-      <span className="heading">
- Your stories
-</span>
-<div className="story-container">
+        <div className="part1">
+          <div className="header-section">
+            <span className="heading">
+              Your stories
+            </span>
+            <div className="story-container">
 
-  {
-    selfStoryData.length!=0 && <ImageSlider userName={"You"}  proPic={selfStoryData.profile.profileImage} story={selfStoryData.stories} />
-  }
-{
+              {
+                selfStoryData.length != 0 && <ImageSlider userName={"You"} proPic={selfStoryData.profile.profileImage} story={selfStoryData.stories} />
+              }
+              {
 
- storyData.length!=0 && storyData.map((item,indx)=>{
-    return(
+                storyData.length != 0 && storyData.map((item, indx) => {
+                  return (
 
 
-  <ImageSlider userName={item.userName} pos={indx} proPic={item.profile.profileImage} story={item.stories} key={indx} />
- 
-
+                    <ImageSlider userName={item.userName} pos={indx} proPic={item.profile.profileImage} story={item.stories} key={indx} />
 
 
 
 
- )})
-  }
-
-  
-  {
-//   user.map((item,indx)=>{
-//     return(
-// <span className="card" key={indx}>
-// <img src={item[1]} alt="" loading='lazy'/>
-// <span className="card-pro">
-//  <img src={item[2]} alt="" />
-//  <span className='content'>
-//  <p>{item[0]}</p> 
-//  <p> post: 3:45 pm</p>
-//  </span>
-
- 
-// </span>
-// {/* <span className="card-foot">
-//   <button>like</button>
-// </span> */}
-
-// </span>
-//     )
-//   })
-  }
 
 
-  <span className="end-sadow">
-  <FcNext />
-  </span>
-</div>
-      </div>
+                  )
+                })
+              }
 
 
-{
-  user.map((item,index)=>{
-return <PostContainer user={item} key={index}/>
-  })
-}
-      
+              {
+                //   user.map((item,indx)=>{
+                //     return(
+                // <span className="card" key={indx}>
+                // <img src={item[1]} alt="" loading='lazy'/>
+                // <span className="card-pro">
+                //  <img src={item[2]} alt="" />
+                //  <span className='content'>
+                //  <p>{item[0]}</p> 
+                //  <p> post: 3:45 pm</p>
+                //  </span>
 
 
-    </div>
+                // </span>
+                // {/* <span className="card-foot">
+                //   <button>like</button>
+                // </span> */}
 
-    <SuggestedFrnd/>
+                // </span>
+                //     )
+                //   })
+              }
 
-   
 
-   </section>
+              <span className="end-sadow">
+                <FcNext />
+              </span>
+            </div>
+          </div>
+
+
+          {
+            user.map((item, index) => {
+              return <PostContainer user={item} key={index} />
+            })
+          }
+
+
+
+        </div>
+
+        <SuggestedFrnd />
+
+
+
+      </section>
   )
 }
 
 
-const SuggestedFrnd=()=>{
-  return(
+const SuggestedFrnd = () => {
+  return (
     <div className="part2">
-    <span className="heading">
-      Your suggested friends
-    </span>
+      <span className="heading">
+        Your suggested friends
+      </span>
 
       <span className="sug-era">
-{ user.map((item,key)=>{
+        {user.map((item, key) => {
 
- return( <div className="card" key={key}>
-  <span className='img-sec'>
-  <img src={item[2]} alt="" />
-  </span>
- 
- <ul className='content'>
-   <li>{item[0]}</li>
- <li>5k followers</li>
- </ul>
- <span className="btn-section">
-   <button>follow</button>
-   <button>add Friend</button>
- </span>
-</div>)
-})
-      }
+          return (<div className="card" key={key}>
+            <span className='img-sec'>
+              <img src={item[2]} alt="" />
+            </span>
+
+            <ul className='content'>
+              <li>{item[0]}</li>
+              <li>5k followers</li>
+            </ul>
+            <span className="btn-section">
+              <button>follow</button>
+              <button>add Friend</button>
+            </span>
+          </div>)
+        })
+        }
       </span>
 
 
@@ -223,260 +217,389 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
 import { setStoryViewToggle } from '../../sclice/globalSlice';
 import { current } from '@reduxjs/toolkit';
-const PostContainer=({user})=>{
+import { addComment, getAllcomments} from '../../sclice/storySlice';
+const PostContainer = ({ user }) => {
 
-  return(
-    
-<div className="post-container">
+  return (
 
-<div className="head-part">
-<span className="p-part1">
-  <span className="img">
-    <img src={user[1]} alt="" />
-  </span>
-<span className="content">
+    <div className="post-container">
 
-  <span><p>{user[0]}</p><button>follow</button></span>
-  <p>Post At:</p>
-  <MdPublic />
-  
-</span>
+      <div className="head-part">
+        <span className="p-part1">
+          <span className="img">
+            <img src={user[1]} alt="" />
+          </span>
+          <span className="content">
 
-</span>
-<span className="p-part2"></span>
+            <span><p>{user[0]}</p><button>follow</button></span>
+            <p>Post At:</p>
+            <MdPublic />
 
-</div>
-<div className="mid-part">
+          </span>
 
-<span className="content">
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed in quisquam saepe magnam doloribus! Porro voluptatibus facilis earum nam illum voluptate, rem fugiat iusto voluptas voluptates, eaque enim aperiam debitis ad odit laborum corporis!
-</span>
-<span className='img-sec'>
-  <img src={user[2]} alt="" />
+        </span>
+        <span className="p-part2"></span>
 
-</span>
-<span className='img-sec'>
-  <img src={user[2]} alt="" />
+      </div>
+      <div className="mid-part">
 
-</span>
-</div>
-<div className="bottom-part">
-  <div className="bt-part1">
-  <span>25k Likes </span>
-  <span> <p>100k comments</p>
-  <p>500k shares</p></span>
+        <span className="content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed in quisquam saepe magnam doloribus! Porro voluptatibus facilis earum nam illum voluptate, rem fugiat iusto voluptas voluptates, eaque enim aperiam debitis ad odit laborum corporis!
+        </span>
+        <span className='img-sec'>
+          <img src={user[2]} alt="" />
 
-  </div>
-  <div className="bt-part2">
-  <span className="btn">{ 1?
-<SlLike className='icon' /> :<BiSolidLike className='icon'/>} <p>like</p></span>
-<span className="btn">
-<FaRegComment className='icon' /><p>comment</p></span>
-<span className="btn"><PiShareFat className='icon'/> <p>share</p></span>
-  </div>
+        </span>
+        <span className='img-sec'>
+          <img src={user[2]} alt="" />
 
-</div>
+        </span>
+      </div>
+      <div className="bottom-part">
+        <div className="bt-part1">
+          <span>25k Likes </span>
+          <span> <p>100k comments</p>
+            <p>500k shares</p></span>
+
+        </div>
+        <div className="bt-part2">
+          <span className="btn">{1 ?
+            <SlLike className='icon' /> : <BiSolidLike className='icon' />} <p>like</p></span>
+          <span className="btn">
+            <FaRegComment className='icon' /><p>comment</p></span>
+          <span className="btn"><PiShareFat className='icon' /> <p>share</p></span>
+        </div>
+
+      </div>
     </div>
   )
 }
 
-const StoryView=()=>{
-  const {storyData}=useSelector(state=>{return state.userStory})
-  const {pos}=useSelector(state=>{return state.global.storyViewToggle})
-  const dispatch=useDispatch();
+const StoryView = () => {
+  const { storyData } = useSelector(state => { return state.userStory })
+  const { pos } = useSelector(state => { return state.global.storyViewToggle })
+  const dispatch = useDispatch();
+  const [commentActive,setCommentActive]=useState(0);
+ const [storyId,setStoryId]=useState("")
+  const StoryViewCard = ({ story, userName, proPic }) => {
+    const [stIndex, setStIndex] = useState(0)
+    const [play, setPlay] = useState(0);
+    const audioRef = useRef(0);
+    const [playStatus, setPlayStatus] = useState(0)
+    const onPlay = (audio) => {
 
+      if (audio.src) {
+        if (!audio.paused) {
 
-  const StoryViewCard=({story,userName,proPic})=>{
-    const [stIndex,setStIndex]=useState(0)
-    const [play,setPlay]=useState(0);
-    const audioRef=useRef(0);
-    const [playStatus,setPlayStatus]=useState(0)
-  const onPlay=(audio)=>{
+          audio.pause()
+          setPlayStatus(0)
 
-    if(audio.src){
-      if(!audio.paused){
-      
-        audio.pause()
-       
-      }else{
-        audio.play()
+        } else {
+          audio.play()
+          setPlayStatus(1)
+        }
       }
+
+
     }
 
+    const updateProgress = (audio) => {
 
-  }
+      if (audio.src) {
+        const progress = document.getElementById(audio.id);
 
-  const updateProgress=(audio)=>{
 
-    if(audio.src){
-      const progress=document.getElementById(audio.id);
-     
+        if (!audio.paused) {
 
-    if(!audio.paused){
-     
-      const duration=Math.floor(audio.duration);
-      const current =Math.floor(audio.currentTime); 
-       progress.style.width=Math.floor((current/duration ) *100) + '%';
+          const duration = Math.floor(audio.duration);
+          const current = Math.floor(audio.currentTime);
+          progress.style.width = Math.floor((current / duration) * 100) + '%';
 
-       if(current==duration){
-         setStIndex(prev=>{return (prev + 1) % story.length})
-           }
+          if (current == duration) {
+            setStIndex(prev => { return (prev + 1) % story.length })
+          }
+        }
+      }
+
     }
-  }
+    return (
+      <div 
+      className={playStatus ? "st-container play" : "st-container pause"} 
+      onClick={(e) => { onPlay(audioRef.current); }}
+       onMouseEnter={() => { setPlay(1); setPlayStatus(1); audioRef.current.play() }} 
+       onMouseLeave={() => { setPlay(0);setPlayStatus(0); audioRef.current.pause() }}
+       >
 
-  }
-    return(
-      <div className={playStatus?"st-container play":"st-container pause"} onClick={(e)=>{onPlay(audioRef.current);setPlayStatus(prev=>!prev);}} onMouseEnter={()=>{setPlay(1);setPlayStatus(1);audioRef.current.play()}} onMouseLeave={()=>{setPlay(1);audioRef.current.pause()}}>
+        <div className="progress-container" onClick={(e) => e.stopPropagation()}>
 
-<div className="progress-container">
+          {
+            story.map((item, key) => {
+              return (
+                <ProgressBar value={"0%"} id={item._id} index={key} next={(index) => { setStIndex(index) }} key={key} />
+              )
+            })
+          }
+        </div>
 
-{
-  story.map((item,key)=>{
-    return(
-      <ProgressBar value={"0%"} id={item._id} index={stIndex} key={key}/>
-    )
-  })
-}
-    </div>
+        <div className="st-head st-move">
+          <span className="img">
+            <img src={proPic} alt="" />
+          </span>
 
-      <div className="st-head st-move">
-       <span className="img">
-       <img src={proPic} alt="" />
-       </span>
-       
-       <span className="content">
- 
-   <span><p>{userName}</p></span>
-   <p>Post At:{uploadedDate(story[stIndex].createdAt)}</p>
-   <MdPublic />
-   
- </span>
+          <span className="content">
+
+            <span><p>{userName}</p></span>
+            <p>Post At:{uploadedDate(story[stIndex].createdAt)}</p>
+            <MdPublic />
+
+          </span>
+        </div>
+
+        <Play_pause status={playStatus} />
+        <img src={story[stIndex].image} alt="" className='st-img' />{
+          story[stIndex].songUrl &&
+          <audio autoPlay={play} id={story[stIndex]._id} onTimeUpdate={(e) => { updateProgress(e.currentTarget) }} ref={audioRef} src={story[stIndex].songUrl}   ></audio>}
+
+
+
+
+        <div className="st-foot">
+
+          <span className="st-pro">
+            <span className="img">
+              <img src={proPic} alt="" />
+            </span>
+
+            <span className="content">
+
+              <span><p>{userName}</p></span>
+              <p>Post At:{uploadedDate(story[stIndex].createdAt)}</p>
+              <MdPublic />
+
+            </span>
+          </span>
+
+          <ul className="st-menu" onClick={(e) => { e.stopPropagation(); }}>
+            <li><SlLike /></li>
+            <li onClick={()=>{setCommentActive(prev=>!prev);setStoryId(story[stIndex]._id)}}><FaRegComment  /></li>
+            <li><PiShareFat /></li>
+            <li>{1 ? <IoBookmarkOutline /> : <IoBookmark />}</li>
+            <li><PiDotsThreeOutlineVerticalFill /></li>
+          </ul>
+        </div>
       </div>
-
-
-    <img src={story[stIndex].image}  alt="" className='st-img'  />{
-    story[stIndex].songUrl &&
-    <audio autoPlay={play} id={story[stIndex]._id} onTimeUpdate={(e)=>{updateProgress(e.currentTarget)}} ref={audioRef} src={story[stIndex].songUrl}   ></audio>}
-  
- 
-     
- 
-      <div className="st-foot">
-       
-       <span className="st-pro">
-       <span className="img">
-       <img src={proPic} alt="" />
-       </span>
-       
-       <span className="content">
- 
-   <span><p>{userName}</p></span>
-   <p>Post At:{uploadedDate(story[stIndex].createdAt)}</p>
-   <MdPublic />
-   
- </span>
-       </span>
- 
-       <ul className="st-menu" onClick={(e)=>{e.stopPropagation();}}>
-       <li><SlLike/></li>
-       <li><FaRegComment/></li>
-       <li><PiShareFat/></li>
-       <li>{1?<IoBookmarkOutline />:  <IoBookmark />}</li>
-       <li><PiDotsThreeOutlineVerticalFill /></li>
-       </ul>
-      </div>
-     </div>
     )
   }
-  return(
+
+
+  return (
     <div className='story-view'>
 
 
 
 
-<div className="st-wrapper">
+      <div className="st-wrapper">
+        {
+          storyData.map((item, index) => {
 
+            if (index >= pos) {
+              return (
 
+                <StoryViewCard story={item.stories} userName={item.userName} proPic={item.profile.profileImage} key={item._id} />
+                //       <div className="st-container">
 
+                //       <div className="st-head st-move">
+                //        <span className="img">
+                //        <img src={item.profile.profileImage} alt="" />
+                //        </span>
 
-{
-  storyData.map((item,index)=>{
+                //        <span className="content">
 
-    if(index>=pos){
-      return(
+                //    <span><p>{item.userName}</p></span>
+                //    <p>Post At:{uploadedDate(item.stories[0].createdAt)}</p>
+                //    <MdPublic />
 
-        <StoryViewCard story={item.stories} userName={item.userName} proPic={item.profile.profileImage} key={item._id}/>
-  //       <div className="st-container">
+                //  </span>
+                //       </div>
+                //  { item.stories.map((story,index)=>{
+                //   return(<>
+                //     <img src={story.image}  alt="" className='st-img' key={index} onClick={(e)=>{
+                //     const audio=e.currentTarget.nextSibling;
+                //     console.log(audio);
+                //     if(audio.src){
+                //       !audio.paused?audio.pause():audio.play()
+                //     }
+                //   }} />{
+                //     story.songUrl &&
+                //     <audio src={story.songUrl}  loop ></audio>}
+                //     </>
+                //   )
+                //  })
+                //      }
 
-  //       <div className="st-head st-move">
-  //        <span className="img">
-  //        <img src={item.profile.profileImage} alt="" />
-  //        </span>
-         
-  //        <span className="content">
-   
-  //    <span><p>{item.userName}</p></span>
-  //    <p>Post At:{uploadedDate(item.stories[0].createdAt)}</p>
-  //    <MdPublic />
-     
-  //  </span>
-  //       </div>
-  //  { item.stories.map((story,index)=>{
-  //   return(<>
-  //     <img src={story.image}  alt="" className='st-img' key={index} onClick={(e)=>{
-  //     const audio=e.currentTarget.nextSibling;
-  //     console.log(audio);
-  //     if(audio.src){
-  //       !audio.paused?audio.pause():audio.play()
-  //     }
-  //   }} />{
-  //     story.songUrl &&
-  //     <audio src={story.songUrl}  loop ></audio>}
-  //     </>
-  //   )
-  //  })
-  //      }
-   
-  //       <div className="st-foot">
-         
-  //        <span className="st-pro">
-  //        <span className="img">
-  //        <img src={item.profile.profileImage} alt="" />
-  //        </span>
-         
-  //        <span className="content">
-   
-  //    <span><p>{item.userName}</p></span>
-  //    <p>Post At:{uploadedDate(item.stories[0].createdAt)}</p>
-  //    <MdPublic />
-     
-  //  </span>
-  //        </span>
-   
-  //        <ul className="st-menu">
-  //        <li><SlLike/></li>
-  //        <li><FaRegComment/></li>
-  //        <li><PiShareFat/></li>
-  //        <li>{1?<IoBookmarkOutline />:  <IoBookmark />}</li>
-  //        <li><PiDotsThreeOutlineVerticalFill /></li>
-  //        </ul>
-  //       </div>
-  //      </div>
-      )
-    }
+                //       <div className="st-foot">
 
-  })
-   
+                //        <span className="st-pro">
+                //        <span className="img">
+                //        <img src={item.profile.profileImage} alt="" />
+                //        </span>
 
+                //        <span className="content">
+
+                //    <span><p>{item.userName}</p></span>
+                //    <p>Post At:{uploadedDate(item.stories[0].createdAt)}</p>
+                //    <MdPublic />
+
+                //  </span>
+                //        </span>
+
+                //        <ul className="st-menu">
+                //        <li><SlLike/></li>
+                //        <li><FaRegComment/></li>
+                //        <li><PiShareFat/></li>
+                //        <li>{1?<IoBookmarkOutline />:  <IoBookmark />}</li>
+                //        <li><PiDotsThreeOutlineVerticalFill /></li>
+                //        </ul>
+                //       </div>
+                //      </div>
+              )
+            }
+
+          })
+
+        }
+
+      </div>{
+        commentActive?
+      <CommentCard storyId={storyId} commentActive={commentActive} setActive={()=>setCommentActive(0)} />:""
+}
+      <span className='icon' onClick={() => dispatch(setStoryViewToggle(pos))}>
+
+        <IoClose />
+      </span>
+    </div>
+  )
 }
 
-</div>
+const CommentCard=({storyId,commentActive,setActive})=>{
+  const dispatch=useDispatch();
+  console.log(storyId);
+  const [cmtMessage,setCmtMessage]=useState("")
+  const {data,status,loading}=useSelector(state=>{return state.userStory.comments})
+  const {addStatus}=useSelector(state=>{return state.userStory.addComment})
+  console.log("data",data,status);
+  useEffect(()=>{
+    // console.log(addStatus,"jgh");
+    // console.log(data,status);
+    dispatch(getAllcomments(storyId))
+  },[addStatus])
 
-<span className='icon' onClick={()=>dispatch(setStoryViewToggle(pos))}>
+  const submit=async()=>{
+    console.log(storyId,cmtMessage);
+    await dispatch(addComment({storyId,cmtMessage}))
+  }
+  if(status)
+  return(
+    <section className={`comment-section ${commentActive?"active":"deActive"}`} >
+       <span className='icon' onClick={() =>setActive()}>
 
 <IoClose />
 </span>
-    </div>
+        <div className="st-head st-move">
+        <span className="img">
+          <img src={data.userImage} alt="" />
+        </span>
+
+        <span className="content">
+
+          <span><p>{data.userName}</p></span>
+          <p>Post At:{uploadedDate(data.createdAt)}</p>
+          <MdPublic />
+
+        </span>
+      </div>
+
+      <div className="message-section">
+
+      <textarea name="" id="" placeholder='enter your message' onChange={(e)=>setCmtMessage(e.target.value)}></textarea>
+      <span className="btn-area">    
+      <button className='submit' onClick={()=>{submit()}}>submit</button>
+      <button className='cancel' onClick={()=>console.log("cancel")}>cancel</button>
+      </span>
+      </div>
+
+      <div className="recent-comment">
+        <span className="heading">
+          <p>recent comment ({data.cmtMessages.length})</p>
+        </span>
+
+        <span className="comm-container">
+
+
+          {
+            data.cmtMessages.length!=0?
+            data.cmtMessages.map((item,indx)=>{
+
+              if(indx%2==0)
+              return(
+                
+<span className="re-card cd1">
+          <div className="st-head st-move">
+        <span className="img">
+          <img src={item.commentUserId.profile.profileImage} alt="" />
+        </span>
+
+        <span className="content">
+
+          <span><p>{item.commentUserId.userName}</p></span>
+          <p>{uploadedDate(item.updatedAt)}</p>
+        
+
+        </span>
+      </div>
+      <div className="cd-message">
+        <p>{item.message}</p>
+      </div>
+          </span>
+              )
+              else{
+                return(
+                
+                  <span className="re-card cd2">
+                  <div className="st-head st-move">
+                <span className="img">
+                  <img src={item.commentUserId.profile.profileImage} alt="" />
+                </span>
+        
+                <span className="content">
+        
+                  <span><p>{item.commentUserId.userName}</p></span>
+                  <p>{uploadedDate(item.updatedAt)}</p>
+                
+        
+                </span>
+              </div>
+              <div className="cd-message">
+                <p>{item.message}</p>
+              </div>
+                  </span>
+                                  )
+              }
+            }):<span className='empty-comment'><p>no comments</p> </span>
+          }
+          
+        </span>
+      </div>
+    </section>
+  )
+}
+
+const Play_pause = ({ status }) => {
+
+  return (
+    <span id="play-video" style={{ display: !status ? "flex" : "" }} className="video-play-button" >
+      <span></span>
+    </span>
   )
 }
 export default Home

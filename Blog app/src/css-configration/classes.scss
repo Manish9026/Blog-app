@@ -25,6 +25,11 @@ $avatar-offset: 52 + 16;
   align-items: center;
   justify-content: space-between;
 }
+.columnFlex{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 // skeleton css
 .circle{
     background-color: #474444;

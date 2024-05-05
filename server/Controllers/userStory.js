@@ -3,6 +3,8 @@ import { userStoryModel } from '../Models/userStoryModel.js';
 import { imageUploader } from '../utils/imageUploader.js';
 import { userModel } from '../Models/userModel.js';
 import { userFriendModel } from '../Models/userFriendModel.js';
+import { populate } from 'dotenv';
+import { model } from 'mongoose';
 
 
 class userStory {
@@ -161,6 +163,81 @@ static getStory=async(req,res)=>{
             status:false
         })
     }
+}
+static addComment=async(req,res)=>{
+    try {
+        const {storyId,cmtMessage}=req.body;
+        const {userId}=req
+        console.log(cmtMessage);
+        if(userId && storyId  && cmtMessage){
+
+        await userStoryModel.findOne({_id:storyId}).then(async(result)=>{
+
+            result.comments.push({commentUserId:userId,message:cmtMessage})
+            await result.save()
+            
+            res.status(201).json({
+                status:true,
+            })
+        })
+}
+else{
+    res.status(201).json({
+        status:false,
+        message:"message box is empty"
+    })
+}
+ 
+
+    } catch (error) {
+        console.log(error);
+        res.status(201).json({
+            status:false,
+            message:"try after some time"
+        })
+    }
+}
+static getAllComments=async(req,res)=>{
+try {
+    const {storyId}=req.query;
+    console.log(storyId);
+    if(storyId){
+        await userStoryModel.findOne({_id:storyId},{userId:1,comments:1,createdAt:1}).populate([{
+            path:"userId",
+            select:"userName profile",
+            populate:{
+                path:"profile",
+                select:"profileImage"
+            }
+        },{path:"comments.commentUserId",
+        model: 'user',
+        select:"userName profile",
+            populate:{
+                path:"profile",
+                select:"profileImage"
+            }
+        }]).then(result=>{
+            console.log(result);
+            const data={userName:result.userId.userName,userImage:result.userId.profile.profileImage,cmtMessages:result.comments,createdAt:result.createdAt}
+            
+         
+
+            console.log(data);
+            res.json({
+                status:true,
+                data
+            })
+       
+        })
+    }
+
+} catch (error) {
+    console.log(error);
+    res.status(202).json({
+        status:false,
+        message:"try after some time"
+    })
+}
 }
 }
 

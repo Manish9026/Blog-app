@@ -23,6 +23,26 @@ const seenUserSlice=mongoose.Schema(
         }
     ,{"_id":false}
 )
+const commentSlice=mongoose.Schema(
+    {
+     message:{
+      type:String
+     },
+     commentUserId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user"
+     },
+     createdAt:{
+        type:Date,
+        default:Date.now
+     }  
+     ,
+     updatedAt:{
+        type:Date,
+        default:Date.now
+     } 
+    },{_id:false}
+)
 
 const storySlice= new mongoose.Schema({
 
@@ -46,6 +66,10 @@ const storySlice= new mongoose.Schema({
     ,
     seenUser:{
         type:[seenUserSlice]   
+    }
+    ,
+    comments:{
+        type:[commentSlice]
     }
     ,createdAt:{
         type:Date,
