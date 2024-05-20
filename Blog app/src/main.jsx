@@ -1,38 +1,51 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+// import App from './App.jsx'
 import './index.scss'
+import 'bootstrap/dist/css/bootstrap.css';
 import './css-configration/classes.scss'
-import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom'
 // import Login from './pages/login page/Login.jsx'
-import Register, { Login, SignUP } from './pages/auth pages/Register.jsx';
-import Home from './pages/home/Home.jsx'
-import Layout from './layout/Layout.jsx'
+
+
+
+import  { Login, SignUP } from './pages/auth pages/Register.jsx';
+const Register=React.lazy(()=>import('./pages/auth pages/Register'))
+const  Home = lazy(()=>import('./pages/home/Home.jsx'));
+const  Layout = lazy(()=>import('./layout/Layout.jsx'));
+
+// console.log("layout",Layout);
+// import  Layout from './layout/Layout.jsx'
 import Tool from './component/Tool.jsx'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { store } from './store.js'
 import Loder from './component/loader/Loder.jsx'
-import BlogSection, { CreateBlog, CreateStory } from './pages/create blog/BlogSection.jsx'
-import Friend from './pages/friend page/Friend.jsx'
-import { SingleFrdSection } from './pages/singlefriend page/SingleFrdSection.jsx'
-import Friends from './pages/singlefriend page/Friends.jsx'
-import MenuBar from './component/hearder/mobileMenuBar/MenuBar.jsx'
-import ImageShow from './component/imageShow/ImageShow.jsx'
-import UserProfile from './pages/profile page/UserProfile.jsx'
-import UserAbout, { BioForm, PersonalForm, UserEdu } from './pages/profile page/UserAbout.jsx'
+const BlogSection=React.lazy(()=>import("./pages/create blog/BlogSection.jsx"))
+import { CreateBlog, CreateStory } from './pages/create blog/BlogSection.jsx'
+const  Friend =lazy(()=>import('./pages/friend page/Friend.jsx')) 
+const  SingleFrdSection=lazy(()=>import("./pages/singlefriend page/SingleFrdSection.jsx")) 
 
+const  Friends = lazy(()=>import("./pages/singlefriend page/Friends.jsx"));
+// const MenuBar =lazy(()=>import( './component/hearder/mobileMenuBar/MenuBar.jsx'))
+// const ImageShow =lazy(()=>import( './component/imageShow/ImageShow.jsx'))
+const UserProfile=lazy(()=>import('./pages/profile page/UserProfile.jsx')) 
+const UserAbout=lazy(()=>import("./pages/profile page/UserAbout.jsx"))
+import {BioForm, PersonalForm, UserEdu } from './pages/profile page/UserAbout.jsx'
 // console.log("fsdfjhgdf")
 
 
 import { useDispatch } from 'react-redux'
-import { isVerified } from './sclice/authSlice/authSlice.js'
-import { getUserProfile } from './sclice/userProfileSlice.js'
-import { ImOpt } from 'react-icons/im'
-import { getStories } from './sclice/storySlice.js'
+import  {isVerified} from './sclice/authSlice/authSlice.js'
+import   {getUserProfile}  from  './sclice/userProfileSlice.js'
+import  {getStories} from './sclice/storySlice.js'
+console.log("getstory",getStories);
 const RoutePath = () => {
 
   const dispatch = useDispatch();
+  // const navigate=useNavigate();
 
+  const authStatus=useSelector(state=>{return state.userAuth.status})
+console.log("authStatus",authStatus);
   const router = createBrowserRouter(
     [
       {
@@ -43,7 +56,13 @@ const RoutePath = () => {
           {
             path: "/",
             element: <Home />,
-            loader:async()=>await dispatch(getStories())
+            loader:async()=>{
+            
+              // if(authStatus)
+              // location.replace("/auth/sign-in")          
+              // else
+              await dispatch(getStories())
+            return null}
           },
 
           {
@@ -249,10 +268,16 @@ const RoutePath = () => {
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <>
+ 
     <Provider store={store}>
+ <Suspense fallback={ <section style={{  background:"linear-gradient(45deg, #000428, #004e92)",width:"100vw",height:"100vh"}}>< Loder style={{height:"100%"}}/></section> }>
     {/* <RouterProvider router={router} /> */}
+   
+    
     <RoutePath/>
+    </Suspense>
     </Provider>
+
   </>
 
 

@@ -12,7 +12,7 @@ import { sndFrndReq } from "../../sclice/friendSlice";
 import privious from "../../custom hooks/privious";
 import MenuIcon from "../../component/menu-icon/MenuIcon";
 import { showImage } from "../../sclice/globalSlice";
-export const SingleFrdSection = ({ className, ...props }) => {
+ const  SingleFrdSection = ({ className, ...props }) => {
     // const history=useHistory();
     const pivious=privious();
     const location = useLocation();
@@ -123,3 +123,5 @@ const [menuActive,setMenuActive]=useState(1)
         </div>
     );
 };
+
+export default SingleFrdSection

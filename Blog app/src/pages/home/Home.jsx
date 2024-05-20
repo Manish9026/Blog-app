@@ -99,6 +99,10 @@ const Home = () => {
               Your stories
             </span>
             <div className="story-container">
+            <div className="bg-card">
+              <span className="img"><img src="" alt="" /></span>
+              
+              </div>
 
               {
                 selfStoryData.length != 0 && <ImageSlider userName={"You"} proPic={selfStoryData.profile.profileImage} story={selfStoryData.stories} />

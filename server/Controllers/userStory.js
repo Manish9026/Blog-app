@@ -4,7 +4,7 @@ import { imageUploader } from '../utils/imageUploader.js';
 import { userModel } from '../Models/userModel.js';
 import { userFriendModel } from '../Models/userFriendModel.js';
 import { populate } from 'dotenv';
-import { model } from 'mongoose';
+import mongoose, { model } from 'mongoose';
 
 
 class userStory {
@@ -77,7 +77,7 @@ static getStory=async(req,res)=>{
         todayDate.setHours(23,59,59,999);
         const startDate= new Date();
         startDate.setHours(0,0,0,0);
-
+console.log(userId);
         // Promise.all([
         //     await userFriendModel.findOne({userId}).populate({
         //         path:"friends",
@@ -102,6 +102,7 @@ static getStory=async(req,res)=>{
         // })
 
 
+
         await userFriendModel.findOne({userId}).populate({
             path:"friends",
             select:"stories profile userName",
@@ -109,8 +110,7 @@ static getStory=async(req,res)=>{
             ,
             populate:[{
                 path:"stories",
-            match: { $and:[{createdAt:{$lte:todayDate}},{createdAt:{$gte:startDate}}] },
-           
+            match: {$and:[{createdAt:{$lte:todayDate}},{createdAt:{$gte:startDate}}]},
             },{path:"profile",select:"profileImage"}]
             
         }).populate({
@@ -119,25 +119,50 @@ static getStory=async(req,res)=>{
             ,
             populate:[{
                 path:"stories",
-            match: { $and:[{createdAt:{$lte:todayDate}},{createdAt:{$gte:startDate}}] },
+            match: {$and:[{createdAt:{$lte:todayDate}},{createdAt:{$gte:startDate}}]} ,
+          
+
+           
+            
+        
            
             },{path:"profile",select:"profileImage"}]
         }).then(result=>{
 
-            console.log(result);
+            // console.log(result);
             // res.send(result)
 
             const data=result.friends.filter((item)=>{
                 // console.log(item.stories);
-                return (item.stories!=null && item.stories.length!=0 )
+                // return (item.stories!=null && item.stories.length!=0 )
+                if((item.stories!=null && item.stories.length!=0 )){
+                   return  item.stories.map(story=>{
+                       if(story.likes.filter(user=>user==userId)) {
+                        
+
+                        return {...story,...{"likeStatus":true}}
+                        //  console.log(true,story);
+                        
+                       }
+                       else{
+                        return story.likeStatus=false;
+                        console.log("false")
+
+                       }
+                    })
+                }
+         
+
 
             })
-            console.log(data);
+            // console.log(data);
             if(data){
                 res.status(201).json({
                     data:data,
+                //   result,
                     selfStory:result.userId,
                     status:true
+
                 })
 
             }
@@ -238,6 +263,52 @@ try {
         message:"try after some time"
     })
 }
+}
+
+static liked=async(req,res)=>{
+    try {
+        const {userId}=req;
+        const {storyId}=req.query;
+    
+        await userStoryModel.findOne({_id:storyId},{likes:1}).then(result=>{
+            // console.log(result);
+            result.likes.push(userId)
+            result.save();
+            console.log(result);
+        }
+        )
+
+
+        
+    } catch (error) {
+        
+    }
+}
+
+static test=async(req,res)=>{
+    try {
+        const {userId}=req;
+        console.log(userId);
+        await userStoryModel.aggregate([
+            {
+                $addFields:{
+                    likeStatus:{
+                        $cond:{
+                            if:{"likes":new mongoose.Types.ObjectId(userId)},then:true,else:false
+                        }
+                    }
+                }
+            },
+
+           {$match:{userId:new mongoose.Types.ObjectId(userId)}}
+        
+        ]
+        ).then(result=>{
+            console.log(result);
+        })
+    } catch (error) {
+        console.log(error);
+    }
 }
 }
 

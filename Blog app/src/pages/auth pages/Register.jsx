@@ -18,7 +18,7 @@ import { Link, useNavigate,Outlet ,useLocation,redirect} from 'react-router-dom'
 
 
 
-const register = () => {
+ const Register = () => {
 
 
 const {loading,status}=useSelector(state=>state.userAuth)
@@ -145,7 +145,7 @@ navigate(-1)
 }
 
 
-export   const SignUP=()=>{
+   const SignUP=()=>{
 
   const dispatch=useDispatch();
   const [errorField,setErrorField]=useState({
@@ -317,7 +317,7 @@ dispatch(getRegister(formData))
 
 }
 
-export const Login=()=>{
+const Login=()=>{
 
   const dispatch=useDispatch();
   const [formData,setFormData]=useState({
@@ -383,6 +383,9 @@ dispatch(getLogin(formData))
 
 
 
+export default Register
+export {SignUP,Login}
 
 
-export default register
+
+// export default register

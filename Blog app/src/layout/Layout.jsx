@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import MenuBar from '../component/hearder/mobileMenuBar/MenuBar'
 import ImageShow from '../component/imageShow/ImageShow'
 import Popup from '../component/popup/Popup'
-const Layout = () => {
+ const Layout = () => {
 const [layoutState,setLayoutState]=useState(1)
 const widthRef=useRef();
 useEffect(()=>{

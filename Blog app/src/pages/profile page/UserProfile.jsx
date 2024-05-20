@@ -1,5 +1,6 @@
 import React, { useState ,useEffect} from 'react'
 import './style.scss'
+import '../singlefriend page/style.scss'
 import { banner } from '../../assets/backgroundImg/background';
 import { headerIcons } from '../../assets/images/headerIcons';
 import {useDispatch,useSelector} from 'react-redux'

@@ -53,7 +53,7 @@ const SideNav = () => {
 
       { notificActive ?
         <div className="bell-msg" style={{
-        position: "absolute", backgroundColor: "", top: "55px", width: "100%", height: "50px"
+        position: "absolute", backgroundColor: "", top: "70px", width: "100%", height: "50px"
       }}>
 
      

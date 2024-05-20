@@ -44,6 +44,7 @@ const commentSlice=mongoose.Schema(
     },{_id:false}
 )
 
+
 const storySlice= new mongoose.Schema({
 
     storyType:{
@@ -70,6 +71,10 @@ const storySlice= new mongoose.Schema({
     ,
     comments:{
         type:[commentSlice]
+    }
+    ,likes:{
+        type:[mongoose.Schema.Types.ObjectId],
+        ref:"user"
     }
     ,createdAt:{
         type:Date,

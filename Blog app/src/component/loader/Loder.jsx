@@ -1,8 +1,8 @@
 import React from 'react'
 import './loder.css'
-const Loder = () => {
+const Loder = ({style}) => {
   return (
-    <div className='loader-c'>
+    <div className='loader-c' style={style && style}>
         <div className="ring-container">
             <span className='ring'></span>
             <span className='ring'></span>
