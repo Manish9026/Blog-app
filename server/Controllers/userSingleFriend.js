@@ -17,6 +17,7 @@ if(uid){
     Promise.all([
         userModel.findOne({userId:uid},{password:0},).populate({
             path:"profile",
+            select:"profileImage coverImage"
         }).populate({
             path:"like",
             // match:{likes:{ $elemMatch:{userId}}}

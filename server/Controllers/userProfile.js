@@ -19,7 +19,7 @@ class userProfile extends AuthTools {
             
            
 
-            console.log(userId, req.query, req.body);
+            console.log(userId,type, req.body);
             const getUpdateData = async (setField, setRefField) => {
                 return await userModel.findOne({ _id: userId }, setField, { new: true }).populate({
                     path: "profile",
@@ -140,6 +140,7 @@ class userProfile extends AuthTools {
                 }
             }
             const updatePic=async(type)=>{
+                console.log(type);
                 try {
                     const form=formidable();
                     form.parse(req,async(err,fields,files)=>{
@@ -149,7 +150,7 @@ class userProfile extends AuthTools {
                                 status:false
                             })
                         }
-                       
+                       console.log(files);
                        if(files){
 
                         console.log(files.image[0].filepath);
@@ -166,10 +167,11 @@ class userProfile extends AuthTools {
                             const saved= await result.profile.save()
                         
                             if(saved){
-                                res.json({saved,status:true,message:"saved changes"})
+                                res.json({saved,status:true,message:"saved changes",type:"pic"})
                             }
                             else{
                                 res.json({
+                                    type:"pic",
                                     status:0,
                                     message:" network error"
                                 })
@@ -177,6 +179,7 @@ class userProfile extends AuthTools {
                         })
                         }else{
                             res.json({
+                                type:"pic",
                                 status:0,
                                 message:"network error"
                             })
@@ -185,6 +188,7 @@ class userProfile extends AuthTools {
                        
                        }else{
                         res.json({
+                            type:"pic",
                             status:0,
                             message:"please choose file again"
                         })
@@ -193,6 +197,7 @@ class userProfile extends AuthTools {
         
                 } catch (error) {
                     res.json({
+                        type:"pic",
                         status:0,
                         message:" network error"
                     })

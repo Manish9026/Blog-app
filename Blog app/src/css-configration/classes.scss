@@ -37,6 +37,10 @@ $avatar-offset: 52 + 16;
     animation: avtar 1.6s infinite linear;
 
 }
+.center{
+  align-items: center;
+  justify-content: center;
+}
 @keyframes avtar {
     0%{
     background-position: -100px + $avatar-offset;

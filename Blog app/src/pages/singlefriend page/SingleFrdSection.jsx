@@ -30,7 +30,7 @@ const [menuActive,setMenuActive]=useState(1)
         dispatch(getUserInfo(paramValue))
     }, [searchTxt,reload,frndStatus])
 //   location.
-
+console.log(userInfo,"single");
     // console.log(window.history.back);
 
     return (
@@ -41,7 +41,7 @@ const [menuActive,setMenuActive]=useState(1)
 }
             <div className="snglFrdPro">
                 <div className="snglFrdProBgImg">
-                    <img className="banner1" src={banner} />
+                    <img className="banner1" src={userInfo.profile?userInfo.profile.coverImage : banner} />
                 </div>
                 <div className="snglFrdProNameContainer">
                     <div className="snglContf">

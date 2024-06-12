@@ -10,7 +10,9 @@ import { IoAdd, IoCamera } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import { getUserInfo, isVerified } from '../../sclice/authSlice/authSlice';
 import { useNavigate } from "react-router-dom";
-import { getUserProfile } from '../../sclice/userProfileSlice';
+import { getUserProfile, updateProfile } from '../../sclice/userProfileSlice';
+import { FaXmark } from 'react-icons/fa6';
+import { url } from '../../tools/serverURL';
 const UserProfile = () => {
     const { userInfo, loading, frndStatus, likeStatus } = useSelector(state => { return state.snglFrnd })
     const [menuActive, setMenuActive] = useState(1)
@@ -18,6 +20,7 @@ const UserProfile = () => {
     const { status } = useSelector(state => state.userAuth)
     const user = useSelector(state => { return state.userAuth.userInfo })
     const [file,setFile]=useState(null);
+    const [proPic,setProPic]=useState(null);
     const [isVisible,setIsVisible]=useState(0);
     const location =useLocation();
     const navigate =useNavigate();
@@ -45,7 +48,27 @@ console.log(file);
     setIsVisible(0)
    }
     },[file])
-
+    
+    const ImagePopup=()=>{
+        console.log(proPic);
+        return(
+            <section className='popupMainContainer'>
+                 <div className="popupContainer fade-in">
+                    <span className='icon' onClick={()=>setProPic(null)}><FaXmark/></span>
+                <span className="imageContainer">
+                   
+                    <span className="img"><img src={URL.createObjectURL(proPic)} alt="" /></span>
+                    
+                </span>
+                <span className="btnContainer">
+                <label htmlFor="proPic" className='proBtn' >change</label>
+                    <button className='proBtn' onClick={()=>dispatch(updateProfile({type:"profilePic",file:proPic}))}>save</button>
+                </span>
+            </div>
+            </section>
+           
+        )
+    }                                     
     if (user.length != 0)
         return (
             <div className="profile-section">
@@ -53,6 +76,10 @@ console.log(file);
 
                     loading ? <Loder /> : ""
                 }
+               {
+                proPic?<ImagePopup/>:""
+               }
+                
                 <div className="snglFrdPro">
                     <div className="snglFrdProBgImg">
                         <input type="file" name="" onChange={(e)=>setFile(e.currentTarget.files[0])} id="coverPic" style={{ display: "none" }} />
@@ -65,7 +92,7 @@ console.log(file);
                             <span id="shds" style={{display:isVisible?"flex":"none"}} className="popup-box ">
                                 <button onClick={()=>{
                                     setFile(null)
-                                }}>cancel</button><button>submit</button>
+                                }}>cancel</button><button onClick={()=>dispatch(updateProfile({type:"coverPic",file}))}>submit</button>
                             </span>
                         </span>
                         <img className="banner1" src={file?URL.createObjectURL(file) : user.profile.coverImage || banner} />
@@ -74,7 +101,7 @@ console.log(file);
                         <div className="snglContf">
                             <div className="snglImg"  >
                                 <div className="userImg">
-                                    <input type="file" style={{ display: "none" }} id='proPic' />
+                                    <input type="file" onChange={(e)=>setProPic(e.currentTarget.files[0])} style={{ display: "none" }} id='proPic' />
                                     <label htmlFor='proPic' className='upload-icon' >
                                         <IoCamera className='icon' />
                                     </label>

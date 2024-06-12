@@ -23,16 +23,20 @@ export const getUserProfile=createAsyncThunk("getUserProfile/userProfile",async(
 
 export const updateProfile=createAsyncThunk("updateProfile/userProfile",async({type,field,file})=>{
 
-   
     const formData=new FormData();
     formData.append("image",file)
-    console.log(formData);
     try {
-        return await axios.patch(`/user/profile/updateProfile?type=${type}`,{formData ,field},{withCredentials:true,}).then(res=>{
-            console.log(res.data);
-            urlLoader(res.data)
-            return res.data
-        })
+     
+            
+            return await axios.patch(`/user/profile/updateProfile?type=${type}`,file?formData:{field}
+                ,{withCredentials:true}).then(res=>{
+                 urlLoader(res.data)
+                 console.log(res.data);
+                 return res.data
+             })
+     
+       
+
     } catch (error) {
         alert(error)
     }
@@ -77,6 +81,7 @@ state.data=payload.data || [];
     })
     builder.addCase(updateProfile.fulfilled,(state,{payload})=>{
         state.loading=false;
+        if(payload.type!="pic" )
         state.data=payload.data;
         state.status=payload.status;
     })
