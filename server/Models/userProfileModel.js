@@ -62,7 +62,7 @@ const userProfileSchema = new mongoose.Schema({
     profileImage: {
         type: String,
     },
-    coverImagePath:{
+    coverImage:{
         type:String
     },
     personal:{type:userPersonal,

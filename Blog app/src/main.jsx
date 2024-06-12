@@ -38,14 +38,10 @@ import { useDispatch } from 'react-redux'
 import  {isVerified} from './sclice/authSlice/authSlice.js'
 import   {getUserProfile}  from  './sclice/userProfileSlice.js'
 import  {getStories} from './sclice/storySlice.js'
-console.log("getstory",getStories);
+
 const RoutePath = () => {
 
   const dispatch = useDispatch();
-  // const navigate=useNavigate();
-
-  const authStatus=useSelector(state=>{return state.userAuth.status})
-console.log("authStatus",authStatus);
   const router = createBrowserRouter(
     [
       {
@@ -125,8 +121,6 @@ console.log("authStatus",authStatus);
           {
             path: "user/profile",
             element: <UserProfile />,
-            loader:async()=>await dispatch(isVerified()),
-
             children: [
               {
                 path: '',
@@ -139,9 +133,10 @@ console.log("authStatus",authStatus);
                   path: "personal-detail",
                   element: <PersonalForm />,
                   loader:async()=>{
-                    await dispatch(getUserProfile("personal"))
-                    return null
-                  }
+                      await dispatch(getUserProfile("personal"))
+                    return 0
+                  },
+                 
                 },
                 {
                   path: "education-and-work",

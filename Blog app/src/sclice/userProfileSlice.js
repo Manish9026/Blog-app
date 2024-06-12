@@ -8,7 +8,7 @@ export const getUserProfile=createAsyncThunk("getUserProfile/userProfile",async(
     try {
  return await axios.get(`/user/profile/getUserProfile?type=${type}`,{withCredentials:true}).then(res=>{
 
-console.log(res.data);
+    console.log("hello",type);
     urlLoader(res.data)
     return res.data
 }).catch(error=>{
@@ -21,11 +21,14 @@ console.log(res.data);
     }
 })
 
-export const updateProfile=createAsyncThunk("updateProfile/userProfile",async({type,field})=>{
+export const updateProfile=createAsyncThunk("updateProfile/userProfile",async({type,field,file})=>{
 
-    console.log(type,field);
+   
+    const formData=new FormData();
+    formData.append("image",file)
+    console.log(formData);
     try {
-        return await axios.patch(`/user/profile/updateProfile?type=${type}`,{field},{withCredentials:true}).then(res=>{
+        return await axios.patch(`/user/profile/updateProfile?type=${type}`,{formData ,field},{withCredentials:true,}).then(res=>{
             console.log(res.data);
             urlLoader(res.data)
             return res.data
@@ -42,7 +45,7 @@ initialState:{
     loading:false,
     data:[],
     formBoxStatus:false,
-    error:null
+    error:null,
 },
 reducers:{
 
@@ -60,8 +63,12 @@ extraReducers:(builder)=>{
     })
     builder.addCase(getUserProfile.fulfilled,(state,{payload})=>{
         
+
+
+state.data=payload.data || [];
+
+
         state.loading=false;       
-        state.data=payload.data || [];
         state.status=payload.status;
     })
 

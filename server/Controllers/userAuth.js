@@ -313,8 +313,9 @@ class userAuth extends AuthTools {
                 // console.log(uid,userId);
 
 
-                const data = await userModel.findOne({ userId }).populate({
+                const data = await userModel.findOne({ userId },{userEmail:1,userName:1,profile:1}).populate({
                     path: "profile",
+                    select:"profileImage coverImage"
 
                 })
                 const { userName, userEmail, profile } = data
@@ -337,7 +338,7 @@ class userAuth extends AuthTools {
 
         } catch (error) {
 
-            console.log(error);
+        
         }
     }
 

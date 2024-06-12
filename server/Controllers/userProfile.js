@@ -1,5 +1,7 @@
+import formidable from 'formidable';
 import { userModel } from '../Models/userModel.js';
 import { AuthTools } from './userAuth.js'
+import { imageUploader } from '../utils/imageUploader.js';
 
 class userProfile extends AuthTools {
 
@@ -10,9 +12,12 @@ class userProfile extends AuthTools {
             const { userId } = await this.getUserId(req);
             const { type, newValue } = req.query;
             let { field } = req.body;
-            let obj = Object.entries(field)
-
-
+            let obj ; 
+            if(field){
+              obj=  Object.entries(field)
+            }
+            
+           
 
             console.log(userId, req.query, req.body);
             const getUpdateData = async (setField, setRefField) => {
@@ -134,9 +139,71 @@ class userProfile extends AuthTools {
                     })
                 }
             }
+            const updatePic=async(type)=>{
+                try {
+                    const form=formidable();
+                    form.parse(req,async(err,fields,files)=>{
+                        if(err){
+                            return  res.status(201).json({
+                                message:"please try after sometime",
+                                status:false
+                            })
+                        }
+                       
+                       if(files){
 
+                        console.log(files.image[0].filepath);
+                        const imagePath=await imageUploader(files.image[0].filepath)
+                    
+                        if(imagePath){
+                        await userModel.findOne({userId},{profile:1}).populate({
+                            path:"profile",
+                            select:"profileImage coverImage"
+                        }).then(async(result)=>{
+                            
+                            result.profile[type]=imagePath
+                            // https://res.cloudinary.com/dztzqqiex/image/upload/v1711538780/jhcrvjnp0uucieikhuew.jpg
+                            const saved= await result.profile.save()
+                        
+                            if(saved){
+                                res.json({saved,status:true,message:"saved changes"})
+                            }
+                            else{
+                                res.json({
+                                    status:0,
+                                    message:" network error"
+                                })
+                            }
+                        })
+                        }else{
+                            res.json({
+                                status:0,
+                                message:"network error"
+                            })
+                        }
+                        
+                       
+                       }else{
+                        res.json({
+                            status:0,
+                            message:"please choose file again"
+                        })
+                    }
+                    })
+        
+                } catch (error) {
+                    res.json({
+                        status:0,
+                        message:" network error"
+                    })
+                }
+            }
 
             switch (type) {
+                case "profilePic":updatePic("profileImage");
+                    break;
+                case "coverPic":updatePic("coverImage");
+                    break;
                 case "bio": updateBio();
                     break;
                 case "personal": updatePersonal();
@@ -153,6 +220,7 @@ class userProfile extends AuthTools {
 
 
         } catch (error) {
+            console.log(error);
 
         }
     }
@@ -162,9 +230,6 @@ class userProfile extends AuthTools {
             // console.log(req);
             const { userId } = await this.getUserId(req)
             const { type } = req.query;
-
-
-            console.log(userId);
             // public function 
             const getUserData = async (setField, setRefField) => {
                 try {
@@ -194,6 +259,24 @@ class userProfile extends AuthTools {
                 }
             }
             //    private function
+            const getProfile=async()=>{
+
+                try {
+                 userModel.findOne({userId},{userName:1,userEmail:1}).populate({
+                    path:"profile",
+                    select:"profileImage coverImage"
+                 }).then(result=>{
+                    res.json({result,status:1,type:"profile"})
+                 })
+                } catch (error) {
+                    console.log(error);
+                    res.json({
+                        type:"profile",
+                        status:0,
+                    })
+                    
+                }
+            }
             const getBio = async () => {
                 try {
                     const data = await getUserData({ "profile": 1, "userName": 1 }, { "userBio": 1 })
@@ -270,10 +353,13 @@ class userProfile extends AuthTools {
                     })
                 }
             }
+
             if (userId) {
 
                 switch (type) {
 
+                    case "main":getProfile();
+                        break;
                     case "bio": getBio();
                         break;
 

@@ -5,7 +5,6 @@ import { userModel } from "../Models/userModel.js";
     
     try {
         const {uid}=req.cookies;
-        console.log(uid);
         if(uid){
           const {userId} =await AuthTools.getUserId(req)
           if(await userModel.findOne({userId})){

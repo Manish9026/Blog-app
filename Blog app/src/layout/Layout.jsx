@@ -44,7 +44,7 @@ setLayoutState(1)
    <ToastContainer
 position={layoutState?"top-right":"bottom-center"}
 autoClose={5000}
-limit={2}
+limit={1}
 hideProgressBar={false}
 newestOnTop
 closeOnClick

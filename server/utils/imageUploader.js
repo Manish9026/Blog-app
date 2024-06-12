@@ -11,10 +11,10 @@ export const imageUploader=async(bufferImg)=>{
         });
 
        return  await cloudinary.uploader.upload(bufferImg).then(res=>{
-        console.log(res.secure_url);
         return res.secure_url;
        }).catch(err=>{
         console.log(err);
+        return false
        })
         // console.log(result)
         // return result.secure_url

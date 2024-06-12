@@ -79,8 +79,8 @@ export const getUserInfo=createAsyncThunk("getUserInfo/userAuth",(data)=>{
 export const isVerified=createAsyncThunk("isVerified/userAuth",()=>{
 
   return axios.get("/user/s1/verify",{withCredentials:true}).then(res=>{
-    const {path,status}=res.data
-    console.log(res.data);
+    // const {path,status}=res.data
+    // console.log(res.data);
     
     // if(status){
     //  console.log("login succ");

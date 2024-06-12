@@ -13,9 +13,11 @@ import { RiEditBoxLine } from "react-icons/ri";
 import {useDispatch,useSelector} from 'react-redux'
 import { useEffect } from 'react';
 import { isVerified } from '../../sclice/authSlice/authSlice';
-import { resetBoxStatus, setBoxStatus, updateProfile } from '../../sclice/userProfileSlice';
+import { getUserProfile, resetBoxStatus, setBoxStatus, updateProfile } from '../../sclice/userProfileSlice';
 import ProLoder from './loader/ProLoder';
 import { popupHandler } from '../../sclice/globalSlice';
+import Loder from '../../component/loader/Loder';
+
 const show = (e) => {
    
 
@@ -130,11 +132,12 @@ export const PersonalForm = (e) => {
     const [fieldValue,setFieldValue]=useState("");
     const dispatch=useDispatch();
     let ref=useRef(null);
-    let [dob,setDOB]=useState( new Date(data.profile.personal.DOB));
+    
     
     useEffect(()=>{
 
-        console.log(loading);
+        // console.log(loading);
+        //  dispatch(getUserProfile("personal"))
     },[])
     const inputHandler=(e)=>{
         // if(e.target.name=="DOB"){
@@ -184,6 +187,8 @@ if(!fieldValue){
         ref.current=null;
     }
 
+    if(data.length!=0){
+        let [dob,setDOB]=useState( new Date(data.profile.personal.DOB));
     return (
 
         <section className='presonal-section'>
@@ -341,7 +346,10 @@ if(!fieldValue){
 
         </section>
 
-    )
+    )}
+    else{
+        return(<ProLoder/>)
+    }
 }
 
 export const UserEdu = () => {
