@@ -17,8 +17,10 @@ const UserProfile = () => {
     const dispatch = useDispatch();
     const { status } = useSelector(state => state.userAuth)
     const user = useSelector(state => { return state.userAuth.userInfo })
-    const navigate = useNavigate();
-    const location = useLocation();
+    const [file,setFile]=useState(null);
+    const [isVisible,setIsVisible]=useState(0);
+    const location =useLocation();
+    const navigate =useNavigate();
     useEffect(() => {
 
         if (!status) {
@@ -33,6 +35,16 @@ const UserProfile = () => {
 
         }
     }, [])
+console.log(status);
+    useEffect(()=>{
+   if(file){
+    setIsVisible(1)
+console.log(file);
+   }
+   else{
+    setIsVisible(0)
+   }
+    },[file])
 
     if (user.length != 0)
         return (
@@ -43,18 +55,20 @@ const UserProfile = () => {
                 }
                 <div className="snglFrdPro">
                     <div className="snglFrdProBgImg">
-                        <input type="file" name="" id="coverPic" style={{ display: "none" }} />
+                        <input type="file" name="" onChange={(e)=>setFile(e.currentTarget.files[0])} id="coverPic" style={{ display: "none" }} />
 
                         <span className='upload-icon'>
                             <label htmlFor='coverPic' className='coverPic'>
                                 <IoCamera className='icon' />
                                 <p>edit cover image</p>
                             </label>
-                            <span id="shds" className="popup-box ">
-                                <button>cancel</button><button>submit</button>
+                            <span id="shds" style={{display:isVisible?"flex":"none"}} className="popup-box ">
+                                <button onClick={()=>{
+                                    setFile(null)
+                                }}>cancel</button><button>submit</button>
                             </span>
                         </span>
-                        <img className="banner1" src={user.profile.coverImage || banner} />
+                        <img className="banner1" src={file?URL.createObjectURL(file) : user.profile.coverImage || banner} />
                     </div>
                     <div className="snglFrdProNameContainer">
                         <div className="snglContf">
@@ -119,6 +133,7 @@ const UserProfile = () => {
                         {
                             status ?
                                 <Outlet /> : ""
+                            // <Outlet />
                         }
                     </div>
                 </div>
