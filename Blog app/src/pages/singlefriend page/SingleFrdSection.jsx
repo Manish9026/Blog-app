@@ -12,7 +12,6 @@ import { sndFrndReq } from "../../sclice/friendSlice";
 import privious from "../../custom hooks/privious";
 import MenuIcon from "../../component/menu-icon/MenuIcon";
 import { showImage } from "../../sclice/globalSlice";
-import DotLoader from "../profile page/loader/DotLoader";
  const  SingleFrdSection = ({ className, ...props }) => {
     // const history=useHistory();
     const pivious=privious();
