@@ -1,4 +1,34 @@
 
+
+/* HTML: <div class="loader"></div> */
+.dot-loader{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	position: absolute;
+	background-color: #d5d0d083;
+}
+.loader {
+	
+	width: 10px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	animation: l5 1s infinite linear alternate;
+  }
+
+  /* HTML: <div class="loader"></div> */
+$color:rgb(51, 51, 133);
+$thikColor:rgba(59, 57, 57, 0.133);
+  @keyframes l5 {
+
+	  0%  {box-shadow: 20px 0 $color, -20px 0 $thikColor;background: $color }
+	  33% {box-shadow: 20px 0 $color, -20px 0 $thikColor;background: $thikColor}
+	  66% {box-shadow: 20px 0 $thikColor,-20px 0 $color; background: $thikColor}
+	  100%{box-shadow: 20px 0 $thikColor,-20px 0 $color; background: $color }
+  }
 :root {
 	--hue: 223;
 	--bg: hsl(var(--hue),90%,90%);

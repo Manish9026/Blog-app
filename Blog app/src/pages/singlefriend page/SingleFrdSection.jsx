@@ -12,6 +12,7 @@ import { sndFrndReq } from "../../sclice/friendSlice";
 import privious from "../../custom hooks/privious";
 import MenuIcon from "../../component/menu-icon/MenuIcon";
 import { showImage } from "../../sclice/globalSlice";
+import DotLoader from "../profile page/loader/DotLoader";
  const  SingleFrdSection = ({ className, ...props }) => {
     // const history=useHistory();
     const pivious=privious();
@@ -26,12 +27,10 @@ const [reload,setReload]=useState(0)
 const [menuActive,setMenuActive]=useState(1)
     useEffect(() => {
         const paramValue=queryParam.get("uid").split("/")[0]
-        // console.log(paramValue)
+
         dispatch(getUserInfo(paramValue))
     }, [searchTxt,reload,frndStatus])
-//   location.
-console.log(userInfo,"single");
-    // console.log(window.history.back);
+
 
     return (
         <div className="singleFrdSection">
@@ -41,6 +40,7 @@ console.log(userInfo,"single");
 }
             <div className="snglFrdPro">
                 <div className="snglFrdProBgImg">
+                   
                     <img className="banner1" src={userInfo.profile?userInfo.profile.coverImage : banner} />
                 </div>
                 <div className="snglFrdProNameContainer">
@@ -82,7 +82,7 @@ console.log(userInfo,"single");
                             <img className="thumbUp1" src={headerIcons.like} />
                             <p className="like">unLike </p>
                         </button>}
-                        <button className="snglFollow" onClick={()=>{console.log(window.history.back())}}>
+                        <button className="snglFollow" onClick={()=>{}}>
                             
                             <p className="follow">follow </p>
                         </button>

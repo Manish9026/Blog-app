@@ -167,11 +167,11 @@ class userProfile extends AuthTools {
                             const saved= await result.profile.save()
                         
                             if(saved){
-                                res.json({saved,status:true,message:"saved changes",type:"pic"})
+                                res.json({saved,status:true,message:"saved changes",type})
                             }
                             else{
                                 res.json({
-                                    type:"pic",
+                                    type,
                                     status:0,
                                     message:" network error"
                                 })
@@ -179,7 +179,7 @@ class userProfile extends AuthTools {
                         })
                         }else{
                             res.json({
-                                type:"pic",
+                                type,
                                 status:0,
                                 message:"network error"
                             })
@@ -188,7 +188,7 @@ class userProfile extends AuthTools {
                        
                        }else{
                         res.json({
-                            type:"pic",
+                            type,
                             status:0,
                             message:"please choose file again"
                         })
@@ -197,7 +197,7 @@ class userProfile extends AuthTools {
         
                 } catch (error) {
                     res.json({
-                        type:"pic",
+                        type,
                         status:0,
                         message:" network error"
                     })

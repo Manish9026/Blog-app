@@ -17,7 +17,6 @@ const location=useLocation()
   const {userInfo}=useSelector(state=>state.userAuth)
 const [isActive,setIsActive]=useState(false);
 const dispatch=useDispatch();
-
 useEffect(()=>{
 
   dispatch(getUserInfo())

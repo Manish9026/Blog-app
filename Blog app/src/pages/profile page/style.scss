@@ -238,7 +238,7 @@ background-color:  transparent;
                 .snglImg {
 
                     .userImg {
-
+                        overflow: hidden;
                         .upload-icon {
                             position: absolute;
                             width: 30px;
@@ -275,7 +275,13 @@ background-color:  transparent;
                 }
 
                 .userName {
+                    position: relative;
                     gap: 0px;
+                    align-items: flex-start;
+                    left: 20px;
+                    @include sm{
+                        left: 0;
+                    }
                 }
             }
 
