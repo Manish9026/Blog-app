@@ -28,7 +28,8 @@ const [menuActive,setMenuActive]=useState(1)
         const paramValue=queryParam.get("uid").split("/")[0]
 
         dispatch(getUserInfo(paramValue))
-    }, [searchTxt,reload,frndStatus])
+        window.scrollTo(0, 0);
+    }, [searchTxt,reload,frndStatus,location])
 
 
     return (
@@ -37,10 +38,10 @@ const [menuActive,setMenuActive]=useState(1)
 
            loading? <Loder/>:""
 }
-            <div className="snglFrdPro">
+           { userInfo && <div className="snglFrdPro">
                 <div className="snglFrdProBgImg">
                    
-                    <img className="banner1" src={userInfo.profile?userInfo.profile.coverImage : banner} />
+                    <img className="banner1" src={userInfo.profile?userInfo.profile.coverImage?userInfo.profile.coverImage :banner:banner} />
                 </div>
                 <div className="snglFrdProNameContainer">
                     <div className="snglContf">
@@ -90,7 +91,7 @@ const [menuActive,setMenuActive]=useState(1)
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>}
             <div className="snglOptions">
                 <div className="optionContainer">
                     <div className="option-btn">

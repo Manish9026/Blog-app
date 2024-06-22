@@ -38,6 +38,8 @@ import { useDispatch } from 'react-redux'
 import  {getUserInfo, isVerified} from './sclice/authSlice/authSlice.js'
 import   {getUserProfile}  from  './sclice/userProfileSlice.js'
 import  {getStories} from './sclice/storySlice.js'
+import UserFriend from './pages/profile page/UserFriend.jsx';
+import { getAllFrnd } from './sclice/friendSlice.js';
 
 const RoutePath = () => {
 
@@ -149,8 +151,12 @@ return 0
                 },
                 ]
               }, {
-                path: './friends',
-                element: <Friends />
+                path: 'friends',
+                element: <UserFriend />,
+                loader:async()=>{
+                  dispatch(getAllFrnd({type:"self"})); 
+                  return null                 
+                }
               }
             ]
           }
