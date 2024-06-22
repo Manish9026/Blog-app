@@ -40,6 +40,7 @@ import   {getUserProfile}  from  './sclice/userProfileSlice.js'
 import  {getStories} from './sclice/storySlice.js'
 import UserFriend from './pages/profile page/UserFriend.jsx';
 import { getAllFrnd } from './sclice/friendSlice.js';
+import UserBlogs from './pages/profile page/UserBlogs.jsx';
 
 const RoutePath = () => {
 
@@ -157,6 +158,10 @@ return 0
                   dispatch(getAllFrnd({type:"self"})); 
                   return null                 
                 }
+              },
+              {
+                path:"blogs",
+                element:<UserBlogs/>
               }
             ]
           }

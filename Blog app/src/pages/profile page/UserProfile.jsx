@@ -5,7 +5,7 @@ import { banner } from '../../assets/backgroundImg/background';
 import { headerIcons } from '../../assets/images/headerIcons';
 import { useDispatch, useSelector } from 'react-redux'
 import MenuIcon from '../../component/menu-icon/MenuIcon';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { IoAdd, IoCamera } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import { getUserInfo, isVerified } from '../../sclice/authSlice/authSlice';
@@ -50,7 +50,7 @@ const UserProfile = () => {
     setIsVisible(0)
    }
     },[file])
-    const navRoute=[["About","./"],["friends","./friends"],["blogs","./blogs"],["photo","./photos"]]
+    const navRoute=[["About",""],["friends","./friends"],["blogs","./blogs"],["photo","./photos"]]
     const ImagePopup=()=>{
 
         return(
@@ -145,9 +145,15 @@ const UserProfile = () => {
                         {
                             navRoute.map((route,indx)=>{
                                 return(
-                                    <Link to={route[1]} key={indx} className="option-btn">
+                                    <NavLink to={route[1]} key={indx} 
+                                    className={`option-btn ${({isActive, isPending})=>{
+                                        if(isActive)
+                                            return "active"
+                                        else
+                                            return ""
+                                    }}`} end>
                                     <div className="opt-txt">{route[0]} </div>
-                                </Link>
+                                </NavLink>
                                 )
                             })
                         }

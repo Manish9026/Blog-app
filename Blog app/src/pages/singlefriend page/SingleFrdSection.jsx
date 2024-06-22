@@ -41,7 +41,7 @@ const [menuActive,setMenuActive]=useState(1)
            { userInfo && <div className="snglFrdPro">
                 <div className="snglFrdProBgImg">
                    
-                    <img className="banner1" src={userInfo.profile?userInfo.profile.coverImage?userInfo.profile.coverImage :banner:banner} />
+                    <img className="banner1" loading="lazy" src={userInfo.profile?userInfo.profile.coverImage?userInfo.profile.coverImage :banner:banner} />
                 </div>
                 <div className="snglFrdProNameContainer">
                     <div className="snglContf">

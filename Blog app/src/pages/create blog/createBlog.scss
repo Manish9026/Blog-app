@@ -3,6 +3,213 @@
 @import '../../css-configration/variables.scss';
 @import '../../css-configration/classes.scss';
 
+
+
+
+.blogsPostSection{
+@extend .flex,.center;
+font-family: "Work Sans", sans-serif;
+flex-direction: column;
+  max-width: 500px;
+  min-height: 300px;
+ justify-content: flex-start;
+ gap: 10px;
+ flex-grow: 0;
+  border-radius: $lgBorderRadius;
+  background-color: #9096999e;
+  background-color: #245d79;
+
+  overflow: hidden;
+
+
+  $bgPadding:5px 10px;
+  .bgPost-header{
+    @extend .flex, .center;
+    background-color: #635454;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: $bgPadding;
+  flex: 1;
+  width: 100%;
+  overflow: visible;
+
+  max-height: 70px;
+
+.avtar{
+  display: flex;
+  flex:1;
+  max-width: 50px;
+  border-radius: 50%;
+  min-height: 50px;
+  max-height: 50px;
+    height: 100%;
+  width: 100%;
+  border: $lightBorder;
+  img{
+    margin: 2px;
+    width: 100%;
+    max-height: 100%;
+  border-radius: 50%;
+
+  }
+}
+.bgName{
+  position: relative;
+@extend .columnFlex;
+gap:0px;
+cursor: pointer;
+
+.bg-select{
+  @extend .center;
+  font-size: .8rem;
+  padding: 0px 5px;
+  background-color: #576beb;
+  border-radius: $smBorderRadius - 5;
+  .icons{
+    position: relative;
+    top: -2px;
+  }
+  li{
+    color: rgb(5, 4, 4);
+    gap: 5px;
+    text-transform: capitalize;
+    & :nth-child(1){
+      color: #1a1e22
+    }
+   
+  }
+
+
+}
+&:hover{
+  .select{
+    display: flex;
+  }
+}
+
+.select{
+  @extend .center;
+  flex-direction: column;
+  background-color: #404a5b;
+  color: white;
+  transition: 1s ease;
+  min-width: 160px;
+  max-width: 200px;
+  gap: 5px;
+  position: absolute;
+  top: 100%;
+
+
+  padding: 5px 0px;
+
+  li{
+    @extend .flex;
+    padding: 0px 10px;
+    cursor: pointer;
+    gap: 5px;
+    justify-content: flex-start;
+    font-size: .8rem;
+    text-transform: capitalize;
+    width: 100%;
+    &:hover{
+   
+      background-color: #323359;
+    
+  }
+  }
+
+
+ 
+
+}
+
+}
+
+
+// .bg-select{
+
+// }
+
+
+
+  }
+
+ 
+  .bgPostBody{
+    @extend .columnFlex ,.center;
+    max-width: 90%;
+    width: 100%;
+    flex: 1;
+    justify-content: flex-start;
+    
+
+    padding: 20px 0px;
+    .upload-section{
+      @extend .columnFlex ,.center;
+      border-radius: $smBorderRadius;
+  cursor: pointer;
+      width: 100%;
+      flex: 1;
+      min-height: 150px;
+      max-height: 200px;
+      background-color: #999cbbd4;
+    }
+    .textField{
+  //  border: $lightBorder;
+padding: $bgPadding;
+      display: flex;
+      width: 98%;
+      min-height: 150px;
+      textarea{
+        flex: 1;
+        max-width: 85%;
+        height: 100%
+      }
+      .bgAdditional{
+        @extend .center;
+        display: flex;
+        height: 40px;
+       
+        gap: 5px;
+        .icons{
+          cursor: pointer;
+          color: #0b0a0a;
+          line-height: 1;
+        }
+        .gif{
+          @extend .center;
+          padding: 0px 5px;
+          border-radius: 5px;
+          background-color: #675e5e;
+        }
+      }
+    
+
+      // flex: 1;
+      // background-color: #fff;
+
+    }
+    .btn-section{
+      @extend .flex;
+justify-content: center;
+gap: 5px;
+button{
+  @extend .flex,.center ,.fadeIn;
+border-radius: $smBorderRadius - 2;
+  flex: 1;
+  max-width: 200px;
+
+  height: 40px;background-color: #5ec9fe;
+}
+      // background-color: #fff;
+
+    }
+
+}
+}
+
+
 .ct-blog-container  {
 
 

@@ -3,8 +3,8 @@ import './createBlog.scss'
 import { bg, uploadBg } from '../../assets/backgroundImg/background'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { GrGallery } from "react-icons/gr";
-import { MdOutlineAdd } from 'react-icons/md';
-import { FaXmark } from 'react-icons/fa6';
+import { MdOutlineAdd, MdOutlineAddPhotoAlternate, MdOutlineEmojiEmotions, MdPublic } from 'react-icons/md';
+import { FaSortDown, FaXmark } from 'react-icons/fa6';
 import { getSongUrl } from './getSongApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSong } from '../../sclice/songSlice';
@@ -48,42 +48,107 @@ const BlogSection = () => {
 }
 
 
+import { AiOutlineGif } from "react-icons/ai";
+import { FaUserFriends } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 
-export const CreateBlog = () => {
+import { FaUser } from "react-icons/fa";
+
+
+// export const CreateBlog = () => {
+//   return (
+//     <div className="ct-form">
+//       <label
+//         className="ct-img"
+//         style={{
+//           background: `url(${uploadBg}) center`,
+//           backgroundSize: "cover",
+//           backgrounRepeat: "no-repeat",
+//         }}
+//         htmlFor='ctfile'
+//       >
+//         <input type="file" id='ctfile' style={{ display: "none" }} />
+
+//         <div className="ct-blur">
+//           <div className="ct-img-txt">upload bolg image</div>
+//         </div>
+//       </label>
+//       <form className="ct-in-section">
+//         <div className="ct-in-field">
+//           <input className="title" type='text' placeholder="title" />
+//         </div>
+//         <div className="ct-in-field">
+//           <input className="blog-type" type='text' placeholder="blog type" />
+//         </div>
+//         <div className="ct-content-field">
+//           <textarea className="ct-content-txt" type='text' placeholder="Create your blog" />
+//         </div>
+//         <div className="ct-btn-section">
+//           <button className="sub-btn">
+//             <p className="txt">submit</p>
+//           </button>
+//         </div>
+//       </form>
+//     </div>
+//   )
+// }
+export const CreateBlog=()=>{
+  const user = useSelector(state => { return state.userAuth.userInfo })
+  // <MdPublic />
+  const [isActive,setIsActive]=useState(0);
+
+  const allowUser=[[<MdPublic/>,"public","public"],[<FaUsers />,"friends","friends"],[<FaUserFriends />,"specific Friends","customFriends"],[<FaUser />,"only me","self"]]
+  const [postAllow,setPostAllow]=useState("friends")
   return (
-    <div className="ct-form">
-      <label
-        className="ct-img"
-        style={{
-          background: `url(${uploadBg}) center`,
-          backgroundSize: "cover",
-          backgrounRepeat: "no-repeat",
-        }}
-        htmlFor='ctfile'
-      >
-        <input type="file" id='ctfile' style={{ display: "none" }} />
+    <section className='blogsPostSection'>
 
-        <div className="ct-blur">
-          <div className="ct-img-txt">upload bolg image</div>
-        </div>
-      </label>
-      <form className="ct-in-section">
-        <div className="ct-in-field">
-          <input className="title" type='text' placeholder="title" />
-        </div>
-        <div className="ct-in-field">
-          <input className="blog-type" type='text' placeholder="blog type" />
-        </div>
-        <div className="ct-content-field">
-          <textarea className="ct-content-txt" type='text' placeholder="Create your blog" />
-        </div>
-        <div className="ct-btn-section">
-          <button className="sub-btn">
-            <p className="txt">submit</p>
-          </button>
-        </div>
-      </form>
+<header className='bgPost-header'>
+  <span className="avtar">
+    <img src={user.profile && user.profile.profileImage} alt="" />
+  </span>
+  <span className="bgName">
+    <p>{user.userName || "userName"}</p>
+    <span onClick={()=>setIsActive(prev=>!prev)} className='bg-select'>{allowUser.map((item)=>{
+      if(item[2]==postAllow)return(
+      
+      <li className='center' >{item[0]}{item[1]}</li>
+      )
+    })} <FaSortDown className='icons'/> </span>
+
+    <div className="select" style={isActive?{display:""}:{display:"none"}}>
+      {allowUser.map((item)=>{
+        return(
+          <li className='option' onClick={()=>{setPostAllow(item[2]);setIsActive(prev=>!prev)}} value={item[2]}>{item[0]}{item[1]}</li>
+        )
+      })}
     </div>
+  </span>
+</header>
+
+<div className="bgPostBody">
+
+<label htmlFor='bgFile' className="upload-section">
+  <input type="file" name="" id="bgFile"  style={{display:"none"}}/>
+<MdOutlineAddPhotoAlternate />
+add Photo & video
+</label>
+<span className="textField">
+<textarea name="" id="" placeholder='your post' autoFocus></textarea>
+<span className="bgAdditional">
+<MdOutlineEmojiEmotions className='icons' />
+<span className='gif'><AiOutlineGif  className='icons'/></span>
+
+</span>
+</span>
+
+<div className="btn-section">
+  <button>cancel</button>
+  <button>save</button>
+</div>
+
+
+</div>
+    </section>
   )
 }
 export const CreateStory = () => {
