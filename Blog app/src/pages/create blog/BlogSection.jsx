@@ -99,6 +99,18 @@ export const CreateBlog=()=>{
 
   const allowUser=[[<MdPublic/>,"public","public"],[<FaUsers />,"friends","friends"],[<FaUserFriends />,"specific Friends","customFriends"],[<FaUser />,"only me","self"]]
   const [postAllow,setPostAllow]=useState("friends")
+  const  calcHeight=(value)=> {
+    let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+    console.log(numberOfLineBreaks);
+
+    // min-height + lines x line-height + padding + border
+    let newHeight = 100 + numberOfLineBreaks ;
+    return newHeight;
+  }
+  const textFieldGrow=(e)=>{
+    console.log( e.target,calcHeight(e.target.value) );
+   e.target.style.height=calcHeight(e.target.value) + "px"
+  }
   return (
     <section className='blogsPostSection'>
 
@@ -133,7 +145,7 @@ export const CreateBlog=()=>{
 add Photo & video
 </label>
 <span className="textField">
-<textarea name="" id="" placeholder='your post' autoFocus></textarea>
+<textarea style={{height:"100px"}} name="" id="" placeholder='your post' autoFocus onKeyUp={(e)=>textFieldGrow(e)}></textarea>
 <span className="bgAdditional">
 <MdOutlineEmojiEmotions className='icons' />
 <span className='gif'><AiOutlineGif  className='icons'/></span>

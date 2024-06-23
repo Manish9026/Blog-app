@@ -18,6 +18,7 @@ flex-direction: column;
   border-radius: $lgBorderRadius;
   background-color: #9096999e;
   background-color: #245d79;
+  background: linear-gradient(to top left,rgb(69, 69, 233),rgba(18, 15, 31, 0.838) 70%);
 
   overflow: hidden;
 
@@ -25,7 +26,12 @@ flex-direction: column;
   $bgPadding:5px 10px;
   .bgPost-header{
     @extend .flex, .center;
-    background-color: #635454;
+    // background-color: #635454;
+    // background: linear-gradient(to bottom left,rgba(18, 21, 25, 0.956),rgb(27, 23, 71));
+    // color: #18bac8;
+    color: #069caa;
+
+    border-bottom: $lightBorder;
   display: flex;
   justify-content: flex-start;
   gap: 20px;
@@ -45,9 +51,10 @@ flex-direction: column;
   max-height: 50px;
     height: 100%;
   width: 100%;
-  border: $lightBorder;
+  box-shadow: inset 1px 1px gray,inset -1px -1px gray;
+  padding: 2px;
   img{
-    margin: 2px;
+    // margin: 2px;
     width: 100%;
     max-height: 100%;
   border-radius: 50%;
@@ -161,15 +168,25 @@ padding: $bgPadding;
       display: flex;
       width: 98%;
       min-height: 150px;
+      // border: $lightBorder;
+
       textarea{
-        flex: 1;
+        position: relative;
+        display: flex;
+        // flex: 1;
         max-width: 85%;
-        height: 100%
+        height: 100%;
+        color:#ded3d3;
+text-wrap: wrap;
+        resize: none;
+        overflow: hidden;
+        // border: $lightBorder;
       }
       .bgAdditional{
         @extend .center;
         display: flex;
         height: 40px;
+      // border: $lightBorder;
        
         gap: 5px;
         .icons{

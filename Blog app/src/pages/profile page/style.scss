@@ -871,8 +871,8 @@
                     img {
                         max-width: 100%;
                         max-height: 60%;
-                        object-fit: contain;
-                        aspect-ratio: 1;
+                        object-fit: cover;
+                        // aspect-ratio: 1;
                     }
                 }
 
@@ -883,7 +883,7 @@
                     gap: 10px;
                     padding: 5px 2px;
                     color: white;
-                    height: 50%;
+                    min-height: 50%;
                     background-color: #213643c7;
                     background-image: linear-gradient(to top right, #213643c7 20%, rgb(102, 102, 203));
                     position: absolute;
@@ -895,7 +895,7 @@
                         font-family: $smothFont;
                         display: flex;
                         padding: 0px 5px;
-                        line-height: 1.2;
+                        line-height: 1.4;
                         font-weight: 400;
                         gap: 10px;
 
@@ -904,13 +904,13 @@
                             color: #5eb8f5;
                         }
 
-                        font-size: .7rem;
+                        font-size: 0.63rem;;
                     }
 
                     .openBtn {
                         @extend .center, .fadeIn;
-                        width: 100px;
-                        
+                        min-width: 50px;
+                        padding: 10px;
 
                         height: 30px;
                         background-image: linear-gradient(to top right, #213643c7 20%, rgb(102, 102, 203));
