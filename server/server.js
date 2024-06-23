@@ -4,14 +4,15 @@ import DB_connection from './DBconfig/DB.config.js';
 import userRoute from './routes/Auth.js';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-import blogRoute from './routes/Blog.js';
-import { userBlog } from './Controllers/userBlog.js';
+// import userPostRoute from './routes/userPost.js';
+
 import userAuth from './Controllers/userAuth.js';
 import friendRoute from './routes/userFriend.js';
 import snglFriendRoute from './routes/userSinglefriend.js';
 import bodyParser from 'body-parser';
 import userProfileRoute from './routes/userProfile.js';
 import userStoryRoute from './routes/story.js';
+import userPostRoute from './routes/userPost.js';
 dotenv.config();
 const app = express();
 
@@ -31,12 +32,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 // console.log(process.env.BASE_URL);
 app.use("/user/s1",userRoute)
-app.use("/user/b1",blogRoute)
+app.use("/user/p1",userPostRoute)
 app.use("/user/f1",friendRoute)
 app.use('/user/sf',snglFriendRoute)
 app.use('/user/profile',userProfileRoute)
 app.use('/user/story',userStoryRoute)
 
+app.get("/h",(req,res)=>{
+    res.send("hello")
+})
 DB_connection()
 // app.post('/image',userBlog.convertBaseUrl)
 const port = process.env.PORT || 8080

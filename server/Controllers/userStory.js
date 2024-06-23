@@ -29,7 +29,7 @@ static createStory=async(req,res)=>{
                 songUrl=songUrl[0];
                 storyType=storyType[0]
                 console.log(files.storyImage[0].filepath);
-                const storyImage= await imageUploader(files.storyImage[0].filepath);
+                const storyImage= await imageUploader(files.storyImage[0].filepath); 
  
                 console.log(storyImage);
                 console.log(storyType,songUrl);

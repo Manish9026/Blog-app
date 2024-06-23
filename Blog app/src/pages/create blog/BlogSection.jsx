@@ -51,61 +51,43 @@ const BlogSection = () => {
 import { AiOutlineGif } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
-
 import { FaUser } from "react-icons/fa";
+import { uploadPost } from '../../sclice/userPostSlice';
+import { headerIcons } from '../../assets/images/headerIcons';
+import { RiLoader4Line } from "react-icons/ri";
+import { GiCheckMark } from "react-icons/gi";
 
 
-// export const CreateBlog = () => {
-//   return (
-//     <div className="ct-form">
-//       <label
-//         className="ct-img"
-//         style={{
-//           background: `url(${uploadBg}) center`,
-//           backgroundSize: "cover",
-//           backgrounRepeat: "no-repeat",
-//         }}
-//         htmlFor='ctfile'
-//       >
-//         <input type="file" id='ctfile' style={{ display: "none" }} />
 
-//         <div className="ct-blur">
-//           <div className="ct-img-txt">upload bolg image</div>
-//         </div>
-//       </label>
-//       <form className="ct-in-section">
-//         <div className="ct-in-field">
-//           <input className="title" type='text' placeholder="title" />
-//         </div>
-//         <div className="ct-in-field">
-//           <input className="blog-type" type='text' placeholder="blog type" />
-//         </div>
-//         <div className="ct-content-field">
-//           <textarea className="ct-content-txt" type='text' placeholder="Create your blog" />
-//         </div>
-//         <div className="ct-btn-section">
-//           <button className="sub-btn">
-//             <p className="txt">submit</p>
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   )
-// }
-export const CreateBlog=()=>{
+export const CreateBlog = () => {
   // redux states
   const user = useSelector(state => { return state.userAuth.userInfo })
   // states
-  const [isActive,setIsActive]=useState(0);
-  const [postAllow,setPostAllow]=useState("friends");
+  const [isActive, setIsActive] = useState(0);
+  const [postAllow, setPostAllow] = useState("friends");
   const textareaRef = useRef(null);
-  const [postText, setPostText] = useState('');
-  const allowUser=[[<MdPublic/>,"public","public"],[<FaUsers />,"friends","friends"],[<FaUserFriends />,"specific Friends","customFriends"],[<FaUser />,"only me","self"]]
-
+  const [postMessage, setPostMessage] = useState('');
+  const [files, setFiles] = useState(null);
+  const [alertBox, setAlertBox] = useState({
+    isVisible: 0,
+    message: "hfghfj",
+    type: ""
+  })
+  const [subConfirm, setSubConfirm] = useState(0)
+  const allowUser = [[<MdPublic />, "public", "public"], [<FaUsers />, "friends", "friends"], [<FaUserFriends />, "specific Friends", "customFriends"], [<FaUser />, "only me", "self"]]
+  const [btnStatus, setBtnStatus] = useState({
+    loadingBtn: 0,
+    submitBtn: 1,
+    successBtn: 0,
+    status:0
+  })
+  //  React Hooks
+  const dispatch = useDispatch();
+  const { loading } = useSelector(state => { return state.userPost.uploadState })
   // functions 
-  const textFieldGrow=(e)=>{
-  adjustTextareaHeight();
-  setPostText(e.target.value)
+  const textFieldGrow = (e) => {
+    adjustTextareaHeight();
+
   }
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
@@ -113,58 +95,167 @@ export const CreateBlog=()=>{
     console.log(textarea.scrollHeight);
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
-  const submitHandler=()=>{
-    alert(postText);
+  const resetHandler=()=>{
+    setFiles(null);
+    setPostMessage("");
+  }
+  const submitHandler = () => {
+   
+   if(postMessage.length!=0 && files) {
+      dispatch(uploadPost({ postImages: files, postMessage, postType: postAllow }))
+      setBtnStatus(prev=>({...prev,status:1}));
+      resetHandler();
+
+    }
+   else if (postMessage) {
+      if (subConfirm){
+        dispatch(uploadPost({ postImages: files, postMessage, postType: postAllow }))
+      resetHandler();
+
+
+      }
+      else {
+        setAlertBox({ isVisible: true, message: "you are post only chat & message", type: "chat" })
+      }
+    }
+    else if (files) {
+
+      if (subConfirm) {
+        dispatch(uploadPost({ postImages: files, postMessage, postType: postAllow }))
+      resetHandler();
+
+      }
+      else { 
+        setAlertBox({ isVisible: true, message: "you are post only photo & videos", type: "files" })
+       }
+     
+
+    }
+    else {
+      setAlertBox({ isVisible: true, message: "your post is empty", type: "empty" })
+
+    }
+  }
+  useEffect(() => {
+
+    if (subConfirm) {
+      setAlertBox(prev => ({ ...prev, isVisible: 0 }))
+      submitHandler();
+    }
+    return () => { setSubConfirm(0);resetHandler() }
+  }, [subConfirm])
+  useEffect(() => {
+    let timeOut=null;
+    console.log(loading);
+
+    if (loading && btnStatus.status) {
+      setBtnStatus(prev => ({ ...prev, submitBtn: 0, successBtn: 0, loadingBtn: 1 }))
+   
+    }
+    else if(!loading && btnStatus.status){
+      setBtnStatus(prev => ({ ...prev, submitBtn: 0, successBtn: 1, loadingBtn: 0 }))
+         timeOut = setTimeout(() => {
+        setBtnStatus(prev => ({ ...prev, submitBtn: 1, successBtn: 0, loadingBtn: 0 }))
+      setBtnStatus(prev=>({...prev,status:0}))
+
+      }, 2000);
+    }
+    else{
+      setBtnStatus(prev => ({ ...prev, submitBtn: 1, successBtn: 0, loadingBtn: 0 }))
+    }
+
+    return () => clearTimeout(timeOut)
+  }, [loading])
+
+  // userDefiend react component
+  const AlertBox = () => {
+    return (
+      <section className={`alrt-section ${alertBox.isVisible ? "popup" : "popin"}`} >
+        <div className="alt-container">
+
+          <span className="icon" onClick={() => setAlertBox({ isVisible: 0 })}>
+            <FaXmark />
+          </span>
+          <img src={alertBox.type == "files" ? headerIcons.message : alertBox.type == "chat" ? headerIcons.chat : headerIcons.notFound} alt="" />
+          <div className="alt-body">
+            <p>{alertBox.message}</p>
+          </div>
+          <div className="btn-section">
+            {alertBox.type == "empty" ? <button onClick={() => setAlertBox(prev => ({ ...prev, isVisible: 0 }))} >cancel</button> : <button onClick={() => { setSubConfirm(1);setBtnStatus(prev=>({...prev,status:1})) }} >confirm</button>}
+            
+
+
+          </div>
+
+        </div>
+      </section>
+
+    )
   }
   return (
     <section className='blogsPostSection'>
+      <AlertBox />
+      <header className='bgPost-header'>
+        <span className="avtar">
+          <img src={user.profile && user.profile.profileImage} alt="" />
+        </span>
+        <span className="bgName">
+          <p>{user.userName || "userName"}</p>
+          <span onClick={() => setIsActive(prev => !prev)} className='bg-select'>{allowUser.map((item) => {
+            if (item[2] == postAllow) return (
 
-<header className='bgPost-header'>
-  <span className="avtar">
-    <img src={user.profile && user.profile.profileImage} alt="" />
-  </span>
-  <span className="bgName">
-    <p>{user.userName || "userName"}</p>
-    <span onClick={()=>setIsActive(prev=>!prev)} className='bg-select'>{allowUser.map((item)=>{
-      if(item[2]==postAllow)return(
-      
-      <li className='center' >{item[0]}{item[1]}</li>
-      )
-    })} <FaSortDown className='icons'/> </span>
+              <li className='center' >{item[0]}{item[1]}</li>
+            )
+          })} <FaSortDown className='icons' /> </span>
 
-    <div className="select" style={isActive?{display:""}:{display:"none"}}>
-      {allowUser.map((item)=>{
-        return(
-          <li className='option' onClick={()=>{setPostAllow(item[2]);setIsActive(prev=>!prev)}} value={item[2]}>{item[0]}{item[1]}</li>
-        )
-      })}
-    </div>
-  </span>
-</header>
+          <div className="select" style={isActive ? { display: "" } : { display: "none" }}>
+            {allowUser.map((item) => {
+              return (
+                <li className='option' onClick={() => { setPostAllow(item[2]); setIsActive(prev => !prev) }} value={item[2]}>{item[0]}{item[1]}</li>
+              )
+            })}
+          </div>
+        </span>
+      </header>
 
-<div className="bgPostBody">
+      <div className="bgPostBody">
 
-<label htmlFor='bgFile' className="upload-section">
-  <input type="file" name="" id="bgFile"  style={{display:"none"}}/>
-<MdOutlineAddPhotoAlternate />
-add Photo & video
-</label>
-<span className="textField">
-<textarea ref={textareaRef} rows={1} style={{height:"100%"}} name="" id="" placeholder='your post' autoFocus onKeyUp={(e)=>textFieldGrow(e)}></textarea>
-<span className="bgAdditional">
-<MdOutlineEmojiEmotions className='icons' />
-<span className='gif'><AiOutlineGif  className='icons'/></span>
+        <label htmlFor={'bgFile'} className="upload-section" >
+          <input type="file" name="" id={files?"":'bgFile'} onChange={(e) => setFiles(e.target.files[0])} style={{ display: "none" }} />
+        { files?
+          <span className="upload-Body">
+         <span className="img">
+          <span className="icon" onClick={(e)=>{setFiles(null)}}>
 
-</span>
-</span>
+         <FaXmark />
+          </span>
+         {/* <img src={ "https://res.cloudinary.com/dztzqqiex/image/upload/v1718972755/gk52ii0s9ovsoz9ncgfb.jpg"} alt="" /> */}
+         <img src={URL.createObjectURL(files)} alt="" />
+         </span>
+          </span>:<span className="upload-Body">
+          <MdOutlineAddPhotoAlternate />
+          add Photo & video
+          </span>}
+        </label>
+        <span className="textField">
+          <textarea value={postMessage} ref={textareaRef} rows={1} style={{ height: "100%" }} name="" id="" placeholder='your post' onChange={(e) => setPostMessage(e.target.value)} autoFocus onKeyUp={(e) => textFieldGrow(e)}></textarea>
+          <span className="bgAdditional">
+            <MdOutlineEmojiEmotions className='icons' />
+            <span className='gif'><AiOutlineGif className='icons' /></span>
 
-<div className="btn-section">
-  <button>cancel</button>
-  <button onClick={()=>submitHandler()}>save</button>
-</div>
+          </span>
+        </span>
+
+        <div className="btn-section">
+          <button>cancel</button>
+          <button className='submitBtn'>
+            <span className="submit" style={btnStatus.submitBtn ? { display: "flex" } : { display: "none" }} onClick={() => submitHandler()}>submit</span>
+            <span className="loading" style={btnStatus.loadingBtn ? { display: "flex" } : { display: "none" }}><RiLoader4Line className='icon' /> Loading...</span>
+            <span className="check" style={btnStatus.successBtn ? { display: "flex" } : { display: "none" }} ><GiCheckMark className='icon' />uploaded</span></button>
+        </div>
 
 
-</div>
+      </div>
     </section>
   )
 }
@@ -185,13 +276,13 @@ export const CreateStory = () => {
   const saveLoad = useSelector(state => { return state.userStory.loading })
   const uploadStatus = useSelector(state => { return state.userStory.status });
 
-  useEffect(()=>{
-    if(uploadStatus){
+  useEffect(() => {
+    if (uploadStatus) {
       setFile(null);
     }
-  },[uploadStatus])
+  }, [uploadStatus])
 
-  
+
   const dispatch = useDispatch();
 
   const show = async (e, type) => {
@@ -305,9 +396,9 @@ export const CreateStory = () => {
       await dispatch(createStory({ data: formData, storyImage: file }))
 
     }
-else{
-  toast.error("please upload image")
-}
+    else {
+      toast.error("please upload image")
+    }
   }
   console.log(loading, songData);
   return (
@@ -318,7 +409,7 @@ else{
       <label className="top-sec" id='stFile' >
         {
 
-          saveLoad ? <span className='st-loader'><ProLoader /></span>  : <></>
+          saveLoad ? <span className='st-loader'><ProLoader /></span> : <></>
         }
 
         <input type="file" name="" id="stFile" style={{ display: "none" }} onChange={(e) => setFile(e.target.files[0])} />

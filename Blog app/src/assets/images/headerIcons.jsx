@@ -17,6 +17,11 @@ import more1 from './more1.png'
 import avtar from './avtar.jpeg'
 import pro from './planning.png'
 import like from './thumb-up.png'
+import chat from './chat.png'
+import message from './picture.png'
+import check from './check.png';
+import rotate from './rotate.png';
+
 export const headerIcons={
     userIcons: user,
     friendIcon:fr,
@@ -32,7 +37,8 @@ export const headerIcons={
     more1,
     logout,
     avtar,
-    pro
+    pro,
+    chat,message,check,rotate
     
 
 

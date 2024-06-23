@@ -8,6 +8,7 @@ import friendSlice from "./sclice/friendSlice";
 import userProfileSlice from "./sclice/userProfileSlice";
 import songSlice from "./sclice/songSlice";
 import storySlice from "./sclice/storySlice";
+import userPostSlice from "./sclice/userPostSlice";
 
 
 
@@ -23,7 +24,8 @@ const store=configureStore({
         userFriend:friendSlice,
         userProfile:userProfileSlice,
         songList:songSlice,
-        userStory:storySlice
+        userStory:storySlice,
+        userPost:userPostSlice
     },
 
 })
