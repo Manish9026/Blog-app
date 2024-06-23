@@ -93,23 +93,28 @@ import { FaUser } from "react-icons/fa";
 //   )
 // }
 export const CreateBlog=()=>{
+  // redux states
   const user = useSelector(state => { return state.userAuth.userInfo })
-  // <MdPublic />
+  // states
   const [isActive,setIsActive]=useState(0);
-
+  const [postAllow,setPostAllow]=useState("friends");
+  const textareaRef = useRef(null);
+  const [postText, setPostText] = useState('');
   const allowUser=[[<MdPublic/>,"public","public"],[<FaUsers />,"friends","friends"],[<FaUserFriends />,"specific Friends","customFriends"],[<FaUser />,"only me","self"]]
-  const [postAllow,setPostAllow]=useState("friends")
-  const  calcHeight=(value)=> {
-    let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-    console.log(numberOfLineBreaks);
 
-    // min-height + lines x line-height + padding + border
-    let newHeight = 100 + numberOfLineBreaks ;
-    return newHeight;
-  }
+  // functions 
   const textFieldGrow=(e)=>{
-    console.log( e.target,calcHeight(e.target.value) );
-   e.target.style.height=calcHeight(e.target.value) + "px"
+  adjustTextareaHeight();
+  setPostText(e.target.value)
+  }
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = 'auto';
+    console.log(textarea.scrollHeight);
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+  const submitHandler=()=>{
+    alert(postText);
   }
   return (
     <section className='blogsPostSection'>
@@ -145,7 +150,7 @@ export const CreateBlog=()=>{
 add Photo & video
 </label>
 <span className="textField">
-<textarea style={{height:"100px"}} name="" id="" placeholder='your post' autoFocus onKeyUp={(e)=>textFieldGrow(e)}></textarea>
+<textarea ref={textareaRef} rows={1} style={{height:"100%"}} name="" id="" placeholder='your post' autoFocus onKeyUp={(e)=>textFieldGrow(e)}></textarea>
 <span className="bgAdditional">
 <MdOutlineEmojiEmotions className='icons' />
 <span className='gif'><AiOutlineGif  className='icons'/></span>
@@ -155,7 +160,7 @@ add Photo & video
 
 <div className="btn-section">
   <button>cancel</button>
-  <button>save</button>
+  <button onClick={()=>submitHandler()}>save</button>
 </div>
 
 
