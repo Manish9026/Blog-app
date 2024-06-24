@@ -57,7 +57,10 @@ import { headerIcons } from '../../assets/images/headerIcons';
 import { RiLoader4Line } from "react-icons/ri";
 import { GiCheckMark } from "react-icons/gi";
 
+import { MdEdit } from "react-icons/md";
+import { MdAddToPhotos } from "react-icons/md";
 
+export const allowUser = [[<MdPublic />, "public", "public"], [<FaUsers />, "friends", "friends"], [<FaUserFriends />, "specific Friends", "customFriends"], [<FaUser />, "only me", "self"]]
 
 export const CreateBlog = () => {
   // redux states
@@ -74,13 +77,15 @@ export const CreateBlog = () => {
     type: ""
   })
   const [subConfirm, setSubConfirm] = useState(0)
-  const allowUser = [[<MdPublic />, "public", "public"], [<FaUsers />, "friends", "friends"], [<FaUserFriends />, "specific Friends", "customFriends"], [<FaUser />, "only me", "self"]]
+
   const [btnStatus, setBtnStatus] = useState({
     loadingBtn: 0,
     submitBtn: 1,
     successBtn: 0,
     status:0
   })
+  const fileRef=useRef(null);
+  const [fileArray,setFileArray]=useState([])
   //  React Hooks
   const dispatch = useDispatch();
   const { loading } = useSelector(state => { return state.userPost.uploadState })
@@ -96,20 +101,20 @@ export const CreateBlog = () => {
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
   const resetHandler=()=>{
-    setFiles(null);
+    setFileArray([]);
     setPostMessage("");
   }
   const submitHandler = () => {
    
-   if(postMessage.length!=0 && files) {
-      dispatch(uploadPost({ postImages: files, postMessage, postType: postAllow }))
+   if(postMessage.length!=0 && fileArray.length!=0) {
+      dispatch(uploadPost({ postFiles: fileArray, postMessage, postType: postAllow }))
       setBtnStatus(prev=>({...prev,status:1}));
       resetHandler();
 
     }
    else if (postMessage) {
       if (subConfirm){
-        dispatch(uploadPost({ postImages: files, postMessage, postType: postAllow }))
+        dispatch(uploadPost({ postFiles: fileArray, postMessage, postType: postAllow }))
       resetHandler();
 
 
@@ -118,10 +123,10 @@ export const CreateBlog = () => {
         setAlertBox({ isVisible: true, message: "you are post only chat & message", type: "chat" })
       }
     }
-    else if (files) {
+    else if (fileArray.length!=0) {
 
       if (subConfirm) {
-        dispatch(uploadPost({ postImages: files, postMessage, postType: postAllow }))
+        dispatch(uploadPost({ postFiles: fileArray, postMessage, postType: postAllow }))
       resetHandler();
 
       }
@@ -166,7 +171,15 @@ export const CreateBlog = () => {
 
     return () => clearTimeout(timeOut)
   }, [loading])
+  // useState(()=>{
 
+  //   setFileArray(prev=>(prev.push(files)))
+  // },[files])
+
+  const onFileChange=(e)=>{
+    setFileArray(prev=>([...prev,...e.target.files]))
+
+  }
   // userDefiend react component
   const AlertBox = () => {
     return (
@@ -176,6 +189,7 @@ export const CreateBlog = () => {
           <span className="icon" onClick={() => setAlertBox({ isVisible: 0 })}>
             <FaXmark />
           </span>
+
           <img src={alertBox.type == "files" ? headerIcons.message : alertBox.type == "chat" ? headerIcons.chat : headerIcons.notFound} alt="" />
           <div className="alt-body">
             <p>{alertBox.message}</p>
@@ -220,23 +234,44 @@ export const CreateBlog = () => {
 
       <div className="bgPostBody">
 
-        <label htmlFor={'bgFile'} className="upload-section" >
-          <input type="file" name="" id={files?"":'bgFile'} onChange={(e) => setFiles(e.target.files[0])} style={{ display: "none" }} />
-        { files?
+        <div  className="upload-section" onClick={()=>{if(fileArray.length==0)fileRef.current.click()}}>
+     { fileArray.length!=0  ? <ul className="tools">
+            <li onClick={()=>fileRef.current.click()}><MdAddToPhotos /> Add Photos&videos</li>
+            <li><MdEdit />Edit</li>
+          
+          
+          </ul>:""}
+          <input type="file" multiple ref={fileRef} name=""  onChange={(e) =>{ 
+            onFileChange(e)}} style={{ display: "none" }} />
+        { fileArray.length!=0?
           <span className="upload-Body">
+           
          <span className="img">
-          <span className="icon" onClick={(e)=>{setFiles(null)}}>
+          <span className="icon" onClick={(e)=>{setFileArray([])}}>
 
          <FaXmark />
           </span>
          {/* <img src={ "https://res.cloudinary.com/dztzqqiex/image/upload/v1718972755/gk52ii0s9ovsoz9ncgfb.jpg"} alt="" /> */}
-         <img src={URL.createObjectURL(files)} alt="" />
+         {
+          fileArray.map((item,index)=>{
+          
+            if(item.type.match(/image/gi))
+            return (
+       <img className='fileCover' src={URL.createObjectURL(item)} alt="" />
+            )
+            else{
+              return (
+                <video className="fileCover" src={URL.createObjectURL(item)} controls muted="false "></video>
+              )
+            }
+          })
+         }
          </span>
           </span>:<span className="upload-Body">
           <MdOutlineAddPhotoAlternate />
           add Photo & video
           </span>}
-        </label>
+        </div>
         <span className="textField">
           <textarea value={postMessage} ref={textareaRef} rows={1} style={{ height: "100%" }} name="" id="" placeholder='your post' onChange={(e) => setPostMessage(e.target.value)} autoFocus onKeyUp={(e) => textFieldGrow(e)}></textarea>
           <span className="bgAdditional">
@@ -247,7 +282,7 @@ export const CreateBlog = () => {
         </span>
 
         <div className="btn-section">
-          <button>cancel</button>
+          <button onClick={()=>console.log(fileArray)}>cancel</button>
           <button className='submitBtn'>
             <span className="submit" style={btnStatus.submitBtn ? { display: "flex" } : { display: "none" }} onClick={() => submitHandler()}>submit</span>
             <span className="loading" style={btnStatus.loadingBtn ? { display: "flex" } : { display: "none" }}><RiLoader4Line className='icon' /> Loading...</span>

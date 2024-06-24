@@ -9,18 +9,49 @@ axios.defaults.baseURL=url;
         console.log(data);
         const  formData=new FormData();
         for (const key in data){
-            formData.append(key,data[key]);
+            console.log(key,data);
+            if(key=="postFiles"){
+                data[key].map((file)=>{
+
+                    formData.append(key,file);
+                })
+
+            }else{
+
+                formData.append(key,data[key]);
+            }
           }
-        return await axios.post("/user/p1/upload",formData,{withCredentials:true}).then(res=>
+        return await axios.post("/user/p1/upload",formData,{withCredentials:true, headers: {
+            'Content-Type': 'multipart/form-data'
+          }}).then(res=>
             {
+                console.log(res.data);
             urlLoader(res.data)
                return res.data
             }
         )
     } catch (error) {
-        alert(error)
+        // alert(error)
         console.log(error);
     }
+})
+export const getAllPost=createAsyncThunk("getAllPost/userPost",({skip,next})=>{
+ console.log("getAllPost");
+    try {
+
+       return  axios.get(`/user/p1/getPosts?skip=${skip}&next=${next}`,{withCredentials:true}).then(res=>{
+
+        console.log(res.data);
+            return res.data
+        }).catch(error=>{
+            alert(error)
+        })
+        
+    } catch (error) {
+        alert(error)
+        
+    }
+
 })
 const postSlice=createSlice({
     name:"userPost",
@@ -28,6 +59,12 @@ const postSlice=createSlice({
         uploadState:{
         status:false,
         loading:false
+        },
+        postState:{
+            data:[],
+            loading:false,
+            error:"",
+            status:false
         }
         
     },
@@ -43,6 +80,17 @@ const postSlice=createSlice({
             toast.success("your request is rejected")
         })
     
+        builder.addCase(getAllPost.pending,({postState})=>{
+            postState.loading=true;
+        })
+        
+        builder.addCase(getAllPost.fulfilled,({postState},{payload})=>{
+            postState.loading=false;
+            postState.status=payload.status;
+            postState.data=payload.data || [];
+
+
+        })
     }
 })
 

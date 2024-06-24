@@ -11,6 +11,9 @@ router.post("/delete",authMiddleWare);
 router.get("/like",authMiddleWare)
 router.get("/comment",authMiddleWare)
 router.get("/dislike",authMiddleWare)
+router.get("/getPosts",authMiddleWare,userPost.getAllPost)
+
+
 
 
 export default router

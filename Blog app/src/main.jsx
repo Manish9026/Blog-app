@@ -41,6 +41,8 @@ import  {getStories} from './sclice/storySlice.js'
 import UserFriend from './pages/profile page/UserFriend.jsx';
 import { getAllFrnd } from './sclice/friendSlice.js';
 import UserBlogs from './pages/profile page/UserBlogs.jsx';
+import { all } from 'axios';
+import { getAllPost } from './sclice/userPostSlice.js';
 
 const RoutePath = () => {
 
@@ -60,7 +62,11 @@ const RoutePath = () => {
               // if(authStatus)
               // location.replace("/auth/sign-in")          
               // else
-              await dispatch(getStories())
+              await Promise.all([
+
+                 dispatch(getStories()),
+                 dispatch(getAllPost({skip:0,next:10}))
+              ])
             return null}
           },
 

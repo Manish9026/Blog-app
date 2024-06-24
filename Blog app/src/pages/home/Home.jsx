@@ -82,7 +82,7 @@ const Home = () => {
   const { status } = useSelector(state => { return state.global.storyViewToggle })
   const dispatch = useDispatch();
   console.log(storyData.length);
-
+  const { postState } = useSelector(state => { return state.userPost })
 
   return (
 
@@ -99,9 +99,9 @@ const Home = () => {
               Your stories
             </span>
             <div className="story-container">
-            <div className="bg-card">
-              <span className="img"><img src="" alt="" /></span>
-              
+              <div className="bg-card">
+                <span className="img"><img src="" alt="" /></span>
+
               </div>
 
               {
@@ -157,8 +157,8 @@ const Home = () => {
 
 
           {
-            user.map((item, index) => {
-              return <PostContainer user={item} key={index} />
+            postState.data.map((user, index) => {
+              return <PostContainer user={user} key={user._id} />
             })
           }
 
@@ -221,70 +221,94 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
 import { setStoryViewToggle } from '../../sclice/globalSlice';
 import { current } from '@reduxjs/toolkit';
-import { addComment, getAllcomments} from '../../sclice/storySlice';
+import { addComment, getAllcomments } from '../../sclice/storySlice';
+import { allowUser } from '../create blog/BlogSection';
 const PostContainer = ({ user }) => {
+  if (user)
+    return (
 
-  return (
+      <div className="post-container">
 
-    <div className="post-container">
+        <div className="head-part">
+          <span className="p-part1">
+            <span className="img">
+              <img src={user.userId.profile.profileImage} alt="" />
+            </span>
+            <span className="content">
 
-      <div className="head-part">
-        <span className="p-part1">
-          <span className="img">
-            <img src={user[1]} alt="" />
+              <span><p>{user.userId.userName}</p><button>follow</button></span>
+              <p>Post At:{uploadedDate(user.createdAt)}</p>
+              {
+                allowUser.map((icon,indx) => {
+                  if (user.postType == icon[2]) {
+                    return (<span key={indx}>
+                      {icon[0]}
+                    </span>
+                      
+                    )
+                  }
+                })
+              }
+
+            </span>
+
           </span>
+          <span className="p-part2"></span>
+
+        </div>
+        <div className="mid-part">
+
           <span className="content">
-
-            <span><p>{user[0]}</p><button>follow</button></span>
-            <p>Post At:</p>
-            <MdPublic />
-
+            {
+              user.postMessage
+            }
           </span>
+          <span className='img-sec'>
 
-        </span>
-        <span className="p-part2"></span>
+          {user.postFiles.map((file, indx) => {
+            if (file.type == "image")
+              return (
+                  <img src={file.url}  key={indx} alt="" />
+              )
+              else{
+                return (
+                  <span className='video-sec' key={indx}>
+                    <video src={file.url} alt="" />
+                  </span>
+                )
+              }
+          })}
+                </span>
 
-      </div>
-      <div className="mid-part">
 
-        <span className="content">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed in quisquam saepe magnam doloribus! Porro voluptatibus facilis earum nam illum voluptate, rem fugiat iusto voluptas voluptates, eaque enim aperiam debitis ad odit laborum corporis!
-        </span>
-        <span className='img-sec'>
-          <img src={user[2]} alt="" />
+          
+        </div>
+        <div className="bottom-part">
+          <div className="bt-part1">
+            <span>25k Likes </span>
+            <span> <p>100k comments</p>
+              <p>500k shares</p></span>
 
-        </span>
-        <span className='img-sec'>
-          <img src={user[2]} alt="" />
-
-        </span>
-      </div>
-      <div className="bottom-part">
-        <div className="bt-part1">
-          <span>25k Likes </span>
-          <span> <p>100k comments</p>
-            <p>500k shares</p></span>
+          </div>
+          <div className="bt-part2">
+            <span className="btn">{1 ?
+              <SlLike className='icon' /> : <BiSolidLike className='icon' />} <p>like</p></span>
+            <span className="btn">
+              <FaRegComment className='icon' /><p>comment</p></span>
+            <span className="btn"><PiShareFat className='icon' /> <p>share</p></span>
+          </div>
 
         </div>
-        <div className="bt-part2">
-          <span className="btn">{1 ?
-            <SlLike className='icon' /> : <BiSolidLike className='icon' />} <p>like</p></span>
-          <span className="btn">
-            <FaRegComment className='icon' /><p>comment</p></span>
-          <span className="btn"><PiShareFat className='icon' /> <p>share</p></span>
-        </div>
-
       </div>
-    </div>
-  )
+    )
 }
 
 const StoryView = () => {
   const { storyData } = useSelector(state => { return state.userStory })
   const { pos } = useSelector(state => { return state.global.storyViewToggle })
   const dispatch = useDispatch();
-  const [commentActive,setCommentActive]=useState(0);
- const [storyId,setStoryId]=useState("")
+  const [commentActive, setCommentActive] = useState(0);
+  const [storyId, setStoryId] = useState("")
   const StoryViewCard = ({ story, userName, proPic }) => {
     const [stIndex, setStIndex] = useState(0)
     const [play, setPlay] = useState(0);
@@ -327,12 +351,12 @@ const StoryView = () => {
 
     }
     return (
-      <div 
-      className={playStatus ? "st-container play" : "st-container pause"} 
-      onClick={(e) => { onPlay(audioRef.current); }}
-       onMouseEnter={() => { setPlay(1); setPlayStatus(1); audioRef.current.play() }} 
-       onMouseLeave={() => { setPlay(0);setPlayStatus(0); audioRef.current.pause() }}
-       >
+      <div
+        className={playStatus ? "st-container play" : "st-container pause"}
+        onClick={(e) => { onPlay(audioRef.current); }}
+        onMouseEnter={() => { setPlay(1); setPlayStatus(1); audioRef.current.play() }}
+        onMouseLeave={() => { setPlay(0); setPlayStatus(0); audioRef.current.pause() }}
+      >
 
         <div className="progress-container" onClick={(e) => e.stopPropagation()}>
 
@@ -385,7 +409,7 @@ const StoryView = () => {
 
           <ul className="st-menu" onClick={(e) => { e.stopPropagation(); }}>
             <li><SlLike /></li>
-            <li onClick={()=>{setCommentActive(prev=>!prev);setStoryId(story[stIndex]._id)}}><FaRegComment  /></li>
+            <li onClick={() => { setCommentActive(prev => !prev); setStoryId(story[stIndex]._id) }}><FaRegComment /></li>
             <li><PiShareFat /></li>
             <li>{1 ? <IoBookmarkOutline /> : <IoBookmark />}</li>
             <li><PiDotsThreeOutlineVerticalFill /></li>
@@ -474,9 +498,9 @@ const StoryView = () => {
         }
 
       </div>{
-        commentActive?
-      <CommentCard storyId={storyId} commentActive={commentActive} setActive={()=>setCommentActive(0)} />:""
-}
+        commentActive ?
+          <CommentCard storyId={storyId} commentActive={commentActive} setActive={() => setCommentActive(0)} /> : ""
+      }
       <span className='icon' onClick={() => dispatch(setStoryViewToggle(pos))}>
 
         <IoClose />
@@ -485,117 +509,117 @@ const StoryView = () => {
   )
 }
 
-const CommentCard=({storyId,commentActive,setActive})=>{
-  const dispatch=useDispatch();
+const CommentCard = ({ storyId, commentActive, setActive }) => {
+  const dispatch = useDispatch();
   console.log(storyId);
-  const [cmtMessage,setCmtMessage]=useState("")
-  const {data,status,loading}=useSelector(state=>{return state.userStory.comments})
-  const {addStatus}=useSelector(state=>{return state.userStory.addComment})
-  console.log("data",data,status);
-  useEffect(()=>{
+  const [cmtMessage, setCmtMessage] = useState("")
+  const { data, status, loading } = useSelector(state => { return state.userStory.comments })
+  const { addStatus } = useSelector(state => { return state.userStory.addComment })
+  console.log("data", data, status);
+  useEffect(() => {
     // console.log(addStatus,"jgh");
     // console.log(data,status);
     dispatch(getAllcomments(storyId))
-  },[addStatus])
+  }, [addStatus])
 
-  const submit=async()=>{
-    console.log(storyId,cmtMessage);
-    await dispatch(addComment({storyId,cmtMessage}))
+  const submit = async () => {
+    console.log(storyId, cmtMessage);
+    await dispatch(addComment({ storyId, cmtMessage }))
   }
-  if(status)
-  return(
-    <section className={`comment-section ${commentActive?"active":"deActive"}`} >
-       <span className='icon' onClick={() =>setActive()}>
+  if (status)
+    return (
+      <section className={`comment-section ${commentActive ? "active" : "deActive"}`} >
+        <span className='icon' onClick={() => setActive()}>
 
-<IoClose />
-</span>
+          <IoClose />
+        </span>
         <div className="st-head st-move">
-        <span className="img">
-          <img src={data.userImage} alt="" />
-        </span>
-
-        <span className="content">
-
-          <span><p>{data.userName}</p></span>
-          <p>Post At:{uploadedDate(data.createdAt)}</p>
-          <MdPublic />
-
-        </span>
-      </div>
-
-      <div className="message-section">
-
-      <textarea name="" id="" placeholder='enter your message' onChange={(e)=>setCmtMessage(e.target.value)}></textarea>
-      <span className="btn-area">    
-      <button className='submit' onClick={()=>{submit()}}>submit</button>
-      <button className='cancel' onClick={()=>console.log("cancel")}>cancel</button>
-      </span>
-      </div>
-
-      <div className="recent-comment">
-        <span className="heading">
-          <p>recent comment ({data.cmtMessages.length})</p>
-        </span>
-
-        <span className="comm-container">
-
-
-          {
-            data.cmtMessages.length!=0?
-            data.cmtMessages.map((item,indx)=>{
-
-              if(indx%2==0)
-              return(
-                
-<span className="re-card cd1">
-          <div className="st-head st-move">
-        <span className="img">
-          <img src={item.commentUserId.profile.profileImage} alt="" />
-        </span>
-
-        <span className="content">
-
-          <span><p>{item.commentUserId.userName}</p></span>
-          <p>{uploadedDate(item.updatedAt)}</p>
-        
-
-        </span>
-      </div>
-      <div className="cd-message">
-        <p>{item.message}</p>
-      </div>
+          <span className="img">
+            <img src={data.userImage} alt="" />
           </span>
-              )
-              else{
-                return(
-                
-                  <span className="re-card cd2">
-                  <div className="st-head st-move">
-                <span className="img">
-                  <img src={item.commentUserId.profile.profileImage} alt="" />
-                </span>
-        
-                <span className="content">
-        
-                  <span><p>{item.commentUserId.userName}</p></span>
-                  <p>{uploadedDate(item.updatedAt)}</p>
-                
-        
-                </span>
-              </div>
-              <div className="cd-message">
-                <p>{item.message}</p>
-              </div>
-                  </span>
-                                  )
-              }
-            }):<span className='empty-comment'><p>no comments</p> </span>
-          }
-          
-        </span>
-      </div>
-    </section>
-  )
+
+          <span className="content">
+
+            <span><p>{data.userName}</p></span>
+            <p>Post At:{uploadedDate(data.createdAt)}</p>
+            <MdPublic />
+
+          </span>
+        </div>
+
+        <div className="message-section">
+
+          <textarea name="" id="" placeholder='enter your message' onChange={(e) => setCmtMessage(e.target.value)}></textarea>
+          <span className="btn-area">
+            <button className='submit' onClick={() => { submit() }}>submit</button>
+            <button className='cancel' onClick={() => console.log("cancel")}>cancel</button>
+          </span>
+        </div>
+
+        <div className="recent-comment">
+          <span className="heading">
+            <p>recent comment ({data.cmtMessages.length})</p>
+          </span>
+
+          <span className="comm-container">
+
+
+            {
+              data.cmtMessages.length != 0 ?
+                data.cmtMessages.map((item, indx) => {
+
+                  if (indx % 2 == 0)
+                    return (
+
+                      <span className="re-card cd1">
+                        <div className="st-head st-move">
+                          <span className="img">
+                            <img src={item.commentUserId.profile.profileImage} alt="" />
+                          </span>
+
+                          <span className="content">
+
+                            <span><p>{item.commentUserId.userName}</p></span>
+                            <p>{uploadedDate(item.updatedAt)}</p>
+
+
+                          </span>
+                        </div>
+                        <div className="cd-message">
+                          <p>{item.message}</p>
+                        </div>
+                      </span>
+                    )
+                  else {
+                    return (
+
+                      <span className="re-card cd2">
+                        <div className="st-head st-move">
+                          <span className="img">
+                            <img src={item.commentUserId.profile.profileImage} alt="" />
+                          </span>
+
+                          <span className="content">
+
+                            <span><p>{item.commentUserId.userName}</p></span>
+                            <p>{uploadedDate(item.updatedAt)}</p>
+
+
+                          </span>
+                        </div>
+                        <div className="cd-message">
+                          <p>{item.message}</p>
+                        </div>
+                      </span>
+                    )
+                  }
+                }) : <span className='empty-comment'><p>no comments</p> </span>
+            }
+
+          </span>
+        </div>
+      </section>
+    )
 }
 
 const Play_pause = ({ status }) => {

@@ -57,6 +57,28 @@ $avatar-offset: 52 + 16;
     scale: .8;
   }
 }
+
+.removeSelection{
+  ::-moz-selection { /* Code for Firefox */
+    background: transparent;
+  }
+  
+  ::selection {
+
+    background: transparent;
+  }
+}
+.removeSelectionAllow{
+  ::-moz-selection { /* Code for Firefox */
+    background: rgb(178, 178, 232);
+    color: rgb(37, 31, 31);
+  }
+  
+  ::selection {
+    background: rgb(178, 178, 232);
+    color: rgb(37, 31, 31);
+  }
+}
 .box-skeleton{
     background-color: #474444;
   border-radius: 10px;

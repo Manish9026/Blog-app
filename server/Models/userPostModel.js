@@ -26,10 +26,11 @@ const userPostSchema= new mongoose.Schema({
    
     userId:{
         type:String,
-        required:true
+        required:true,
+        ref:"user"
     },
-    postImages:{
-        type:[String],
+    postFiles:{
+        type:Array,
         max:10
     },
     postMessage:{
