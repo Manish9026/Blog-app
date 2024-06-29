@@ -1,12 +1,12 @@
 @import '../../css-configration/mixins.scss';
-
+@import '../../css-configration/classes.scss';
 
 .auth-section,
 .auth-section * {
   box-sizing: border-box;
 }
-
 input {
+  @extend .removeSelection; 
     background: transparent;
     border: none;
     width: 100%;
@@ -43,6 +43,7 @@ button{
     overflow: hidden;
     width: 100%;
     height: 100%;
+
 
 
   .loginOther{

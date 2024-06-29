@@ -113,8 +113,10 @@ class userPost {
     static getAllPost = async (req, res) => {
         try {
             const { userId } = req;
-
+            console.log(userId);
             await userFriendModel.findOne({ userId }).then(async userFriends => {
+                console.log(userFriends);
+                if(userFriends){
                 await userPostModel.find({ userId: userFriends.friends }).populate({
                     path:"userId",
                     select:"userName userEmail profile",
@@ -123,6 +125,7 @@ class userPost {
                         select:"profileImage coverImage"
                     }]
                 }).then(async friendPost => {
+                    console.log(friendPost);
                     if(friendPost.length!=0){
                         res.status(202).json({
                             data:friendPost,
@@ -138,6 +141,7 @@ class userPost {
                                 select:"profileImage coverImage"
                             }]
                         }).then(usersPost=>{
+                            console.log(usersPost);
                             if(usersPost.length!=0){
                                 res.status(202).json({
                                     data:usersPost,
@@ -155,6 +159,32 @@ class userPost {
                     }
                     
                 })
+            }
+            else{
+                await userPostModel.find({postType:"public"}).populate({
+                    path:"userId",
+                    select:"userName userEmail profile",
+                    populate:[{
+                        path:"profile",
+                        select:"profileImage coverImage"
+                    }]
+                }).then(usersPost=>{
+                    console.log(usersPost);
+                    if(usersPost.length!=0){
+                        res.status(202).json({
+                            data:usersPost,
+                            status:true,   
+                        })
+                    }
+                    else{
+                        res.status(202).json({
+                            data:[],
+                            status:false,   
+                        })
+                    }
+                  
+                })
+            }
 
             })
 

@@ -16,7 +16,6 @@ const  Layout = lazy(()=>import('./layout/Layout.jsx'));
 
 // console.log("layout",Layout);
 // import  Layout from './layout/Layout.jsx'
-import Tool from './component/Tool.jsx'
 import { Provider, useSelector } from 'react-redux'
 import { store } from './store.js'
 import Loder from './component/loader/Loder.jsx'
@@ -31,7 +30,6 @@ const  Friends = lazy(()=>import("./pages/singlefriend page/Friends.jsx"));
 const UserProfile=lazy(()=>import('./pages/profile page/UserProfile.jsx')) 
 const UserAbout=lazy(()=>import("./pages/profile page/UserAbout.jsx"))
 import {BioForm, PersonalForm, UserEdu } from './pages/profile page/UserAbout.jsx'
-// console.log("fsdfjhgdf")
 
 
 import { useDispatch } from 'react-redux'
@@ -41,7 +39,6 @@ import  {getStories} from './sclice/storySlice.js'
 import UserFriend from './pages/profile page/UserFriend.jsx';
 import { getAllFrnd } from './sclice/friendSlice.js';
 import UserBlogs from './pages/profile page/UserBlogs.jsx';
-import { all } from 'axios';
 import { getAllPost } from './sclice/userPostSlice.js';
 
 const RoutePath = () => {
@@ -62,11 +59,12 @@ const RoutePath = () => {
               // if(authStatus)
               // location.replace("/auth/sign-in")          
               // else
-              await Promise.all([
-
-                 dispatch(getStories()),
-                 dispatch(getAllPost({skip:0,next:10}))
-              ])
+             
+  
+              dispatch(getStories()),
+              dispatch(getAllPost({skip:0,next:10}))
+             
+            
             return null}
           },
 
@@ -85,10 +83,6 @@ const RoutePath = () => {
 
             },
             ]
-          },
-          {
-            path: "/upload",
-            element: <Tool />
           },
           {
             path: "/loader",

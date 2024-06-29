@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import './home.scss'
 import { user } from '../../assets/home image/image'
 import { FcNext } from "react-icons/fc";
-import { MdPublic } from "react-icons/md";
+import { MdAdd, MdPublic } from "react-icons/md";
+
+import { MdOutlinePostAdd } from "react-icons/md";
+import { LuGalleryHorizontalEnd } from "react-icons/lu";
+
 
 
 const imageData = [
@@ -100,12 +104,15 @@ const Home = () => {
             </span>
             <div className="story-container">
               <div className="bg-card">
-                <span className="img"><img src="" alt="" /></span>
-
+                <span className='icon'>Add</span>
+               <span className='crt-card'>
+                <NavLink to={'/create/story'} className={"btn"}><LuGalleryHorizontalEnd className='icon'/>story</NavLink>
+                <NavLink to={"/create/blog"}  className={"btn"}><MdOutlinePostAdd className='icon' /> post</NavLink>
+               </span>
               </div>
 
               {
-                selfStoryData.length != 0 && <ImageSlider userName={"You"} proPic={selfStoryData.profile.profileImage} story={selfStoryData.stories} />
+                 selfStoryData && selfStoryData.length != 0 && <ImageSlider userName={"You"} proPic={selfStoryData.profile.profileImage} story={selfStoryData.stories} />
               }
               {
 
@@ -157,7 +164,7 @@ const Home = () => {
 
 
           {
-            postState.data.map((user, index) => {
+           postState.data.length!=0 && postState.data.map((user, index) => {
               return <PostContainer user={user} key={user._id} />
             })
           }
@@ -165,7 +172,7 @@ const Home = () => {
 
 
         </div>
-
+        <input type="checkbox" name="" id="checked" className='checked' style={{display:"none"}} />
         <SuggestedFrnd />
 
 
@@ -176,12 +183,12 @@ const Home = () => {
 
 
 const SuggestedFrnd = () => {
+  const [isVisible,setIsVisible]=useState(false);
   return (
-    <div className="part2">
+    <label htmlFor='checked' className="part2">
       <span className="heading">
         Your suggested friends
       </span>
-
       <span className="sug-era">
         {user.map((item, key) => {
 
@@ -204,7 +211,7 @@ const SuggestedFrnd = () => {
       </span>
 
 
-    </div>
+    </label>
   )
 }
 
@@ -223,6 +230,7 @@ import { setStoryViewToggle } from '../../sclice/globalSlice';
 import { current } from '@reduxjs/toolkit';
 import { addComment, getAllcomments } from '../../sclice/storySlice';
 import { allowUser } from '../create blog/BlogSection';
+import { NavLink } from 'react-router-dom';
 const PostContainer = ({ user }) => {
   if (user)
     return (

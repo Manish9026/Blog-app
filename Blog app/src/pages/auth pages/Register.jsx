@@ -144,7 +144,6 @@ navigate(-1)
 
 }
 
-
    const SignUP=()=>{
 
   const dispatch=useDispatch();
@@ -283,7 +282,7 @@ dispatch(getRegister(formData))
     return(
         <div className="register-section">
         <form className="input-section" >
-          <label  htmlFor="fileUP" className={`profile-pk-field  wrong-in`} style={errorField.image?{backgroundColor:"rgba(255, 57, 30, 0.28)",borderColor:"rgba(249, 60, 94, 0.59)"}:{}}>
+          <label  htmlFor="fileUP" className={`profile-pk-field `} style={errorField.image?{backgroundColor:"rgba(255, 57, 30, 0.28)",borderColor:"rgba(249, 60, 94, 0.59)"}:{}}>
             <img className="user-icons" src={formData.file?URL.createObjectURL(formData.file) : headerIcons.avtar} alt='image' />
             <h5 className="upload ">upload</h5>
             <input type="file"  id='fileUP' style={{display:"none"}} name='file'  onChange={(e)=>{onchangeHandler(e)}}/>

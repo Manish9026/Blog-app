@@ -178,7 +178,7 @@
             background: linear-gradient(45deg, blue 10%, rgb(219, 117, 117) 90%, pink);
 
             clip-path: polygon(0 100%, 100% 100%, 100% 23%, 60% 23%, 51% 10%, 43% 23%, 0px 24%);
-            animation: 1s linear infinite mover both;
+            animation: 1s linear infinite boxMover both;
 
             button {
                 background: hsl(0, 79%, 70%);
@@ -205,25 +205,26 @@
             & :nth-child(2) {
                 background-color: #3158ba;
             }
+            @keyframes boxMover {
+                0% {
+                    bottom: -40px;
+    
+                }
+    
+                98% {
+                    bottom: -50px;
+    
+                }
+    
+                100% {
+                    bottom: -42px;
+    
+    
+                }
+            }
         }
 
-        @keyframes mover {
-            0% {
-                bottom: -40px;
-
-            }
-
-            98% {
-                bottom: -50px;
-
-            }
-
-            100% {
-                bottom: -42px;
-
-
-            }
-        }
+       
 
         min-height: 350px;
 
@@ -955,7 +956,8 @@
                     .popup-box {
                         width: 100%;
                         min-width: 150px;
-                        left: 30%;
+                        left: 0;
+                        clip-path: polygon(86% 24%, 100% 24%, 100% 100%, 0 100%, 0 24%, 69% 23%, 78% 8%);
                     }
 
                     p {
