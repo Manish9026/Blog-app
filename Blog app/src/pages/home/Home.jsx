@@ -16,23 +16,38 @@ const imageData = [
 const uploadedDate = (date) => {
   const currentDate = new Date()
   const createdDate = new Date(date)
-  //  console.log(currentDate.getHours(),createdDate.getHours());
-  if (createdDate.getHours() < currentDate.getHours()) {
-    return (currentDate.getHours() - createdDate.getHours()) + 'h ago';
+if((currentDate.getFullYear()-createdDate.getFullYear())!=0){
 
-  }
-  else if (createdDate.getHours() == currentDate.getHours()) {
-    if (currentDate.getMinutes() == createdDate.getMinutes()) {
+  return `${(currentDate.getFullYear()-createdDate.getFullYear())} year ago`
+}
+else if(currentDate.getMonth()-createdDate.getMonth()!=0){
+  return `${(currentDate.getMonth()-createdDate.getMonth())} month ago`
 
-      return currentDate.getSeconds() - createdDate.getSeconds() + "s ago";
+}
+else if(currentDate.getMonth()-createdDate.getMonth()==0){
+  if((currentDate.getDate() - createdDate.getDate())==0){
+    if(currentDate.getHours()-createdDate.getHours()==0){
+
+      if(currentDate.getMinutes()-createdDate.getMinutes()==0){
+    return `${(currentDate.getSeconds() - createdDate.getSeconds())} second ago`
+
+      }else{
+    return `${(currentDate.getMinutes() - createdDate.getMinutes())} minutes ago`
+
+      }
+    }else{
+    return `${(currentDate.getHours() - createdDate.getHours())} hours ago`
 
     }
-    return currentDate.getMinutes() - createdDate.getMinutes() + "m ago";
-  }
-  else {
-    // return currentDate.getSeconds()
 
+  }else{
+    return `${(currentDate.getDate() - createdDate.getDate())} day ago`
   }
+
+}
+else{
+   return `${0} miniutes ago`
+}
 }
 
 const ProgressBar = ({ value, index, id, next }) => {
@@ -84,9 +99,7 @@ const Home = () => {
 
   const { storyData, selfStoryData } = useSelector(state => { return state.userStory })
   const { status } = useSelector(state => { return state.global.storyViewToggle })
-  const dispatch = useDispatch();
-  console.log(storyData.length);
-  const { postState } = useSelector(state => { return state.userPost })
+  const { postState} = useSelector(state => { return state.userPost })
 
   return (
 
@@ -231,7 +244,12 @@ import { current } from '@reduxjs/toolkit';
 import { addComment, getAllcomments } from '../../sclice/storySlice';
 import { allowUser } from '../create blog/BlogSection';
 import { NavLink } from 'react-router-dom';
+import { getAllPost, setPostLike, setPostdisLike } from '../../sclice/userPostSlice';
+// import { BiSolidLike } from "react-icons/bi";
+
+
 const PostContainer = ({ user }) => {
+  const dispatch=useDispatch();
   if (user)
     return (
 
@@ -239,9 +257,9 @@ const PostContainer = ({ user }) => {
 
         <div className="head-part">
           <span className="p-part1">
-            <span className="img">
+            <NavLink to={`/single-friend?uid=${user.userId._id}`} className="img">
               <img src={user.userId.profile.profileImage} alt="" />
-            </span>
+            </NavLink>
             <span className="content">
 
               <span><p>{user.userId.userName}</p><button>follow</button></span>
@@ -293,14 +311,14 @@ const PostContainer = ({ user }) => {
         </div>
         <div className="bottom-part">
           <div className="bt-part1">
-            <span>25k Likes </span>
+            <span>{user.postLike.count} Likes </span>
             <span> <p>100k comments</p>
               <p>500k shares</p></span>
 
           </div>
           <div className="bt-part2">
-            <span className="btn">{1 ?
-              <SlLike className='icon' /> : <BiSolidLike className='icon' />} <p>like</p></span>
+            <span className="btn">{user.likeStatus?
+             <BiSolidLike className='icon liked' color='blue' onClick={()=>dispatch(setPostdisLike(user._id))} />: <SlLike className='icon' onClick={()=>dispatch(setPostLike(user._id))} />} <p>like</p></span>
             <span className="btn">
               <FaRegComment className='icon' /><p>comment</p></span>
             <span className="btn"><PiShareFat className='icon' /> <p>share</p></span>

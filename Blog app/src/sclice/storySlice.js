@@ -30,7 +30,6 @@ export const getStories=createAsyncThunk("getStories/userStory",async()=>{
         
        return await axios.get("/user/story/getStory",{withCredentials:true}).then(res=>{
 
-        console.log(res.data);
         urlLoader(res.data)
             
             return res.data
@@ -95,7 +94,7 @@ const storySlice=createSlice({
         })
         builder.addCase(getStories.fulfilled,(state,{payload})=>{
             state.storyData=payload.data || [];
-            state.selfStoryData=payload.selfStory;
+            state.selfStoryData=payload.selfStory || [];
         })
         
         builder.addCase(addComment.pending,({addComment},{payload})=>{

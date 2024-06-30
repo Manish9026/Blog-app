@@ -2,13 +2,10 @@ import mongoose from "mongoose";
 
 const postLikeSchema=new mongoose.Schema({
  
-            userId:mongoose.Schema.ObjectId,
-            createdAt:{
-                type:Date,
-                default:Date.now
-            }
-            
-})
+            likedUsers:[mongoose.Schema.ObjectId],
+            count:{type:Number,default:0}
+          
+},{timestamps:true})
 const postcommentSchema=new mongoose.Schema({
  
     userId:mongoose.Schema.ObjectId,
@@ -47,7 +44,13 @@ const userPostSchema= new mongoose.Schema({
         
     },  
     postLike:{
-        type:[postLikeSchema]
+        likedUsers:[mongoose.Schema.Types.ObjectId],
+        count:{
+            type:Number,
+            default:0
+        },createdAt:{
+            type:Date,default:Date.now
+        }
     },
     postComments:{
         type:[postcommentSchema]

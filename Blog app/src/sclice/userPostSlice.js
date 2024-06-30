@@ -35,13 +35,13 @@ axios.defaults.baseURL=url;
         console.log(error);
     }
 })
-export const getAllPost=createAsyncThunk("getAllPost/userPost",({skip,next})=>{
- console.log("getAllPost");
+export const getAllPost=createAsyncThunk("getAllPost/userPost",async({skip=0,next=10})=>{
+
     try {
 
-       return  axios.get(`/user/p1/getPosts?skip=${skip}&next=${next}`,{withCredentials:true}).then(res=>{
+       return  await axios.get(`/user/p1/getPosts?skip=${skip}&next=${next}`,{withCredentials:true}).then(res=>{
 
-        console.log(res.data);
+
             return res.data
         }).catch(error=>{
             alert(error)
@@ -53,6 +53,30 @@ export const getAllPost=createAsyncThunk("getAllPost/userPost",({skip,next})=>{
     }
 
 })
+
+export const setPostLike=createAsyncThunk("setPostLike/userPost",async(postId,{dispatch})=>{
+
+    const data= await axios.get(`/user/p1/like?postId=${postId}`,{withCredentials:true}).then(async res=>{
+    return res.data
+}
+   ).catch(err=>alert(err))
+
+   dispatch(getAllPost({skip:0,next:10}))
+    return data
+
+})
+export const setPostdisLike=createAsyncThunk("setPostdisLike/userPost",async(postId,{dispatch})=>{
+ 
+    const data= await axios.get(`/user/p1/dislike?postId=${postId}`,{withCredentials:true}).then(async res=>{
+      
+     return res.data
+
+ }
+    ).catch(err=>alert(err))
+
+    dispatch(getAllPost({skip:0,next:10}))
+    return data
+ })
 const postSlice=createSlice({
     name:"userPost",
     initialState:{
@@ -65,6 +89,10 @@ const postSlice=createSlice({
             loading:false,
             error:"",
             status:false
+        },
+        likeState:{
+            loading:false,
+            status:false,
         }
         
     },
@@ -91,6 +119,17 @@ const postSlice=createSlice({
 
 
         })
+        builder.addCase(setPostLike.pending,({likeState})=>{
+            likeState.status=false
+        })
+        builder.addCase(setPostLike.fulfilled,({likeState},{payload})=>{
+            likeState.status=payload.status
+        })
+        builder.addCase(setPostdisLike.pending,({likeState})=>{
+            likeState.status=false     })
+        builder.addCase(setPostdisLike.fulfilled,({likeState},{payload})=>{
+            likeState.status=payload.status
+      })
     }
 })
 

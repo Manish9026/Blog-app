@@ -77,7 +77,6 @@ class userStory {
             todayDate.setHours(23, 59, 59, 999);
             const startDate = new Date();
             startDate.setHours(0, 0, 0, 0);
-            console.log(userId);
 
             await userFriendModel.findOne({ userId }).populate({
                 path: "friends",
@@ -105,8 +104,6 @@ class userStory {
                 }, { path: "profile", select: "profileImage" }]
             }).then(result => {
 
-                console.log(result);
-                // res.send(result)
                 let data=[];
                 if (result){
                  data=result.friends.filter((item) => {
@@ -123,7 +120,7 @@ class userStory {
                             }
                             else {
                                 return story.likeStatus = false;
-                                console.log("false")
+                              
 
                             }
                         })

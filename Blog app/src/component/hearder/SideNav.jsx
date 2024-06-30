@@ -30,21 +30,21 @@ const SideNav = () => {
         <span className="sideNavIcon" onClick={() => setSearchActive(prev => !prev)}>
           <icons.searchIcon className="icon" />
         </span>
-        <span className="sideNavIcon">
+        <Link to={"/"} className="sideNavIcon">
           <icons.homeIcon className="icon"/>
-        </span>
+        </Link>
         <span className="sideNavIcon" onClick={()=>{setNotificActive(prev=>!prev)}}>
           <icons.bellIcon className="icon"  />
           <div className="num">5</div>
         </span>
-        <Link to={"/create-blog"} className="h-title-btn">
+        <Link to={"/create/blog"} className="h-title-btn">
           <MdOutlineAdd/>
          <p>Create blog</p>
         </Link>
-        <div className="h-title-btn">
+        <Link to={"/friends"} className="h-title-btn">
           <FaUserFriends/>
          <p>Friends</p>
-        </div>
+        </Link>
       </div>
    
       <SearchBar style={searchActive} />
