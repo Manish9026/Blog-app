@@ -1,19 +1,26 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, default:()=>new mongoose.Types.ObjectId,
-    require:true, alias:"_id"},
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId,
+        require: true, alias: "_id"
+    },
 
     userName: {
         type: String
     },
     userEmail: {
         type: String,
-        require: true,
-        unique: true
+        required:true
+
     },
     password: {
         type: String
+    },
+    authType: {
+        type: String,
+        enum: ["google", "facebook", "github", "email"],
+        default: "email"
     },
     active: {
         type: Boolean,
@@ -23,39 +30,39 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: 1
     },
-    profile:{
+    profile: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'userProfiles'       
+        ref: 'userProfiles'
     },
-    userLikes:{
-        type:Number,
-        default:0,
+    userLikes: {
+        type: Number,
+        default: 0,
     },
-    userFollowers:{
-        type:Number,
-        default:0,
+    userFollowers: {
+        type: Number,
+        default: 0,
     },
 
-    blog:{
-    type: mongoose.Schema.Types.ObjectId,
-           
+    blog: {
+        type: mongoose.Schema.Types.ObjectId,
+
     },
-    friends:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"userfriend"
+    friends: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userfriend"
     },
-    like:{
-        type:mongoose.Schema.Types.ObjectId, 
-        ref:"userLike"       
+    like: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userLike"
     },
-    stories:{
-        type:[
-           mongoose.Schema.Types.ObjectId
+    stories: {
+        type: [
+            mongoose.Schema.Types.ObjectId
         ],
-        ref:"userStories"
+        ref: "userStories"
     }
 
-   
+
 
 
 })

@@ -14,8 +14,7 @@ router.get("/user-Info",userAuth.getUserInfo)
 router.get("/logout",userAuth.logout);
 router.get("/forgot",userAuth.forgot);
 router.post('/upload',userAuth.upload)
-
+router.get("/auth/google",userAuth.googleAuth)
 router.post("/profile",userAuth.setProfile);
-
 router.get('/verify',userAuth.userVerifed)
 export default router;

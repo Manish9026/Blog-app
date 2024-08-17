@@ -5,6 +5,7 @@ import { url } from "../../tools/serverURL";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Navigate } from "react-router-dom";
+import { urlLoader } from "../../utills/urlReload";
 axios.defaults.baseURL=url
 //register async function
 
@@ -118,6 +119,22 @@ export const logout =createAsyncThunk("logout",async()=>{
   //     return res.data
   //   })
   // })
+
+  export const loginWithGoogle=createAsyncThunk("loginWithGoogle",async(code)=>{
+
+    try {
+      
+     return await axios.get(`/user/s1/auth/google?code=${code}`,{withCredentials:true}).then(res=>{
+        urlLoader(res.data)
+
+        return res.data
+      })
+    } catch (error) {
+      alert("internal error")
+      console.log(error);
+      
+    }
+  })
 const authSlice=createSlice({
     name:"userAuth",
     initialState:{
@@ -188,6 +205,18 @@ const authSlice=createSlice({
           state.status=false
         })
 
+
+        builder.addCase(loginWithGoogle.pending,(state)=>{
+        state.loading=true;
+        
+        })
+        builder.addCase(loginWithGoogle.fulfilled,(state,{payload})=>{
+        state.loading=false;
+        state.status=true
+        console.log("payload",payload);
+        
+          
+        })
 
         
         

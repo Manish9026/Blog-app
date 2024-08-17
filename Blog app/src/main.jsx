@@ -40,6 +40,7 @@ import UserFriend from './pages/profile page/UserFriend.jsx';
 import { getAllFrnd } from './sclice/friendSlice.js';
 import UserBlogs from './pages/profile page/UserBlogs.jsx';
 import { getAllPost } from './sclice/userPostSlice.js';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const RoutePath = () => {
 
@@ -175,7 +176,7 @@ return 0
   )
 
 
-  return <RouterProvider router={router} />
+  return <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}> <RouterProvider router={router} /></GoogleOAuthProvider>
 
 }
 // const router = createBrowserRouter(

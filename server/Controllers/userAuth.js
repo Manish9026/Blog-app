@@ -10,8 +10,10 @@ import { imageUploader } from "../utils/imageUploader.js";
 import multer from 'multer'
 import mongoose from "mongoose";
 import formidable from 'formidable'
+import { googleClient } from "../utils/googleConfig.js";
 let app = express();
 app.use(cookieParser());
+import axios from 'axios'
 
 dotenv.config();
 export class AuthTools {
@@ -29,9 +31,9 @@ export class AuthTools {
         return bcrypt.compare(checkPass, hash).then(res => res).catch(err => console.log(err));
     }
 
-    static genJWT_Token = async (userEmail, userId) => {
+    static genJWT_Token = async (userEmail, userId,authType) => {
         console.log(userEmail, userId);
-        return await jwt.sign({ userEmail, userId }, process.env.SECRET_KEY)
+        return await jwt.sign({ userEmail, userId,authType}, process.env.SECRET_KEY)
 
 
     }
@@ -97,7 +99,7 @@ class userAuth extends AuthTools {
                 if (match) {
                     if (await this.bycriptPass(password, match.password)) {
 
-                        const loginToken = await this.genJWT_Token(match.userEmail, match.userId)
+                        const loginToken = await this.genJWT_Token(match.userEmail, match.userId,match.authType)
                         console.log(loginToken);
 
                         res.cookie("uid", loginToken, {
@@ -253,6 +255,77 @@ class userAuth extends AuthTools {
         } catch (error) {
 
             console.log(error);
+        }
+    }
+
+    static googleAuth=async(req,res)=>{
+        try {
+            
+            const {code}=req.query;
+
+
+            // get access_token
+            const googleRes=await googleClient.getToken(code);
+            googleClient.setCredentials(googleRes.tokens)
+            // get userInfo through access token
+            const userInfo=await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`)
+
+            // store record in database
+                if(userInfo.data){
+                    let loginToken="";
+                    const {id,email,name,picture}=userInfo.data;
+                    const existUser=await userModel.findOne({$and:[{authType:"google"},{userEmail:email}]})
+                   if(!existUser){
+
+                    const newUser= new userModel({
+                        userEmail:email,
+                        userName:name,
+                        authType:"google",
+                        active:true
+                        
+                        
+                    })
+                    const userProfile= await userProfileModel.create({
+                        profileImage:picture
+                    });
+                    
+                    newUser.userId=newUser._id;
+                    newUser.profile=userProfile._id
+                    if(await newUser.save()){
+                    
+                        loginToken=await this.genJWT_Token(newUser.userEmail,newUser._id)
+                        res.cookie("uid", loginToken, {
+                            sameSite: 'None',
+                            secure: true,
+                            httpOnly: true,
+                            expires: new Date(Date.now() + 3600000)
+                        }).status(200).json({
+                            message:"successfully login",
+                            status:true
+                        })
+                    }
+                    return
+                   }
+                   else{
+                    loginToken=await this.genJWT_Token(existUser.userEmail,existUser._id)
+                        res.cookie("uid", loginToken, {
+                            sameSite: 'None',
+                            secure: true,
+                            httpOnly: true,
+                            expires: new Date(Date.now() + 3600000)
+                        }).status(200).json({
+                            message:"successfully login",
+                            status:true
+                        })
+                    
+                   }
+                    
+                   
+                }
+                // 115897488701765711214  
+        } catch (error) {
+            console.log(error);
+            
         }
     }
 

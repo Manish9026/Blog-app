@@ -15,6 +15,7 @@ import { url } from '../../tools/serverURL'
 import { IoCloseSharp } from 'react-icons/io5'
 import { FaArrowRight } from 'react-icons/fa'
 import { Link, useNavigate,Outlet ,useLocation,redirect} from 'react-router-dom'
+import GoogleAuth from './GoogleAuth'
 
 
 
@@ -30,17 +31,18 @@ const location=useLocation();
 // console.log(location.state);
 
 useEffect(()=>{
+
+  
 if(status){
+console.log(location.state);
 
 if(location.state){
 
-  navigate(-1)
-
-//  navigate(location.state.prevUrl)
+  navigate(location.state?.prevUrl)
 
  return
 }
-navigate(-1)
+navigate('/')
    
 }else{
   navigate("/auth/sign-in",{
@@ -71,10 +73,7 @@ navigate(-1)
     
 
       <div className="key-login-container">
-        <div className="logo-section  section1">
-          <img className="auth-icons" src={headerIcons.google} />
-          <p>login with google</p>
-        </div>
+        <GoogleAuth/>
         <div className="logo-section section2">
           <img className="auth-icons" src={headerIcons.fb} />
           <p>login with facebook</p>
@@ -112,10 +111,11 @@ navigate(-1)
   </div>
   <div className="method-container">
 
-  <span className="logo  section1">
+  {/* <span className="logo  section1" >
     <img src={headerIcons.google} alt="" />
     <p>google</p>
-  </span>
+  </span> */}
+  <GoogleAuth mobileWindow={1}/>
   <span className="logo section2">
     <img src={headerIcons.fb} alt="" />
     <p>facebook</p>
