@@ -1,0 +1,69 @@
+
+/*======================
+    404 page component css
+=======================*/
+
+
+.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+    min-height: 100%;
+    width: 100%;
+}
+
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+ 
+ background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+ }
+ 
+ 
+ .four_zero_four_bg h1{
+ font-size:80px;
+ }
+ 
+  .four_zero_four_bg h3{
+			 font-size:80px;
+			 }
+			 
+			 .link_404{			 
+	color: #fff!important;
+    padding: 10px 20px;
+    background: #39ac31;
+    margin: 20px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-50px;}
+
+//? <-------------------------------404 page component css end-------------------------->
+
+
+.error-page{
+    background-color: #fffefe;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    .video-part{
+       max-width: 500px;
+       max-height: 400px;
+       min-width: 200px;
+       min-height: 200px;
+       flex: 1;
+       height: 100%;
+       border: 1px solid red;
+      
+    }
+    .contant_box {
+        flex-direction: column;
+        .link{
+            background-color: #6cc34a;
+            padding: 5px 10px;
+            max-width: 200px;
+            min-width: 100px;
+            width: 100%;
+            border-radius: 5px;
+            color: rgb(39, 48, 59);
+
+        }
+    }
+}

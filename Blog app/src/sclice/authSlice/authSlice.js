@@ -29,7 +29,7 @@ export const getRegister=createAsyncThunk("getRegister/userAuth",async(data)=>{
 
     return res.data
   }).catch(err=>{
-
+    window.location.replace("/internal-error")
   })
 
 } catch (error) {
@@ -57,6 +57,7 @@ export const getLogin=createAsyncThunk("getLogin/userAuth",async(data)=>{
   
       return res.data
     }).catch(err=>{
+      window.location.replace("/internal-error")
   
     })
   })
@@ -97,6 +98,7 @@ export const isVerified=createAsyncThunk("isVerified/userAuth",()=>{
 
     return res.data
   }).catch(error=>{
+    window.location.replace("/internal-error")
 
   })
 })
@@ -111,7 +113,7 @@ export const logout =createAsyncThunk("logout",async()=>{
     
     return res.data
   }).catch(err=>{
-    alert(err)
+    window.location.replace("/internal-error")
   })
 })
   // export const getUserInfo=createAsyncThunk('getUserInfo/userAuth',()=>{
@@ -123,15 +125,15 @@ export const logout =createAsyncThunk("logout",async()=>{
   export const loginWithGoogle=createAsyncThunk("loginWithGoogle",async(code)=>{
 
     try {
-      
      return await axios.get(`/user/s1/auth/google?code=${code}`,{withCredentials:true}).then(res=>{
         urlLoader(res.data)
 
         return res.data
       })
     } catch (error) {
-      alert("internal error")
-      console.log(error);
+     window.location.replace("/internal-error")
+    //  console.log("error");
+     
       
     }
   })

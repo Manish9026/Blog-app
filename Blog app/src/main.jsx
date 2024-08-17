@@ -41,6 +41,8 @@ import { getAllFrnd } from './sclice/friendSlice.js';
 import UserBlogs from './pages/profile page/UserBlogs.jsx';
 import { getAllPost } from './sclice/userPostSlice.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import PNotFound from './component/utils.component/PNotFound.jsx';
+import InternalError from './component/utils.component/InternalError.jsx';
 
 const RoutePath = () => {
 
@@ -165,6 +167,12 @@ return 0
                 element:<UserBlogs/>
               }
             ]
+          },{
+            path:"*",
+            element:<PNotFound/>
+          },{
+            path:"/internal-error",
+            element:<InternalError/>
           }
 
 

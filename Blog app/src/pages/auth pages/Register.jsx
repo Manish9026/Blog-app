@@ -32,7 +32,7 @@ const location=useLocation();
 
 useEffect(()=>{
 
-  
+
 if(status){
 console.log(location.state);
 
