@@ -12,7 +12,16 @@ import { userModel } from "../Models/userModel.js";
            req.userId=userId;
            next();
    
+           return
           }
+          res.clearCookie('uid', {
+            sameSite: 'None',
+            secure: true
+        }).status(201).json({
+            message:"firstly login",
+            statusCode:65,
+            data:[]
+        });
 
         }else{
             res.status(201).json({
