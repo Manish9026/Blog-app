@@ -43,6 +43,7 @@ import { getAllPost } from './sclice/userPostSlice.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import PNotFound from './component/utils.component/PNotFound.jsx';
 import InternalError from './component/utils.component/InternalError.jsx';
+import UserMessage from './pages/message page/UserMessage.jsx';
 
 const RoutePath = () => {
 
@@ -167,7 +168,13 @@ return 0
                 element:<UserBlogs/>
               }
             ]
-          },{
+          },
+          {
+            path:"/user/message",
+            element:<UserMessage/>
+          },
+
+          {
             path:"*",
             element:<PNotFound/>
           },{

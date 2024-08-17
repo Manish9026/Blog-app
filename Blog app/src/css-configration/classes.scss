@@ -16,6 +16,16 @@ $avatar-offset: 52 + 16;
   background-size: 600px;
 }
 
+.md-icons{
+  @extend .center;
+width: 40px;
+cursor: pointer;
+height: 40px;
+  border-radius: 5px;
+  background-color: #181722;
+  color: #a7a0a0;
+}
+
 .lightShadow{
     box-shadow: inset $xLength $yLength $blur $range $color , inset -1*$xLength -1*$yLength $blur $range $color;
 }
