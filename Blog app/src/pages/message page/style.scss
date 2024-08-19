@@ -2,7 +2,6 @@
 @import '../../css-configration/mixins.scss';
 @import '../../css-configration/variables.scss' ;
 
-
 .message-section{
 @extend .center;
 flex: 1;
@@ -13,9 +12,9 @@ justify-content: flex-start;
 flex-direction: column;
 $m-padding:0px 10px;
 .top-section{
-    @extend .center; 
+    @extend .center;
+    // display: none; s
     background-color: #192f5894;
-    // flex:1;
     // justify-content: flex-start;
     width: 100%;
     min-height: 100px;
@@ -126,13 +125,10 @@ $m-padding:0px 10px;
     .user-card{
         @extend .flex;
 
-        // border: $lightBorder;
-        // flex: 1;
-        max-width: 300px;
-        // border-radius: 20px;
-        overflow: hidden;
-            position: relative;
 
+        max-width: 300px;
+        overflow: hidden;
+        position: relative;
             &::after{
                 content: "";
                 padding: 5px;
@@ -170,6 +166,7 @@ $m-padding:0px 10px;
             height: 100%;
             align-items: stretch;
             width: 100%;
+            line-height: normal;
             min-width: 100px;
             padding-left:10px ;
             background-color: #3f5789;
@@ -177,25 +174,85 @@ $m-padding:0px 10px;
             border:  1px solid rgb(111, 154, 215);
             border-left:none ;
             :first-child{
-                font-size: .9rem;
+                font-size: .8rem;
+                color: #77d2e0;
+            }
+            :nth-child(2){
+                display: none;
             }
             :last-child{
-                font-size: 10px;
+                font-size: .6rem;
                 // text-align: ;
+                color: #050f2e;
             }
             
         }
     }
   }
 
+
+  @include sm{
+    background:linear-gradient(to top ,rgb(17, 17, 65),rgb(27, 14, 14));
+    max-height: calc(100vh - 70px);
+    flex:1;
+
+    .t-body{
+        @include scroll-none;
+        max-height: 100%;
+        overflow: auto;
+        color: rgb(224, 229, 253);
+        .user-card{
+            min-width: 300px;
+            max-width: 100%;
+            flex: 1;
+            // border: $lightBorder;
+            cursor: pointer;
+            gap: 5px;
+            padding: 5px ;
+            border-radius: 5px;
+
+            .card-img{
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+            }
+            .content{
+                background-color: transparent;
+                border: none;
+                position: relative;
+                line-height: normal;
+                :nth-child(2){
+                    font-size: .7rem;
+                }
+
+                :last-child{
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    color: #182694;
+                    transform: translate(-50%,-50%);
+                }
+            }
+
+          
+
+            &:hover{
+                box-shadow: inset 0px 0px 2px 1px rgb(77, 121, 149);
+            }
+        }
+    }
+
+  }
 }
 .message-body{
 @extend .flex;
-height: 100%;
+max-height: 100vh;
 width: 100%;
 flex: 1;
 flex-direction: column;
 .msg-head{
+// gap: 5px;
+
     @extend .center;
         min-height: 70px;
         background-color: #babef44f;
@@ -204,9 +261,14 @@ flex-direction: column;
         width: 100%;
         padding: 5px 10px;
         max-height: 80px;
+        .backIcon{
+            display: none;
+        }
     .user-logo{
         @extend .center;
         // border: $lightBorder;
+    flex: 1;
+    justify-content: flex-start;
         gap: 10px;
         padding: 0px 5px;
        .img{
@@ -261,5 +323,22 @@ flex-direction: column;
     }
 }
 
+@include sm{
+background-color: #181722;
+position: absolute;
+width: 100vw;
+height: calc(100vh - 70px);
+left: -1000px;
+.msg-head{
+    .backIcon{
+        display: flex;
+        max-width:30px;
+        max-height: 30px;
+        font-size: small;
+        // flex: 0;
+    }
+}
+
+  }
 }
 }

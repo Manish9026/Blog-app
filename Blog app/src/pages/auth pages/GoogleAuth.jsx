@@ -12,6 +12,9 @@ const GoogleAuth = ({mobileWindow}) => {
 
 const dispatch=useDispatch();
   const googleResponse=async(result)=>{
+
+    console.log(result);
+    
       dispatch(loginWithGoogle(result.code))
 
   }

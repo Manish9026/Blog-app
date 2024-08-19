@@ -106,3 +106,15 @@ flex: 1;
   40%, 100%{
     background-position: 140px}
 }
+
+// scroll-classes
+
+
+  @mixin scroll-none{
+
+    &::-webkit-scrollbar{
+      width: 0;
+    }
+  }
+
+  

@@ -9,6 +9,7 @@ import userProfileSlice from "./sclice/userProfileSlice";
 import songSlice from "./sclice/songSlice";
 import storySlice from "./sclice/storySlice";
 import userPostSlice from "./sclice/userPostSlice";
+import userMessageSlice from "./sclice/userMessageSlice";
 
 
 
@@ -25,7 +26,8 @@ const store=configureStore({
         userProfile:userProfileSlice,
         songList:songSlice,
         userStory:storySlice,
-        userPost:userPostSlice
+        userPost:userPostSlice,
+        userMessage:userMessageSlice
     },
 
 })
