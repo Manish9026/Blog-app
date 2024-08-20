@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './home.scss'
 import { user } from '../../assets/home image/image'
 import { FcNext } from "react-icons/fc";
@@ -6,7 +6,7 @@ import { MdAdd, MdPublic } from "react-icons/md";
 
 import { MdOutlinePostAdd } from "react-icons/md";
 import { LuGalleryHorizontalEnd } from "react-icons/lu";
-
+// useSocket
 
 
 const imageData = [
@@ -245,6 +245,8 @@ import { addComment, getAllcomments } from '../../sclice/storySlice';
 import { allowUser } from '../create blog/BlogSection';
 import { NavLink } from 'react-router-dom';
 import { getAllPost, setPostLike, setPostdisLike } from '../../sclice/userPostSlice';
+
+// import useSocket from '../../custom hooks/SocketIo';
 // import { BiSolidLike } from "react-icons/bi";
 
 

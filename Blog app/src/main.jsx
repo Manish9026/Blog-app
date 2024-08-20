@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, memo, useCallback } from 'react'
 import ReactDOM from 'react-dom/client'
 // import App from './App.jsx'
 import './index.scss'
@@ -45,14 +45,17 @@ import PNotFound from './component/utils.component/PNotFound.jsx';
 import InternalError from './component/utils.component/InternalError.jsx';
 import UserMessage from './pages/message page/UserMessage.jsx';
 
+
+
 const RoutePath = () => {
 
+  
   const dispatch = useDispatch();
   const router = createBrowserRouter(
     [
       {
         path: "",
-        element: <Layout />,
+        element: <Layout />,      
         children: [
 
           {
@@ -64,9 +67,9 @@ const RoutePath = () => {
               // location.replace("/auth/sign-in")          
               // else
              
-  
-              dispatch(getStories()),
-              dispatch(getAllPost({skip:0,next:10}))
+              Promise.all( dispatch(getStories()),
+              dispatch(getAllPost({skip:0,next:10})))
+             
              
             
             return null}
@@ -171,7 +174,11 @@ return 0
           },
           {
             path:"/user/message",
-            element:<UserMessage/>
+            element:<UserMessage/>,
+            loader:()=>{
+              dispatch(getAllFrnd({type:"self"}))
+              return 0
+            }
           },
 
           {
@@ -191,7 +198,12 @@ return 0
   )
 
 
-  return <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}> <RouterProvider router={router} /></GoogleOAuthProvider>
+  return (
+
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    
+     <RouterProvider router={router} /></GoogleOAuthProvider>
+)
 
 }
 // const router = createBrowserRouter(
@@ -297,13 +309,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <>
  
     <Provider store={store}>
+    {/* <SocketProvider> */}
+
  <Suspense fallback={ <section style={{  background:"linear-gradient(45deg, #000428, #004e92)",width:"100vw",height:"100vh"}}>< Loder style={{height:"100%"}}/></section> }>
     {/* <RouterProvider router={router} /> */}
    
-    
     <RoutePath/>
     </Suspense>
+    {/* </SocketProvider> */}
     </Provider>
+
 
   </>
 

@@ -13,6 +13,7 @@ export const urlLoader=({statusCode,message,status})=>{
     }
 
     if(statusCode==65){
+        // window.location.replace("/auth/sign-in")
         window.history.pushState({},"","/auth/sign-in")
         window.location.reload();
     }

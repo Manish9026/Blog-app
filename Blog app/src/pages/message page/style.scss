@@ -129,7 +129,7 @@ $m-padding:0px 10px;
         max-width: 300px;
         overflow: hidden;
         position: relative;
-            &::after{
+            .online-status{
                 content: "";
                 padding: 5px;
                 position: absolute;

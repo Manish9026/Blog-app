@@ -13,6 +13,10 @@ import bodyParser from 'body-parser';
 import userProfileRoute from './routes/userProfile.js';
 import userStoryRoute from './routes/story.js';
 import userPostRoute from './routes/userPost.js';
+import {Server}  from 'socket.io';
+import {createServer} from 'http';
+import { onlineUserSocket } from './socketControolerrs/messageSocket.js';
+// import server from 'server';
 dotenv.config();
 const app = express();
 
@@ -24,6 +28,7 @@ app.use(cors({
     methods:["POST","GET","DELETE","PATCH"]
 }))
 
+const httpServer=createServer(app)
 // middlewares
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }))
@@ -38,9 +43,6 @@ app.use('/user/sf',snglFriendRoute)
 app.use('/user/profile',userProfileRoute)
 app.use('/user/story',userStoryRoute)
 
-app.get("/h",(req,res)=>{
-    res.send("hello")
-})
 DB_connection()
 // app.post('/image',userBlog.convertBaseUrl)
 const port = process.env.PORT || 8080
@@ -50,6 +52,26 @@ app.use('/', (req, res) => {
     res.send("<h1>hello ,this is blog server</h1>")
 })
 
+const io=new Server(httpServer,{
+    cors:{
+        origin:[process.env.BASE_URL,process.env.BASE_URL2],
+        credentials:true,
+        methods:["POST","GET","DELETE","PATCH"]
+    }
+});
+
+
+io.on("connection",(socket)=>{
+    console.log("socket connected",socket.id);
+
+    // socket.emit("onlineUsers"," 5 users")
+    onlineUserSocket(io,socket);
+
+socket.on("disconnect",()=>{
+    console.log("socket disconnected",socket.id);
+    
+})
+})
 
 
 
@@ -57,7 +79,6 @@ app.use('/', (req, res) => {
 
 
 
-
-app.listen(port, () => {
+httpServer.listen(port, () => {
     console.log(`server started  on this port :${port}`)
 })

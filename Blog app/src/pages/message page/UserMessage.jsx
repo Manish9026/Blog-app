@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, memo } from 'react'
 import './style.scss'
 import { IoFilter, IoSearch } from 'react-icons/io5'
 import { FaArrowLeft, FaBackspace, FaBackward, FaSearch } from 'react-icons/fa'
@@ -7,10 +7,38 @@ import { MdOutlineSearch, MdVideoCall } from 'react-icons/md'
 import { FaRegSmile } from "react-icons/fa";
 import { MdCloudUpload } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
-import { setMsgPage } from '../../sclice/userMessageSlice'
+import { setMsgPage, setOnlineUsers } from '../../sclice/userMessageSlice'
+import { onlineUsers } from '../../socket oprations/messageSocket'
+import useSocket from '../../custom hooks/SocketIo'
+import { getAllFrnd } from '../../sclice/friendSlice'
+import {io} from 'socket.io-client'
+import { url } from '../../tools/serverURL'
+
 const UserMessage = () => {
 
     const dispatch = useDispatch();
+const {userInfo}=useSelector(state=>state.userAuth)
+       
+const socket=useMemo(()=>io(url),[])
+useEffect(() => {
+if(userInfo?.userId)
+socket.emit("userOnline",userInfo.userId)
+socket.on("onlineUsers",(users)=>{
+    // console.log("onlineUsers:",users);  
+    dispatch(setOnlineUsers(users))     
+})
+//    socket.emit("userOnline",
+//    )
+
+//    return()=>socket.disconnect();
+},[userInfo])
+
+    
+    // msgSocket.on("connect",()=>{
+    //     console.log("socke",msgSocket.id);
+        
+
+    // })
     useEffect(() => {
         window.addEventListener("resize", widthHandler)
         widthHandler()
@@ -25,7 +53,7 @@ const UserMessage = () => {
 
 
 
-    const MessageBody = () => {
+    const MessageBody = memo(() => {
         const { isVisible } = useSelector(state => { return state.userMessage.msgPage })
         // const dispatch=useDispatch();
 
@@ -78,12 +106,23 @@ const UserMessage = () => {
                 </div>
             </div>
         )
-    }
-    const MessageTop = () => {
+    })
+    const MessageTop = memo(() => {
+        const {friends}=useSelector(state=>state.userFriend)
+        const {onlineUsers}=useSelector(state=>state.userMessage)
+        
+        
         const [search, setSearch] = useState({
             isActive: false,
             crossIsActive: false,
         })
+
+        useEffect(()=>{
+            // dispatch(getAllFrnd({type:"self"}));
+            // console.log("called");
+            // console.log(friends,onlineUsers);
+            
+        },[])
         return (
             <div className="top-section">
                 <div className="t-head">
@@ -105,36 +144,39 @@ const UserMessage = () => {
 
                 <div className="t-body">
                     {
-                        Array(10).fill(null).map((_, index) => {
-                            return (
-                                <UserCard key={index} />
-                            )
+                        friends.map((user, index) => {
+                            // console.log(onlineUsers.includes(user?._id));
+                            
+                            return <UserCard key={index} user={user} onlineStatus={onlineUsers.includes(user?._id)}/>
+                            
                         })
                     }
                 </div>
             </div>
         )
     }
+)
 
-    const UserCard = () => {
-        // const dispatch=useDispatch();
-        const [card, setCard] = useState({
-            isActive: false
-        })
+    const UserCard = memo(({user,onlineStatus}) => {
+
+        const [card, setCard] = useState(0)
+
+        
         return (
-            <div className="user-card" onClick={() => dispatch(setMsgPage(1))}>
+            <div className="user-card" onClick={() =>{ dispatch(setMsgPage(1));setCard(1)}}>
+                <span className='online-status' style={onlineStatus?{backgroundColor:""}:{background:"red"}}></span>
                 <span className="card-img">
 
-                    <img src="https://res.cloudinary.com/dztzqqiex/image/upload/v1723892977/jlaim9otbhxkjbmpsamm.jpg" alt="" />
+                    <img src={user?.profile?.profileImage} alt="" />
                 </span>
                 <span className="content">
-                    <p>userName</p>
+                    <p>{user?.userName}</p>
                     <p>last message</p>
                     <p>last 2dago</p>
                 </span>
             </div>
         )
-    }
+    })
     return (
         <section className="message-section">
             <MessageTop />

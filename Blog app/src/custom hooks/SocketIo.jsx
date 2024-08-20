@@ -1,10 +1,13 @@
 import React from 'react'
 import {io} from 'socket.io-client'
 import { url } from '../tools/serverURL'
-const SocketIo = () => {
-const socketIo=io(url)
+const useSocket = () => {
+    console.log(url);
+    
+const socketIo= io(url)
 
 
+return socketIo
 }
 
-export default SocketIo
+export default useSocket
