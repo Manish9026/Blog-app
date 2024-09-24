@@ -101,11 +101,12 @@ class userAuth extends AuthTools {
 
                         const loginToken = await this.genJWT_Token(match.userEmail, match.userId,match.authType)
                         console.log(loginToken);
-
+                     console.log("production", process.env.DEPLOYMENT_TYPE=="local"?false:true,);
+                     
                         res.cookie("uid", loginToken, {
-                            sameSite: 'None',
-                            secure: true,
-                            httpOnly: true,
+                            // sameSite: 'None',
+                            secure: process.env.DEPLOYMENT_TYPE=="local"?false:true,
+                            httpOnly:process.env.DEPLOYMENT_TYPE=="local"?false:true,
                             expires: new Date(Date.now() + 3600000)
                         }).json({
                             message: "successfully login",
@@ -149,12 +150,6 @@ class userAuth extends AuthTools {
 
     }
     static register = async (req, res) => {
-
-
-
-
-
-
         try {
             const form = formidable();
             form.parse(req, async (err, fields, files) => {

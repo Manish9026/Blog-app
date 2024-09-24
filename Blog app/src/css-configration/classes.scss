@@ -32,8 +32,8 @@ height: 40px;
 
 .flex{
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  // align-items: center;
+  // justify-content: space-between;
 }
 .columnFlex{
   display: flex;
@@ -115,6 +115,7 @@ flex: 1;
     &::-webkit-scrollbar{
       width: 0;
     }
+
   }
 
   

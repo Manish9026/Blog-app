@@ -2,8 +2,8 @@ import React, { Suspense, lazy, memo, useCallback } from 'react'
 import ReactDOM from 'react-dom/client'
 // import App from './App.jsx'
 import './index.scss'
-import 'bootstrap/dist/css/bootstrap.css';
-import './css-configration/classes.scss'
+// import 'bootstrap/dist/css/bootstrap.css';
+// import './css-configration/classes.scss'
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom'
 // import Login from './pages/login page/Login.jsx'
 
@@ -44,7 +44,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import PNotFound from './component/utils.component/PNotFound.jsx';
 import InternalError from './component/utils.component/InternalError.jsx';
 import UserMessage from './pages/message page/UserMessage.jsx';
-
+import SocketProvider from './context/SocketContext.jsx';
+import { CookiesProvider } from 'react-cookie';
 
 
 const RoutePath = () => {
@@ -191,6 +192,10 @@ return 0
 
 
         ],
+        loader:()=>{
+          // dispatch(createSocketConn())
+          return 0
+        }
       },
 
 
@@ -307,17 +312,18 @@ return 0
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <>
+    <CookiesProvider defaultSetOptions={{ path: '/' }}>
  
     <Provider store={store}>
-    {/* <SocketProvider> */}
-
  <Suspense fallback={ <section style={{  background:"linear-gradient(45deg, #000428, #004e92)",width:"100vw",height:"100vh"}}>< Loder style={{height:"100%"}}/></section> }>
     {/* <RouterProvider router={router} /> */}
-   
+    <SocketProvider>
     <RoutePath/>
+    </SocketProvider>
+
     </Suspense>
-    {/* </SocketProvider> */}
     </Provider>
+    </CookiesProvider>
 
 
   </>

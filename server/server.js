@@ -15,7 +15,8 @@ import userStoryRoute from './routes/story.js';
 import userPostRoute from './routes/userPost.js';
 import {Server}  from 'socket.io';
 import {createServer} from 'http';
-import { onlineUserSocket } from './socketControolerrs/messageSocket.js';
+import { onlineUserSocket, sendUserMessage } from './socketControolerrs/messageSocket.js';
+import { messageRoute } from './routes/message.js';
 // import server from 'server';
 dotenv.config();
 const app = express();
@@ -35,6 +36,8 @@ app.use(express.urlencoded({ extended: false }))
 // app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
+
+
 // console.log(process.env.BASE_URL);
 app.use("/user/s1",userRoute)
 app.use("/user/p1",userPostRoute)
@@ -42,7 +45,7 @@ app.use("/user/f1",friendRoute)
 app.use('/user/sf',snglFriendRoute)
 app.use('/user/profile',userProfileRoute)
 app.use('/user/story',userStoryRoute)
-
+app.use('/user/m1',messageRoute)
 DB_connection()
 // app.post('/image',userBlog.convertBaseUrl)
 const port = process.env.PORT || 8080
@@ -66,6 +69,7 @@ io.on("connection",(socket)=>{
 
     // socket.emit("onlineUsers"," 5 users")
     onlineUserSocket(io,socket);
+    sendUserMessage(io,socket)
 
 socket.on("disconnect",()=>{
     console.log("socket disconnected",socket.id);

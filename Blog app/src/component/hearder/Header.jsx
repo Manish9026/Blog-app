@@ -26,7 +26,7 @@ useEffect(()=>{
 
 const UserProfile=()=>{
   return(
-    <div className="user-prp">
+    <div className="user-prp flex items-center justify-start">
   
     <img className="prp-img" src={userInfo.profile.profileImage} />
   <ul className="prp-name-c">
@@ -46,8 +46,8 @@ const UserProfile=()=>{
 
       {
        userInfo.length!=0? <UserProfile/>
-      :<div className="userAuth">
-        <div className='iconContainer'>
+      :<div className="userAuth flex text-blue-600">
+        <div className='iconContainer flex size-[50px] justify-center  bg-slate-300'>
           <img src={headerIcons.userIcons} />
         </div> 
           
@@ -73,7 +73,7 @@ const UserProfile=()=>{
 
             return(
              <NavLink to={item[2]} style={{display:"flex",width:"100%"}} key={indx}  >
-<div style={{width:"100%"}} className="nav-title" >
+<div style={{width:"100%"}} className="nav-title flex justify-start items-center" >
           
           <div className="iconContainer">
             {/* <img className="nav-icon" src={item[0]} /> */}
@@ -90,7 +90,7 @@ const UserProfile=()=>{
         
 }
 <div style={{display:"flex",width:"100%"}}  onClick={()=>dispatch(logout())}>
-<div className="nav-title" style={{width:"100%"}}>
+<div className="nav-title flex items-center justify-start" style={{width:"100%"}}>
          <div className="iconContainer">
          <TbLogout />
           

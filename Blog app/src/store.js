@@ -12,7 +12,6 @@ import userPostSlice from "./sclice/userPostSlice";
 import userMessageSlice from "./sclice/userMessageSlice";
 
 
-
 const store=configureStore({
     reducer:{
 
@@ -27,7 +26,8 @@ const store=configureStore({
         songList:songSlice,
         userStory:storySlice,
         userPost:userPostSlice,
-        userMessage:userMessageSlice
+        userMessage:userMessageSlice,
+        // socket:socketSlice
     },
 
 })

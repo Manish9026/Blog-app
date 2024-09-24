@@ -23,9 +23,8 @@ overflow: hidden;
 }
 .flex{
   display: flex;
-  flex: 1;
-  // justify-content: center;
-  align-items: center;
+  // flex: 1;
+
 }
 .navIcon{
   width: 50px;
@@ -129,10 +128,10 @@ transition: all 1.5s ease;
         @extend .flex, .fullWidth;
         padding: 10px 0px;
         gap: 10px;
+        // background-color: #c65c5c;
        
         .iconContainer{
-          @extend .flex, .fullWidth;
-          flex: 0;
+          // flex: 0;
           max-width:50px;
           max-height: 50px;
           border-radius: 50%;

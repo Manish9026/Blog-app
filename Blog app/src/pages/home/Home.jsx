@@ -95,17 +95,18 @@ const ImageSlider = ({ story, userName, proPic, pos }) => {
 }
 const Home = () => {
 
-
+const socket =useSocket();
 
   const { storyData, selfStoryData } = useSelector(state => { return state.userStory })
   const { status } = useSelector(state => { return state.global.storyViewToggle })
   const { postState} = useSelector(state => { return state.userPost })
+console.log(socket);
 
   return (
 
 
     status ? <StoryView /> :
-      <section className="home-section">
+      <section className="home-section lg:flex-nowrap  flex-wrap-reverse">
 
 
 
@@ -198,11 +199,11 @@ const Home = () => {
 const SuggestedFrnd = () => {
   const [isVisible,setIsVisible]=useState(false);
   return (
-    <label htmlFor='checked' className="part2">
+    <label htmlFor='checked' className="part2 ">
       <span className="heading">
         Your suggested friends
       </span>
-      <span className="sug-era">
+      <span className="sug-era ">
         {user.map((item, key) => {
 
           return (<div className="card" key={key}>
@@ -245,6 +246,7 @@ import { addComment, getAllcomments } from '../../sclice/storySlice';
 import { allowUser } from '../create blog/BlogSection';
 import { NavLink } from 'react-router-dom';
 import { getAllPost, setPostLike, setPostdisLike } from '../../sclice/userPostSlice';
+import { useSocket } from '../../context/SocketContext';
 
 // import useSocket from '../../custom hooks/SocketIo';
 // import { BiSolidLike } from "react-icons/bi";
