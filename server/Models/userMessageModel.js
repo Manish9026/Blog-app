@@ -19,17 +19,17 @@ const userMessageSchema = mongoose.Schema({
             filePath:[String],
             createdAt: {
                 type: Date,
-                default: Date.now()
+                default: Date.now
             },
             updatedAt: {
                 type: Date,
-                default: Date.now()
+                default: Date.now
             },
         }]
     },
     createdAt:{
         type:Date,
-        default:Date.now()
+        default:Date.now
     }  
     
 });

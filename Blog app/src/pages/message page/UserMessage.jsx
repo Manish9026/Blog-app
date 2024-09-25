@@ -16,6 +16,25 @@ import { useSocket } from '../../context/SocketContext'
 // import { user } from '../../assets/home image/image'
 import chatBg from '../../assets/backgroundImg/chatBg.jpg'
 import Loder from '../../component/loader/Loder'
+
+
+const getFormatedDate=({type,date}={})=>{
+    if(type=="time"){
+       const newDate= new Date(date)
+       let hour=newDate.getHours();
+       let min=newDate.getMinutes();
+       if(hour<=12){
+        return `${hour}:${min} AM`
+       }else{
+        return `${hour-12}:${min} PM`
+
+       }
+
+             
+    }
+
+
+}
 const UserMessage = () => {
 
 const dispatch = useDispatch();
@@ -54,7 +73,7 @@ socket.on("onlineUsers",(users)=>{
 
 
     const MessageBody = memo(() => {
-        const {msgPage,selectedUser} = useSelector(state => { return state.userMessage })
+        const {msgPage,onlineUsers,selectedUser} = useSelector(state => { return state.userMessage })
         const {isVisible,messages,loading}=msgPage;
         // const inputRef=useRef();
         const inputRef=useRef(null);
@@ -92,16 +111,16 @@ socket.on("onlineUsers",(users)=>{
         if(selectedUser)
         return (
             
-            <div className="message-body relative h-full" style={isVisible ? { left: 0 } : { left: "-1000px" }} >
-                <div className="msg-head">
+            <div className="message-body relative h-full" style={isVisible ? { left: 0,display:"" } : { left: "-1000px" ,display:"none"}} >
+                <div className="msg-head z-100 sticky top-[70px] ">
                     <span className='md-icons backIcon' onClick={() => dispatch(setMsgPage(0))}>
                         <FaArrowLeft />
                     </span>
                     <ul className="user-logo">
                         <li className='img'><img src={selectedUser?.profile?.profileImage} alt="" /></li>
                         <li>
-                            <p>{selectedUser?.userName}</p>
-                            <p>online</p>
+                            <p className='text-slate-300 first-letter:uppercase'>{selectedUser?.userName}</p>
+                           {Array.isArray(onlineUsers)?onlineUsers.find((user)=>user==selectedUser._id)?<p className='text-green-400'>online</p>: <p className='text-red-900'>offline</p>:null}
                         </li>
                     </ul>
 
@@ -118,8 +137,8 @@ socket.on("onlineUsers",(users)=>{
                 {loading &&
                     <Loder style={{height:"100%"}}/>
                 }
-                 <div  className="msg-mid w-full flex-col py-4  flex ">
-                {messages?
+                 <div  className="msg-mid w-full h-full flex-col py-4  flex ">
+                {messages && messages?.length!=0?
                
                 messages.map((msgContainer,index)=>{
 
@@ -135,7 +154,8 @@ socket.on("onlineUsers",(users)=>{
                                     <span className="msg h-full  max-w-[300px]  min-w-[150px] rounded-md  px-2 pb-3 bg-sky-600 opacity-70 flex items-center">
                                        {data?.message}
         
-                                        <p className='absolute bottom-[10px] right-[15px] text-[10px] text-sky-200'>4:30 Pm</p>
+                                        <p className='absolute
+                                        mb-[5px] sm:mb-[0]  bottom-[10px] right-[15px] text-[10px] text-sky-200'>{getFormatedDate({type:"time",date:data?.createdAt})}</p>
                                     </span>
                                 </span>
                             )
@@ -145,7 +165,8 @@ socket.on("onlineUsers",(users)=>{
                                     <div className="msg relative min-w-[150px] h-full max-w-[300px] rounded-md  px-2 pb-3 bg-cyan-700 flex items-center">
                                     {data?.message}
         
-                                        <p className='absolute bottom-[0px] right-2 text-[10px] text-sky-200'>4:30 Pm</p>
+                                        <p className='absolute
+                                        bottom-[0px] right-2 text-[10px] text-sky-200'>4:30 Pm</p>
                                     </div>
                                 </span>
                                 )
@@ -157,7 +178,7 @@ socket.on("onlineUsers",(users)=>{
                         </div>
                     )
                 })
-               :<div className='h-full flex items-center justify-center  '> start chats</div>}
+               :<div className='h-full flex-1 flex items-center justify-center  '> start chats</div>}
                      </div>
 
 
