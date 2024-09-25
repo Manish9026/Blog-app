@@ -25,12 +25,15 @@ export const onlineUserSocket=(io,socket)=>{
       });
 }
 
-export const sendUserMessage=async(io,socket)=>{
+export const sendUserMessage=async(io,socket,token)=>{
   // console.log(socket.hands);
-  const {token}=socket?.handshake?.auth;
+  // const {token}=socket?.handshake?.auth;
   console.log(token)
   
+  
+  // console.log("\n\n",socket,"soket");
   if(token && Object.keys(token).length!=0){
+ 
   const {userId}=await AuthTools.tokenVerifier(token)
  socket.on("sendMessage",async({data,receiverId})=>{
   try {

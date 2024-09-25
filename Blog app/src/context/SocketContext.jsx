@@ -8,8 +8,9 @@ const SocketContext=createContext(null);
 const SocketProvider = ({ children }) => {
     const [cookies]=useCookies()
 const socket=io(url,{auth:{
-  token:cookies?.uid
-}});
+  token:cookies?.uid,
+  
+}, withCredentials: true});
     
     useEffect(() => {
       // Handle socket events if needed globally

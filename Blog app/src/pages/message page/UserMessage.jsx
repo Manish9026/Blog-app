@@ -99,7 +99,8 @@ socket.on("onlineUsers",(users)=>{
         socket.off("receiveMessage").on("receiveMessage",(data)=>{
             console.log("data",data);
             dispatch(setMessages(data))
-            setMessageData(prev=>({...prev,message:"",file:null}))
+            setMessageData({message:"",file:null})
+
         })
         return ()=>{
             socket.removeListener("receiveMessage");
@@ -112,7 +113,7 @@ socket.on("onlineUsers",(users)=>{
         return (
             
             <div className="message-body relative h-full" style={isVisible ? { left: 0,display:"" } : { left: "-1000px" ,display:"none"}} >
-                <div className="msg-head z-100 sticky top-[70px] ">
+                <div className="msg-head z-10 sticky top-[70px] ">
                     <span className='md-icons backIcon' onClick={() => dispatch(setMsgPage(0))}>
                         <FaArrowLeft />
                     </span>
@@ -195,7 +196,7 @@ socket.on("onlineUsers",(users)=>{
                     </ul>
                     {/* <div className="input-field" > */}
                         <textarea
-                       
+                       value={messageData?.message}
                         onChange={(e)=>setMessageData(prev=>({...prev,message:e.target.value}))}
                         ref={inputRef}
                         rows={1}
@@ -205,8 +206,9 @@ socket.on("onlineUsers",(users)=>{
                       
 
                     {/* </div> */}
-                  {messageData.message &&  <ul className='md-icons send' onClick={()=>socket.emit("sendMessage",{data:messageData,receiverId:selectedUser?._id})
-                        }><IoSend /></ul>}
+                  {messageData.message &&  <ul className='md-icons send' onClick={()=>{socket.emit("sendMessage",{data:messageData,receiverId:selectedUser?._id})
+
+                        }}><IoSend /></ul>}
                 
                 </div>
             </div>

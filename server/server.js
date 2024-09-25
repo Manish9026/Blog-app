@@ -5,6 +5,7 @@ import userRoute from './routes/Auth.js';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 // import userPostRoute from './routes/userPost.js';
+import cookie from 'cookie'
 
 import userAuth from './Controllers/userAuth.js';
 import friendRoute from './routes/userFriend.js';
@@ -60,16 +61,19 @@ const io=new Server(httpServer,{
         origin:[process.env.BASE_URL,process.env.BASE_URL2],
         credentials:true,
         methods:["POST","GET","DELETE","PATCH"]
-    }
+    },
+    cookie: true,
 });
-
 
 io.on("connection",(socket)=>{
     console.log("socket connected",socket.id);
-
-    // socket.emit("onlineUsers"," 5 users")
+    
+    const cookies = socket.handshake.headers.cookie;
+    const parsedCookies = cookie.parse(cookies || ''); 
+    // Access a specific cookie, e.g., 'sessionId'
+    const token = parsedCookies.uid;
     onlineUserSocket(io,socket);
-    sendUserMessage(io,socket)
+    sendUserMessage(io,socket,token)
 
 socket.on("disconnect",()=>{
     console.log("socket disconnected",socket.id);
