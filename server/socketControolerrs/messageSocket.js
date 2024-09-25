@@ -61,8 +61,8 @@ export const sendUserMessage=async(io,socket,token)=>{
 
             }]
           }).then(async(res)=>{
-            
-           io.emit("receiveMessage", (await res.save())?.messages?.slice(-1)[0])
+            io.emit("receiveMessage", (await res.save()))
+          //  io.emit("receiveMessage", (await res.save())?.messages?.slice(-1)[0])
             return
           })
       }

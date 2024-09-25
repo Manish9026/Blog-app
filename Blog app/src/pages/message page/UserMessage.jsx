@@ -88,7 +88,6 @@ socket.on("onlineUsers",(users)=>{
            inputRef.current.style.height = 'auto'; // Reset height
         inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;    
         }
-      console.log("hello");
       
         }, [messageData.message])
         
@@ -138,7 +137,7 @@ socket.on("onlineUsers",(users)=>{
                 {loading &&
                     <Loder style={{height:"100%"}}/>
                 }
-                 <div  className="msg-mid w-full h-full flex-col py-4  flex ">
+                 <div  className="msg-mid justify-start w-full h-full flex-col py-4  flex ">
                 {messages && messages?.length!=0?
                
                 messages.map((msgContainer,index)=>{
@@ -151,7 +150,7 @@ socket.on("onlineUsers",(users)=>{
                             {msgContainer?.messages.map((data,id)=>{
                                 if(userInfo?.userId==data?.senderId)
                                 return(
-                                    <span className="sender relative flex w-full px-2 justify-end   min-h-[50px] ">
+                                    <span className="sender relative flex w-full px-2 justify-end pb-2   min-h-[50px] ">
                                     <span className="msg h-full  max-w-[300px]  min-w-[150px] rounded-md  px-2 pb-3 bg-sky-600 opacity-70 flex items-center">
                                        {data?.message}
         
@@ -167,7 +166,7 @@ socket.on("onlineUsers",(users)=>{
                                     {data?.message}
         
                                         <p className='absolute
-                                        bottom-[0px] right-2 text-[10px] text-sky-200'>4:30 Pm</p>
+                                        bottom-[0px] right-2 text-[10px] text-sky-200'>{getFormatedDate({type:"time",date:data?.createdAt})}</p>
                                     </div>
                                 </span>
                                 )

@@ -41,6 +41,11 @@ const userMessageSlice=createSlice({
          
           // msgPage.messages.slice(-1)[0].messages.push()
         }
+        if(!msgPage.messages || msgPage.messages?.lenght==0){
+          console.log("fiirst",payload);
+          
+          msgPage.messages=[payload]
+        }
       },
       setOnlineUsers(state,{payload}){
         // console.log("payload",payload);

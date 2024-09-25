@@ -46,7 +46,7 @@ const UserProfile=()=>{
 
       {
        userInfo.length!=0? <UserProfile/>
-      :<div className="userAuth flex text-blue-600">
+      :<div className="userAuth flex items-center  text-blue-600">
         <div className='iconContainer flex size-[50px] justify-center  bg-slate-300'>
           <img src={headerIcons.userIcons} />
         </div> 
