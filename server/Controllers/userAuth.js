@@ -104,7 +104,7 @@ class userAuth extends AuthTools {
                      console.log("production", process.env.DEPLOYMENT_TYPE=="local"?false:true,);
                      
                         res.cookie("uid", loginToken, {
-                            // sameSite: 'None',
+                            sameSite: 'None',
                             secure: process.env.DEPLOYMENT_TYPE=="local"?false:true,
                             httpOnly:process.env.DEPLOYMENT_TYPE=="local"?false:true,
                             expires: new Date(Date.now() + 3600000)
