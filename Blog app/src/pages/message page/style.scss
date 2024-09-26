@@ -401,8 +401,8 @@
         @include sm {
             background-color: #181722;
             position: absolute;
-            width: 100vw;
-            height: calc(100vh - 70px);
+            width: 100%;
+            min-height: calc(100vh - 70px);
             left: -1000px;
 
             .msg-head {

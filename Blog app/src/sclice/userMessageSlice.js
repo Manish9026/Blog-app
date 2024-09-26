@@ -34,18 +34,22 @@ const userMessageSlice=createSlice({
         
       },
       setMessages({msgPage},{payload}){
+   
         if(payload && msgPage.messages){
-         const lenght= msgPage.messages?.length
+          const lenght= msgPage.messages?.length
+          if(!msgPage.messages || lenght==0){   
+            console.log("not exist");
+                 
+            msgPage.messages=[payload]
+            return 
+          }
+          console.log(" exist");
 
-         msgPage.messages[lenght-1]?.messages?.push(payload)
-         
-          // msgPage.messages.slice(-1)[0].messages.push()
-        }
-        if(!msgPage.messages || msgPage.messages?.lenght==0){
-          console.log("fiirst",payload);
-          
-          msgPage.messages=[payload]
-        }
+          msgPage.messages[lenght-1]?.messages?.push(payload)
+         }
+         console.log("error exist");
+
+
       },
       setOnlineUsers(state,{payload}){
         // console.log("payload",payload);

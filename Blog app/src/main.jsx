@@ -43,7 +43,7 @@ import { getAllPost } from './sclice/userPostSlice.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import PNotFound from './component/utils.component/PNotFound.jsx';
 import InternalError from './component/utils.component/InternalError.jsx';
-import UserMessage from './pages/message page/UserMessage.jsx';
+import UserMessage, { MessageBody } from './pages/message page/UserMessage.jsx';
 import SocketProvider from './context/SocketContext.jsx';
 import { CookiesProvider } from 'react-cookie';
 
@@ -179,7 +179,11 @@ return 0
             loader:()=>{
               dispatch(getAllFrnd({type:"self"}))
               return 0
-            }
+            },children:[{
+              path:":frndId",
+              element:<MessageBody/>
+           
+            }]
           },
 
           {
