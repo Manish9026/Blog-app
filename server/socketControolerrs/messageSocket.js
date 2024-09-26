@@ -61,7 +61,10 @@ export const sendUserMessage=async(io,socket,token)=>{
 
             }]
           }).then(async(res)=>{
-            io.emit("receiveMessage", (await res.save()))
+            let result=await res.save();
+            io.emit("receiveMessage", {data:result,receiverId,senderId:userId})
+            console.log(result);
+            
           //  io.emit("receiveMessage", (await res.save())?.messages?.slice(-1)[0])
             return
           })
@@ -74,7 +77,7 @@ export const sendUserMessage=async(io,socket,token)=>{
         })
         await isMessage.save();
         // console.log(isMessage,"ismessage");
-      io.emit("receiveMessage",isMessage?.messages?.slice(-1)[0]);
+      io.emit("receiveMessage",{data:isMessage?.messages?.slice(-1)[0],receiverId,senderId:userId});
 
         
       }
