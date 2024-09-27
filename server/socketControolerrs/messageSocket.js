@@ -37,7 +37,7 @@ export const sendUserMessage=async(io,socket,token)=>{
   const {userId}=await AuthTools.tokenVerifier(token)
  socket.on("sendMessage",async({data,receiverId})=>{
   try {
-    console.log(data,receiverId,userId);
+    console.log(data,receiverId,userId,token);
     
     if(userId && receiverId && data){
       const {file,message}=data;
