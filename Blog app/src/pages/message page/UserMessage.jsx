@@ -17,8 +17,39 @@ import { useSocket } from '../../context/SocketContext'
 import chatBg from '../../assets/backgroundImg/chatBg.jpg'
 import Loder from '../../component/loader/Loder'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-
+function checkDateStatus(dateString) {
+    const days=["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
+        // date declaration
+        const [givenDate,today,checkIfDate,yesterday]=[new Date(dateString),new Date(),new Date(),new Date(),new Date()]
+        // logic of yesterday date
+        yesterday.setDate(today.getDate() - 1);
+      //  convert date to local string "DD/MM/YYYY" format
+        checkIfDate.setDate(today.getDate()-(7 - givenDate.getDay()));
+        const [givenDateStr,todayStr,yesterdayStr]=[givenDate.toLocaleDateString(),today.toLocaleDateString(),yesterday.toLocaleDateString()];
+        // logic of date chickig
+        if(checkIfDate.toLocaleDateString()<=givenDateStr){
+            if(givenDateStr==todayStr){
+                return "today";
+            }
+            else if(givenDateStr==yesterdayStr){
+                return "yesterday"
+            }
+            else{
+              console.log ( givenDate.getDay())
+                return days.filter((day,indx)=>{if(indx===givenDate.getDay()) return day
+                }).toString()
+            }
+    
+        }
+        else{
+            return givenDate.toLocaleDateString();
+        }
+    
+    
+      
+    }
 const getFormatedDate=({type,date}={})=>{
     if(type=="time"){
        const newDate= new Date(date)
@@ -27,6 +58,10 @@ const getFormatedDate=({type,date}={})=>{
     //    console.log(hour,min);
        
        if(hour<=12 && hour>=1){
+        if(hour==12){
+        return `${hour}:${min} PM`
+    
+        }
         return `${hour}:${min} AM`
        }
        else if(hour===0){
@@ -39,6 +74,9 @@ const getFormatedDate=({type,date}={})=>{
        }
 
              
+    }
+    else if(type=="date"){
+       return checkDateStatus(date)
     }
 
 
@@ -264,7 +302,7 @@ const navigate=useNavigate();
     if(selectedUser)
     return (
         
-        <div className="message-body  relative min-h-full" style={isVisible ? { left: 0,display:"" } : { left: "-1000px" ,display:"none"}} >
+        <div className="message-body font-sans  relative min-h-full" style={isVisible ? { left: 0,display:"" } : { left: "-1000px" ,display:"none"}} >
             <div className="msg-head z-10 sticky top-[70px] ">
                 <span className='md-icons backIcon' onClick={() => {navigate(-1);dispatch(setMsgPage(0))}}>
                     <FaArrowLeft />
@@ -298,8 +336,8 @@ const navigate=useNavigate();
                 return(
                    
                     <div key={msgContainer?._id} className="message-wrapper border-b border-sky-900  items-center   flex-col flex w-full gap-2">
-                     <div className="time">today</div>
-                     <div className="msg-container flex gap-2 flex-col w-full">
+                     <div className="sticky top-[140px] time capitalize" >{getFormatedDate({type:"date",date:msgContainer?.createdAt})}</div>
+                     <div className="  msg-container flex gap-2 flex-col w-full">
                         {msgContainer?.messages?.map((data,id)=>{
                             if(userInfo?.userId==data?.senderId)
                             return(

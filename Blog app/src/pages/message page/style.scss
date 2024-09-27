@@ -5,7 +5,7 @@
 .message-section {
     @extend .center;
     flex: 1;
-    height: 100%;
+    min-height: 100%;
     background: linear-gradient(to top, rgb(13, 13, 69), rgb(81, 84, 163));
     // align-items: flex-start;
     justify-content: flex-start;
@@ -291,7 +291,7 @@
 
     .message-body {
         @extend .flex;
-        min-height: 100vh;
+        min-height: 100%;
         width: 100%;
         flex: 1;
         flex-direction: column;
