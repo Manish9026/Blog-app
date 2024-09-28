@@ -62,7 +62,11 @@ const io=new Server(httpServer,{
         credentials:true,
         methods:["POST","GET","DELETE","PATCH"]
     },
-    cookie: true,
+    // cookie: true,
+    cookie: {
+        sameSite: 'None',
+        secure: true
+      }
 });
 
 io.on("connection",(socket)=>{
