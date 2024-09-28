@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { lazy } from 'react'
 import ('./createBlog.scss')
 import { bg, uploadBg } from '../../assets/backgroundImg/background'
 import { Outlet, useNavigate } from 'react-router-dom'
@@ -60,6 +59,7 @@ import { GiCheckMark } from "react-icons/gi";
 
 import { MdEdit } from "react-icons/md";
 import { MdAddToPhotos } from "react-icons/md";
+import useFlexibleTextField from '../../custom hooks/useFlexibleTextField'
 
 export const allowUser = [[<MdPublic />, "public", "public"], [<FaUsers />, "friends", "friends"], [<FaUserFriends />, "specific Friends", "customFriends"], [<FaUser />, "only me", "self"]]
 
@@ -69,7 +69,7 @@ export const CreateBlog = () => {
   // states
   const [isActive, setIsActive] = useState(0);
   const [postAllow, setPostAllow] = useState("friends");
-  const textareaRef = useRef(null);
+  // const textareaRef = useRef(null);
   const [postMessage, setPostMessage] = useState('');
   const [files, setFiles] = useState(null);
   const [alertBox, setAlertBox] = useState({
@@ -90,17 +90,12 @@ export const CreateBlog = () => {
   //  React Hooks
   const dispatch = useDispatch();
   const { loading } = useSelector(state => { return state.userPost.uploadState })
-  // functions 
-  const textFieldGrow = (e) => {
-    adjustTextareaHeight();
 
-  }
-  const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current;
-    textarea.style.height = 'auto';
-    console.log(textarea.scrollHeight);
-    textarea.style.height = `${textarea.scrollHeight}px`;
-  };
+  // custom-hooks
+const {textareaRef}= useFlexibleTextField([postMessage]);
+  // functions 
+
+
   const resetHandler=()=>{
     setFileArray([]);
     setPostMessage("");

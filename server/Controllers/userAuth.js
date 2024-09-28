@@ -328,8 +328,9 @@ class userAuth extends AuthTools {
         try {
            
             res.clearCookie('uid', {
-                sameSite: 'None',
-                secure: true
+                sameSite: process.env.DEPLOYMENT_TYPE=="local"?'Strict':"None",
+                            secure: process.env.DEPLOYMENT_TYPE=="local"?false:true,
+                            httpOnly:process.env.DEPLOYMENT_TYPE=="local"?false:true,
             });
 
             res.send({

@@ -10,12 +10,12 @@ const SocketProvider = ({ children }) => {
 const socket=io(url,{auth:{
   token:cookies?.uid,
   
-}, withCredentials: true});
+}, withCredentials: true,forceNew:true});
     
     useEffect(() => {
       // Handle socket events if needed globally
       // For example, connection errors
-    console.log(cookies?.uid);
+    // console.log(cookies?.uid);
 
       socket.on('connect_error', (err) => {
         console.error('Socket connection error:', err);

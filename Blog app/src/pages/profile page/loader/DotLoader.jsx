@@ -17,7 +17,7 @@ const DotLoader = ({style,loader_Style,dot_Color,dot_ShadowColor,dot_Style}) => 
     width: "10px",
     aspectRatio: 1,
     borderRadius: "50%",
-    animation: "l5 1s infinite linear alternate;"
+    animation: "l5 1s infinite linear alternate"
   })
   const [dotShadowColor,setDotShadowColor]=useState("rgba(59, 57, 57, 0.133)")
   const [dotBgColor,setDotBgcolor]=useState("rgb(51, 51, 133)")
@@ -44,7 +44,7 @@ if(dot_ShadowColor){
 33% {box-shadow: 20px 0 ${dotBgColor}, -20px 0 ${dotShadowColor};background: ${dotShadowColor}}
 66% {box-shadow: 20px 0 ${dotShadowColor},-20px 0 ${dotBgColor}; background: ${dotShadowColor}}
 100%{box-shadow: 20px 0 ${dotShadowColor},-20px 0 ${dotBgColor}; background: ${dotBgColor} }
-}`}
+};`}
       </style>
 
         <div className="loader" style={dotStyle}></div>

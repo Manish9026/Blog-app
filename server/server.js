@@ -65,7 +65,8 @@ const io=new Server(httpServer,{
     // cookie: true,
     cookie: {
         sameSite: 'None',
-        secure: true
+        secure: process.env.DEPLOYMENT_TYPE=="local"?false:true,
+        httpOnly:true,
       }
 });
 

@@ -8,17 +8,13 @@ import { FaRegSmile } from "react-icons/fa";
 import { MdCloudUpload } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
 import { getMessages, setMessages, setMsgPage, setOnlineUsers, setReceiverId } from '../../sclice/userMessageSlice'
-// import { onlineUsers } from '../../socket oprations/messageSocket'
-import { getAllFrnd } from '../../sclice/friendSlice'
-import {io} from 'socket.io-client'
-import { url } from '../../tools/serverURL'
 import { useSocket } from '../../context/SocketContext'
-// import { user } from '../../assets/home image/image'
-import chatBg from '../../assets/backgroundImg/chatBg.jpg'
 import Loder from '../../component/loader/Loder'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import DotLoader from '../profile page/loader/DotLoader'
+import useFlexibleTextField from '../../custom hooks/useFlexibleTextField'
+import useReactHooks from '../../custom hooks/useReactHooks'
+import useScroll from '../../custom hooks/useScroll'
 
 function checkDateStatus(dateString) {
     const days=["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
@@ -38,7 +34,7 @@ function checkDateStatus(dateString) {
                 return "yesterday"
             }
             else{
-              console.log ( givenDate.getDay())
+            //   console.log ( givenDate.getDay())
                 return days.filter((day,indx)=>{if(indx===givenDate.getDay()) return day
                 }).toString()
             }
@@ -140,8 +136,7 @@ const MessageTop = memo(() => {
     const [coupledData,setCoupledData]=useState([])
     const {onlineUsers}=useSelector(state=>state.userMessage)
 const [sliderChanger,setSilderChanger]=useState(1)
-// const socket=useSocket();
-    
+
     
     const [search, setSearch] = useState({
         isActive: false,
@@ -183,12 +178,10 @@ return splitAray
         else {setSilderChanger(0)
             setCoupledData(friends)
         }
-        }, 500);
-        
-
+        },500);
         return ()=>clearTimeout(timeout)
 
-    },[window.innerWidth])
+    },[friends,window.innerWidth])
     return (
         <div className="top-section">
             <div className="t-head">
@@ -261,38 +254,43 @@ const dispatch=useDispatch()
     )
 })
 export  const MessageBody = memo(() => {
-    const {msgPage,onlineUsers,selectedUser} = useSelector(state => { return state.userMessage })
-    const {isVisible,messages,loading}=msgPage;
+// react-states & useRef
 const socket=useSocket();
+const scrollBodyref=useRef(null);
+const [messageData,setMessageData]=useState({
+    message:"",
+    file:null
+})
+const [scrollHeight,setScrollHeight]=useState(300);
+
+// redux-states 
+const {msgPage,onlineUsers,selectedUser} = useSelector(state => { return state.userMessage })
+const {isVisible,messages,loading}=msgPage;
 const {userInfo}=useSelector(state=>state.userAuth)
-const dispatch=useDispatch()
-const navigate=useNavigate();
+// custom hooks 
+const {textareaRef}= useFlexibleTextField([messageData.message]);
+const {dispatch,navigate}=useReactHooks();
+const scrollBottm=useScroll('bottom', [messageData.message,selectedUser])
 
-    // const inputRef=useRef();
-    const inputRef=useRef(null);
-    const [messageData,setMessageData]=useState({
-        message:"",
-        file:null
-    })
 
-    useEffect(() => {
-    if(inputRef.current){
-        inputRef.current.scrollIntoView({behavior:'smooth'})
-       inputRef.current.style.height = 'auto'; // Reset height
-    inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;    
-    }
-  
-    }, [messageData.message])
+useEffect(()=>{
+setScrollHeight(scrollBodyref.current?.clientHeight)
+},[])  
+
     
    useEffect(()=>{
     if(selectedUser)
     dispatch(getMessages(selectedUser?._id))
-  
+    console.log(scrollBodyref.current);
+
     socket.off("receiveMessage").on("receiveMessage",({data,senderId,receiverId})=>{
         console.log("data",{data,senderId,receiverId});
         if(userInfo?.userId==senderId || userInfo?.userId==receiverId ){
         dispatch(setMessages(data))
     }
+
+
+
         setMessageData({message:"",file:null})
 
     })
@@ -306,9 +304,9 @@ const navigate=useNavigate();
     if(selectedUser)
     return (
         
-        <div className="message-body font-sans  relative min-h-full" style={isVisible ? { left: 0,display:"" } : { left: "-1000px" ,display:"none"}} >
+        <div className="message-body font-sans  relative h-full" style={isVisible ? { left: 0,display:"" } : { left: "-1000px" ,display:"none"}} >
             <div className="msg-head z-10 sticky top-[70px] ">
-                <span className='md-icons backIcon' onClick={() => {navigate(-1);dispatch(setMsgPage(0))}}>
+                <span className='md-icons backIcon' onClick={() => {navigate("/user/message/");dispatch(setMsgPage(0))}}>
                     <FaArrowLeft />
                 </span>
                 <ul className="user-logo">
@@ -332,20 +330,23 @@ const navigate=useNavigate();
             {loading &&
                 <Loder style={{height:"100%"}}/>
             }
-             <div  className="msg-mid flex-auto justify-start w-full min-h-full flex-col py-4  flex " >
+             <div  ref={scrollBodyref}  className="msg-mid flex-auto justify-start w-full h-full  flex-col py-4  flex overflow-hidden" >
+
+             <div style={{height:`${scrollHeight}px`}} ref={scrollBottm}  className=" flex flex-col  overflow-auto relative">
             {messages && messages?.length!=0?
+           
            
             messages.map((msgContainer,index)=>{
 
                 return(
                    
-                    <div key={msgContainer?._id} className="message-wrapper border-b border-sky-900  items-center   flex-col flex w-full gap-2">
-                     <div className="sticky top-[140px] time capitalize" >{getFormatedDate({type:"date",date:msgContainer?.createdAt})}</div>
+                    <div key={msgContainer?._id} className="message-wrapper border-b border-sky-900 relative  items-center   flex-col flex w-full gap-2">
+                     <div className="sticky top-[0px] time capitalize" >{getFormatedDate({type:"date",date:msgContainer?.createdAt})}</div>
                      <div className="  msg-container flex gap-2 flex-col w-full">
                         {msgContainer?.messages?.map((data,id)=>{
                             if(userInfo?.userId==data?.senderId)
                             return(
-                                <span className="sender relative flex w-full px-2 justify-end pb-2   min-h-[50px] ">
+                                <span key={id} className="sender relative flex w-full px-2 justify-end pb-2   min-h-[50px] ">
                                 <span className="msg h-full  max-w-[300px]  min-w-[150px] rounded-md  px-2 pb-3 bg-sky-600 opacity-70 flex items-center">
                                    {data?.message}
     
@@ -373,7 +374,9 @@ const navigate=useNavigate();
                     </div>
                 )
             })
-           :<div className='h-full flex-1 flex items-center justify-center  '> start chats</div>}
+           :<div className=' flex items-center h-full justify-center  '>&#128075; &#128075;   start chats</div>}
+
+</div>
                  </div>
 
 
@@ -381,7 +384,8 @@ const navigate=useNavigate();
             <div className="msg-bottom  " >
 
                 <ul className="upload-btn">
-                    <input type="file" name="" className='hide' onChange={(e)=>{setMessageData(prev=>({...prev,file:e.target.files[0]}))}} id="file" />
+                    <input type="file" name="" className='hide' onChange={(e)=>{setMessageData(prev=>({...prev,file:e.target.files[0]}));console.log(messageData);
+                    }} id="file" />
                     <li className='md-icons'><FaRegSmile /></li>
                     <label className='md-icons' htmlFor='file' >   <MdCloudUpload /> </label>
 
@@ -390,9 +394,10 @@ const navigate=useNavigate();
                 </ul>
                 {/* <div className="input-field" > */}
                     <textarea
-                   value={messageData?.message}
-                    onChange={(e)=>setMessageData(prev=>({...prev,message:e.target.value}))}
-                    ref={inputRef}
+                   value={messageData.message}
+                    onChange={(e)=>setMessageData(prev=>({...prev,message:e.target.value}))
+                }
+                    ref={textareaRef}
                     rows={1}
                         className=" min-h-[40px]"
                         placeholder="Type a message"
@@ -400,7 +405,7 @@ const navigate=useNavigate();
                   
 
                 {/* </div> */}
-              {messageData.message &&  <ul className='md-icons send' onClick={()=>{socket.emit("sendMessage",{data:messageData,receiverId:selectedUser?._id})
+              {messageData.message &&  <ul className='md-icons send' onClick={()=>{if(messageData.message)(socket.emit("sendMessage",{data:messageData,receiverId:selectedUser?._id}))
 
                     }}><IoSend /></ul>}
             
@@ -409,8 +414,9 @@ const navigate=useNavigate();
     )
     else{
         return(
-            <div  className="absolute sm:relative  w-full bg-transparent  text-right flex items-center  justify-center text-white ">
+            <div  className="absolute sm:relative h-full  w-full bg-transparent  text-right flex items-center  justify-center text-white ">
             <p>now chat time</p>
+            
             </div>
         )
     }
