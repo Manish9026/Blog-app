@@ -21,6 +21,7 @@
   }
 
 }
+
 .alrt-section{
   z-index: 1;
   @extend .center;
@@ -858,7 +859,7 @@ $inputShadoColor: rgb(255, 255, 255);
     max-width: $storyMaxWidth/2;
     position: relative;
     border-radius: $smBorderRadius;
-    z-index: 5;
+    // z-index: 5;
 
     input[type=file] {
 

@@ -58,7 +58,7 @@ const RoutePath = () => {
         path: "",
         element: <Layout />,      
         children: [
-
+ 
           {
             path: "/",
             element: <Home />,
@@ -197,7 +197,7 @@ return 0
 
         ],
         loader:()=>{
-          // dispatch(createSocketConn())
+          // dispatch(isVerified())
           return 0
         }
       },

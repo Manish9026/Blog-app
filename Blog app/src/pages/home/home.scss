@@ -555,7 +555,7 @@ min-width: 300px;
 
     .header-section{
       width: 100%;
-      min-height: 200px;
+      // min-height: 200px;
       // height: 100%;
       flex: 1;
       // padding:5px  10px;
@@ -818,7 +818,7 @@ flex-direction: column;
     border-radius: $smBorderRadius;
     background:rgba(148, 160, 160, 0.3);
     // max-height: 300px;
-    margin: 5px 10px;
+    // margin: 5px 10px;
     .head-part{
       @extend .flex;
     
@@ -851,6 +851,7 @@ flex-direction: column;
         .content{
           @extend .flex;
           flex-direction: column;
+          justify-content:  center;
           align-items: flex-start;
           color: #ebe4eec4;
           line-height: 14px;
@@ -859,7 +860,9 @@ flex-direction: column;
          & :nth-child(1){
           @extend .flex;
           width: 100%;
-          flex: 1;
+          // flex: 1;
+          display: flex;
+          align-items: center;
           font-weight: 400;
           font-size: 18px;
           button{

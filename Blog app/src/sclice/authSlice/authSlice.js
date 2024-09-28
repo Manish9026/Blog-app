@@ -78,12 +78,13 @@ export const getUserInfo=createAsyncThunk("getUserInfo/userAuth",(data)=>{
   })
 
 
-export const isVerified=createAsyncThunk("isVerified/userAuth",()=>{
+export const isVerified=createAsyncThunk("isVerified/userAuth",async()=>{
 
   return axios.get("/user/s1/verify",{withCredentials:true}).then(res=>{
     // const {path,status}=res.data
     // console.log(res.data);
-    
+    // alert(JSON.stringify(res.data))
+    // urlLoader(res.data)
     // if(status){
     //  console.log("login succ");
     //   window.history.back();
@@ -144,7 +145,8 @@ const authSlice=createSlice({
         error:false,
         message:"",
         loading:false,
-        userInfo:[]
+        userInfo:[],
+        userVerified:false
 
     },
     reducers:{

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import './createBlog.scss'
+import { lazy } from 'react'
+import ('./createBlog.scss')
 import { bg, uploadBg } from '../../assets/backgroundImg/background'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { GrGallery } from "react-icons/gr";
@@ -31,7 +32,7 @@ const BlogSection = () => {
     <div className="ct-txt">create own blog</div>
   </div> */}
 
-      <div className="toggleBtn">
+      <div className="toggleBtn flex max-w-[500px] w-full items-center min-h-[40px]">
         <span className="btnTracker" style={isActive ? { left: "0" } : { left: "50%" }}></span>
         <button className="tglBtn" onClick={() => { navigate("/create/blog"); setIsActive(true) }}>blog</button>
         <button className="tglBtn" onClick={() => { navigate("/create/story"); setIsActive(0) }}>story</button>
@@ -207,13 +208,13 @@ export const CreateBlog = () => {
     )
   }
   return (
-    <section className='blogsPostSection'>
+    <section className='blogsPostSection w-full'>
       <AlertBox />
-      <header className='bgPost-header'>
+      <header className='bgPost-header items-center'>
         <span className="avtar">
           <img src={user.profile && user.profile.profileImage} alt="" />
         </span>
-        <span className="bgName">
+        <span className="bgName relative top-[-3px] ">
           <p>{user.userName || "userName"}</p>
           <span onClick={() => setIsActive(prev => !prev)} className='bg-select'>{allowUser.map((item) => {
             if (item[2] == postAllow) return (
@@ -272,8 +273,8 @@ export const CreateBlog = () => {
           add Photo & video
           </span>}
         </div>
-        <span className="textField">
-          <textarea value={postMessage} ref={textareaRef} rows={1} style={{ height: "100%" }} name="" id="" placeholder='your post' onChange={(e) => setPostMessage(e.target.value)} autoFocus onKeyUp={(e) => textFieldGrow(e)}></textarea>
+        <span className="textField border-none">
+          <textarea className='border-none outline-none' value={postMessage} ref={textareaRef} rows={1} style={{ height: "100%" }} name="" id="" placeholder='your post' onChange={(e) => setPostMessage(e.target.value)} autoFocus onKeyUp={(e) => textFieldGrow(e)}></textarea>
           <span className="bgAdditional">
             <MdOutlineEmojiEmotions className='icons' />
             <span className='gif'><AiOutlineGif className='icons' /></span>
@@ -281,7 +282,7 @@ export const CreateBlog = () => {
           </span>
         </span>
 
-        <div className="btn-section">
+        <div className="btn-section w-full">
           <button onClick={()=>console.log(fileArray)}>cancel</button>
           <button className='submitBtn'>
             <span className="submit" style={btnStatus.submitBtn ? { display: "flex" } : { display: "none" }} onClick={() => submitHandler()}>submit</span>
@@ -437,11 +438,11 @@ export const CreateStory = () => {
   }
   console.log(loading, songData);
   return (
-    <section className='story-section'>
-      <header ><p>your Story</p> <button className='btn' onClick={() => saveHandler()}> save story</button></header>
+    <section className='story-section w-full'>
+      <header className='w-full'><p>your Story</p> <button className='btn w-full max-w-[150px] p-1' onClick={() => saveHandler()}> save story</button></header>
       {/* <Loader/> */}
 
-      <label className="top-sec" id='stFile' >
+      <label className="top-sec w-full" id='stFile' >
         {
 
           saveLoad ? <span className='st-loader'><ProLoader /></span> : <></>
@@ -453,14 +454,14 @@ export const CreateStory = () => {
             <img src={URL.createObjectURL(file)} alt="" />
 
             :
-            <ul className="title">
+            <ul className="title items-center">
               <li><GrGallery className='icon' /></li>
               <li>Add photo</li>
             </ul>
         }
         <h1 style={{ position: "absolute", top: "20px", left: "10px" }}>sdhsdh</h1>
       </label>
-      <div className="mid-sec">
+      <div className="mid-sec w-full items-center flex">
         {/* <header><p>Attached text</p></header> */}
         <div className="select">
 

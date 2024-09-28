@@ -72,12 +72,12 @@ const ImageSlider = ({ story, userName, proPic, pos }) => {
 
   if (story.length != 0)
     return (
-      <span className="card" onMouseEnter={() => setImgIndex(prev => { return (prev + 1) % story.length })} onMouseLeave={() => setImgIndex(0)} >
+      <span className="card rounded-[5px]" onMouseEnter={() => setImgIndex(prev => { return (prev + 1) % story.length })} onMouseLeave={() => setImgIndex(0)} >
         <img src={story[imgIndex].image} alt="" onClick={() => { dispatch(setStoryViewToggle(pos || 0)) }} />
 
 
 
-        <span className="card-pro">
+        <span className="card-pro ">
           <img src={proPic} alt="" style={{ transition: ".5s linear" }} />
           <span className='content'>
             <p>{userName}</p>
@@ -111,8 +111,8 @@ console.log(socket);
 
 
 
-        <div className="part1">
-          <div className="header-section">
+        <div className="part1 flex flex-col">
+          <div className="header-section flex flex-col gap-2">
             <span className="heading">
               Your stories
             </span>
@@ -176,12 +176,18 @@ console.log(socket);
             </div>
           </div>
 
+              <div className="flex flex-col w-full min-h-[300px] h-full p-[5px] gap-2">
 
-          {
+              {
+                //  {/*  */}
+                (postState.data.length==0 || !postState?.data )?<DotLoader dot_Color={"white"} dot_ShadowColor={"rgba(163, 187, 227, 0.992)"} loader_Style={{backgroundColor:"#cbd5f325",position:"relative",borderRadius:"5px"}}/>:
            postState.data.length!=0 && postState.data.map((user, index) => {
               return <PostContainer user={user} key={user._id} />
             })
           }
+              </div>
+         
+          
 
 
 
@@ -247,6 +253,8 @@ import { allowUser } from '../create blog/BlogSection';
 import { NavLink } from 'react-router-dom';
 import { getAllPost, setPostLike, setPostdisLike } from '../../sclice/userPostSlice';
 import { useSocket } from '../../context/SocketContext';
+import DotLoader from '../profile page/loader/DotLoader';
+// import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
 
 // import useSocket from '../../custom hooks/SocketIo';
 // import { BiSolidLike } from "react-icons/bi";

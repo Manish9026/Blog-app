@@ -9,8 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import MenuBar from '../component/hearder/mobileMenuBar/MenuBar'
 import ImageShow from '../component/imageShow/ImageShow'
 import Popup from '../component/popup/Popup'
+import CubeLoader from '../component/cube loader/CubeLoader'
+import { useSelector } from 'react-redux'
 const Layout = () => {
    const [layoutState, setLayoutState] = useState(1)
+   const { loading} = useSelector(state => { return state.userPost.postState })
+
    const widthRef = useRef();
    useEffect(() => {
       window.addEventListener("resize", widthHandler)
@@ -38,7 +42,6 @@ const Layout = () => {
             <Header /> : <MenuBar />}
          <div className='outlet-container'>
             <SideNav />
-
             <div style={{ width: "100%", height: "100%", position: "relative" }}>
                <Popup />
                <ToastContainer
@@ -58,6 +61,7 @@ const Layout = () => {
                   className={"Toastify"}
                />
 
+{loading && <CubeLoader/>}
 
                <Outlet />
             </div>

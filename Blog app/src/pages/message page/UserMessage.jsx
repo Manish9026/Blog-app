@@ -18,6 +18,7 @@ import chatBg from '../../assets/backgroundImg/chatBg.jpg'
 import Loder from '../../component/loader/Loder'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import DotLoader from '../profile page/loader/DotLoader'
 
 function checkDateStatus(dateString) {
     const days=["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
@@ -179,8 +180,10 @@ return splitAray
             setCoupledData(splitAray(4))
             setSilderChanger(1)}
             
-        else setSilderChanger(0)
-        }, 1000);
+        else {setSilderChanger(0)
+            setCoupledData(friends)
+        }
+        }, 500);
         
 
         return ()=>clearTimeout(timeout)
@@ -205,9 +208,10 @@ return splitAray
                 </span>
             </div>
 
-            <div className="t-body">
+            <div className="t-body relative min-h-[100px]">
+
                 {
-                    sliderChanger?
+                    sliderChanger?coupledData?.length==0 || !coupledData? <DotLoader dot_Color={"white"} dot_ShadowColor={"rgba(163, 187, 227, 0.992)"} loader_Style={{backgroundColor:"#cbd5f325",top:"0px",left:"0"}}/>:
                     coupledData.map((users,id)=>{
                         // console.log(users);
                         if(users.length!=0) 
@@ -223,7 +227,7 @@ return splitAray
                     :
                 
                  
-                    friends.map((user, index) => {
+                    coupledData.map((user, index) => {
 
                         return <UserCard key={index} user={user} onlineStatus={onlineUsers.includes(user?._id)}/>
                         
@@ -328,7 +332,7 @@ const navigate=useNavigate();
             {loading &&
                 <Loder style={{height:"100%"}}/>
             }
-             <div  className="msg-mid flex-auto justify-start w-full min-h-full flex-col py-4  flex ">
+             <div  className="msg-mid flex-auto justify-start w-full min-h-full flex-col py-4  flex " >
             {messages && messages?.length!=0?
            
             messages.map((msgContainer,index)=>{
@@ -374,7 +378,7 @@ const navigate=useNavigate();
 
 
 
-            <div className="msg-bottom">
+            <div className="msg-bottom  " >
 
                 <ul className="upload-btn">
                     <input type="file" name="" className='hide' onChange={(e)=>{setMessageData(prev=>({...prev,file:e.target.files[0]}))}} id="file" />
