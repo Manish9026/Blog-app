@@ -192,8 +192,7 @@ console.log(socket);
 
 
         </div>
-        <input type="checkbox" name="" id="checked" className='checked' style={{display:"none"}} />
-        <SuggestedFrnd />
+
 
 
 
@@ -201,39 +200,6 @@ console.log(socket);
   )
 }
 
-
-const SuggestedFrnd = () => {
-  const [isVisible,setIsVisible]=useState(false);
-  return (
-    <label htmlFor='checked' className="part2 ">
-      <span className="heading">
-        Your suggested friends
-      </span>
-      <span className="sug-era ">
-        {user.map((item, key) => {
-
-          return (<div className="card" key={key}>
-            <span className='img-sec'>
-              <img src={item[2]} alt="" />
-            </span>
-
-            <ul className='content'>
-              <li>{item[0]}</li>
-              <li>5k followers</li>
-            </ul>
-            <span className="btn-section">
-              <button>follow</button>
-              <button>add Friend</button>
-            </span>
-          </div>)
-        })
-        }
-      </span>
-
-
-    </label>
-  )
-}
 
 
 import { SlLike } from "react-icons/sl";
@@ -335,6 +301,7 @@ const PostContainer = ({ user }) => {
               <FaRegComment className='icon' /><p>comment</p></span>
             <span className="btn"><PiShareFat className='icon' /> <p>share</p></span>
           </div>
+          {/* <CommentCard/> */}
 
         </div>
       </div>
@@ -562,9 +529,9 @@ const CommentCard = ({ storyId, commentActive, setActive }) => {
 
   const submit = async () => {
     console.log(storyId, cmtMessage);
-    await dispatch(addComment({ storyId, cmtMessage }))
+     dispatch(addComment({ storyId, cmtMessage }))
   }
-  if (status)
+  if (!status)
     return (
       <section className={`comment-section ${commentActive ? "active" : "deActive"}`} >
         <span className='icon' onClick={() => setActive()}>
@@ -573,13 +540,13 @@ const CommentCard = ({ storyId, commentActive, setActive }) => {
         </span>
         <div className="st-head st-move">
           <span className="img">
-            <img src={data.userImage} alt="" />
+            <img src={data?.userImage} alt="" />
           </span>
 
           <span className="content">
 
-            <span><p>{data.userName}</p></span>
-            <p>Post At:{uploadedDate(data.createdAt)}</p>
+            <span><p>{data?.userName}</p></span>
+            <p>Post At:{uploadedDate(data?.createdAt)}</p>
             <MdPublic />
 
           </span>
@@ -596,14 +563,14 @@ const CommentCard = ({ storyId, commentActive, setActive }) => {
 
         <div className="recent-comment">
           <span className="heading">
-            <p>recent comment ({data.cmtMessages.length})</p>
+            <p>recent comment ({data?.cmtMessages?.length})</p>
           </span>
 
           <span className="comm-container">
 
 
             {
-              data.cmtMessages.length != 0 ?
+              data?.cmtMessages?.length != 0 ?
                 data.cmtMessages.map((item, indx) => {
 
                   if (indx % 2 == 0)

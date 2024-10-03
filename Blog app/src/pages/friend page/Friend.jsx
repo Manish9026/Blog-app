@@ -12,6 +12,9 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import { Slide } from 'react-toastify';
+import Title from '../../component/title/Title.jsx';
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { CiSquareQuestion } from "react-icons/ci";
 const Friend = () => {
 
   const {slideStatus}=useSelector(state=>state.navSlider)
@@ -67,26 +70,89 @@ const {status}=useSelector(state=>state.userAuth)
     }
 
   }
+
+  const CardContainer=({headTitle="",data,btn1={title:"confirm",fn:()=>alert("dghs")},btn2={title:"cancel",fn:()=>alert("dghs")}})=>{
+    console.log("data length",data.length);
+    
+    
+    return (
+
+
+      <div className="fd-res-seciton sm:min-w-[400px] h-full flex-1 px-2 ">
+      <div  className="flex w-full p-2 justify-center relative">
+          <Title title={headTitle}/>   
+          <span style={data.length<=2?{display:"none"}:{display:""}} className='absolute pointer  border border-sky-500   shadow-blue-300 more-btn flex rounded-[5px] px-2 top-1/2 right-[0px] translate-y-[-50%] items-center  justify-center '>
+
+more <MdOutlineKeyboardArrowRight className='text-xl mt-[1px]' /></span>
+        </div>
+
+        {/* card detail */}
+        <div className="fd-req-container relative h-full flex gap-2 overflow-auto">
+       
+       { 
+       data.length!=0? 
+       data.map((notific,indx)=>{
+         let {senderId,receiverId}=notific
+         
+         return (
+           <div className="fd-req-card bg-[#080D1F] relative  flex min-h-[200px] flex-col min-w-[150px] max-h-[250px] max-w-[180px] rounded-md p-2 border z-[10] " key={indx}>
+
+           <div className="req-card-img flex border-b   p-b-1 h-[60%]">
+             <img className="fd-img  w-full pb-1" src={senderId.profile.profileImage}/>
+           </div>
+           <div className="fd-content-part h-[30%] flex flex-1 flex-col justify-between">
+             <div className="">
+               <h6 className="name capitalize text-sm">{senderId.userName}</h6>
+             </div>
+             <span className='flex gap-2 w-ful flex-wrap   capitalize items-center justify-between '>
+             <button className="  px-[5px] text-[15px] capitalize justify-center  rounded-[5px] flex  flex-1  border border-blue-500 " onClick={btn1.fn}>
+               {btn1.title}
+             </button>
+             <button className=' px-[5px] text-[15px] capitalize flex  flex-1 border-red-300 items-center justify-center rounded-[5px] border' onClick={btn2.fn}>
+               {btn2.title}
+             </button>
+             </span>
+           </div>
+        
+           
+         </div>
+         )
+
+       }):<div className='flex px-2 w-full items-center gap-1 text-sm'>
+
+       <CiSquareQuestion className='text-2xl text-yellow-500' />No request</div>
+        }
+    
+       </div>
+        
+      </div>
+      
+    )
+  }
   return (
-    <div className="friend-section " ref={containerRef} onResize={()=>{console.log("hello");}}>
+    <div className="friend-section flex  flex-col min-h-full w-full " ref={containerRef} onResize={()=>{console.log("hello");}}>
 
       {loading?<Loder/>:""}
-    <div className="fd-container">
-      <div className="fd-section">
-        <div className="save-fd-heading">
-          <div className="your-friends">your friends</div>
-          <button className='more-btn'>see all friends</button>
+    <div className="fd-container p-2 flex justify-center  flex-wrap gap-2">
+
+      {/* friends container */}
+      <div className="fd-section px-2  flex w-full flex-wrap flex-col items-center justify-center">
+        <div className="flex w-full p-2 justify-center relative">
+          <Title title='Friends'/>
+          <span style={friends.length>8?{display:""}:{display:"none"}}  className='absolute pointer  border border-sky-500   shadow-blue-300 more-btn flex rounded-[5px] px-2 top-1/2 right-[0px] translate-y-[-50%] items-center  justify-center '>
+
+more <MdOutlineKeyboardArrowRight className='text-xl mt-[1px]' /></span>
         </div>
-        <div className="save-fd-container" >{
+        <div className="save-fd-container justify-start items-center w-full flex-wrap flex  gap-2" >{
           friends.length!=0?
-          friends.map((friend,indx)=>{
+          friends.slice(0,8).map((friend,indx)=>{
             return (
              
-              <Link to={`/single-friend?uid=${friend._id}`} className="save-fd" key={indx}>
-            <div className="save-fd-img">
+              <Link to={`/single-friend?uid=${friend._id}`} className="max-w-[500px] w-full    flex-1 aspect-ratio-normal min-w-[200px] flex items-center gap-2 border-slate-200 border justify-start rounded-md p-1 capitalize" key={indx}>
+            <div className="save-fd-img size-[50px] rounded-full overflow-hidden ">
               <img className="manish-img-1" width={"100%"} height={"100%"} src={friend.profile.profileImage}/>
             </div>
-            <div className="save-fd-txt">
+            <div className="save-fd-txt flex flex-col justify-start items-start">
               <div className="save-fd-name">{friend.userName}</div>
               <div className="save-fd-t">{friend.friends.friends.length} friends</div>
             </div>
@@ -97,62 +163,29 @@ const {status}=useSelector(state=>state.userAuth)
           }
         </div>
       </div>
-      <div className="fd-res-seciton">
-        <div className="fd-req-heading">
-          <div className="friend-requests">friend requests</div>
-          <button className='more-btn'>see all request</button>
-        </div>
-        <div className="fd-req-container">
-        { 
-        notifiData.length!=0? 
-        notifiData.map((notific,indx)=>{
-          let {senderId,receiverId}=notific
-          return (
-            <div className="fd-req-card" key={indx}>
-            <div className="req-card-img">
-              <img className="fd-img" src={senderId.profile.profileImage}/>
-            </div>
-            <div className="fd-content-part">
-              <div className="fd-req-name">
-                <div className="name">{senderId.userName}</div>
-              </div>
-              <button className="confirm-btn" onClick={()=>dispatch(cnfFrndReq(senderId.userId))}>
-                <div className="confirm">confirm</div>
-              </button>
-              <div className="remove-btn">
-                <div className="remove">remove</div>
-              </div>
-            </div>
-          </div>
-          )
-        }):<div>no friends request</div>
-         }
-        </div>
-      </div>
+      {/* friends container end */}
+
+
+     
+
       </div> 
-      <div className="suj-fd-section">
-        <div className="heading">
-          <div className="people-you-may-know">People you may know</div>
-        </div>
-        <div className="sug-fd-container">
-          <div className="frame-139">
-            <div className="frame-140">
-              <img className="manish-img-12" src="manish-img-11.png" />
-            </div>
-            <div className="frame-141">
-              <div className="frame-149">
-                <div className="manish-maurya">manish maurya</div>
-              </div>
-              <div className="frame-142">
-                <div className="confirm">confirm</div>
-              </div>
-              <div className="frame-1422">
-                <div className="remove">remove</div>
-              </div>
-            </div>
+
+          <div className="flex flex-wrap w-full justify-between px-2 py-1">
+
+
+          
+             {/* received Request container */}
+           
+      <CardContainer data={notifiData} headTitle='received Request' btn1={{title:"confirm",fn:()=>dispatch(cnfFrndReq(senderId.userId))}} btn2={{title:"cancel",fn:()=>alert("canceled")}}/>
+               {/* received Request container end */}
+
+{/* send requests container */}
+               <CardContainer data={[]} headTitle='send request' btn1={{title:"remind",fn:()=>alert("remind")}} btn2={{title:"cancel",fn:()=>alert("canceled")}}/>
+{/* send requests container  end*/}
+
           </div>
-        </div>
-      </div>
+
+   
   
     {/* // */}
   </div>
