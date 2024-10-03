@@ -3,12 +3,89 @@ import { friendRequestModel } from "../Models/friendRequestModel.js";
 import { userFriendModel } from "../Models/userFriendModel.js";
 import { userModel } from "../Models/userModel.js";
 import userAuth, { AuthTools } from "./userAuth.js"
+import { badRes, goodRes } from "./index.js";
 
 
 
 
 class userFriendController extends AuthTools {
 
+static friends=async(userId)=>{
+    try {
+        if(userId){
+            const friends=await userFriendModel.findOne({userId}).populate({
+                path:"friends",
+                select:"userName profile",
+                populate:{
+                    path:"profile",
+                    model:"userProfiles",
+                    select:"profileImage",
+                   
+                },
+                
+            }).populate({
+                path:"friends",
+                select:"userName profile",
+                populate:{
+                    path:"friends"
+                }
+            })
+
+            return friends?.friends;
+        }
+        return []
+        
+    } catch (error) {
+        return []
+    }
+}
+static sendedRequests=async(userId)=>{
+try {
+let match=await friendRequestModel.find({senderId:userId,status:"pending"}).populate({
+        path: 'receiverId',
+        select:"userName userId",
+        populate: {
+          path: 'profile',
+          model: 'userProfiles',
+          select:"profileImage"
+        }
+      })
+      return match
+} catch (error) {
+    return []
+}
+}
+static receivedRequests=async(userId)=>{
+    try {
+        let match=await friendRequestModel.find({receiverId:userId,status:"pending"}).populate({
+            path: 'senderId',
+            select:"userName userId",
+            populate: {
+              path: 'profile',
+              model: 'userProfiles',
+              select:"profileImage"
+            }
+          })
+
+          return match
+    } catch (error) {
+        return false
+    }
+    }
+  
+static friendPageDetail=async(req,res)=>{
+    const {userId}=req
+    try {
+       await Promise.all([this.friends(userId),this.sendedRequests(userId),this.receivedRequests(userId)]).then(([friends,sendRequest,receivedRequest])=>{
+            goodRes({res,data:{friends,sendRequest,receivedRequest}})
+        }).catch((err)=>{
+            badRes({res,})
+        })
+        
+    } catch (error) {
+        badRes({res,})
+    }
+}
 
 
     static sendFriendRequest = async (req, res) => {
@@ -266,7 +343,7 @@ class userFriendController extends AuthTools {
             }
             if(await friendRequestModel.findOne({senderId:userId,receiverId:frndId,status:"pending"})){
                 res.json({
-                    message:"friend request in pendind",
+                    message:"friend request in pending",
                     status:true,
                     data:"send request"
                 })

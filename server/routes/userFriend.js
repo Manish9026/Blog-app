@@ -12,7 +12,7 @@ router.get('/notification',authMiddleWare,userFriendController.getAllfrndReq)
 router.get('/check-friend-status',authMiddleWare,userFriendController.frndStatus)
 router.get('/get-friends',userFriendController.getAllFrnd)
 
-
+router.get("/frnd-detail",authMiddleWare,userFriendController.friendPageDetail)
 
 
 export default router

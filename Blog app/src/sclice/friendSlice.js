@@ -45,9 +45,13 @@ export const getAllFrnd=createAsyncThunk("getAllFrnd",async({userId,type})=>{
             return  res.data.data
         })
     })
-export const getFriendPageData=async()=>{
- 
-}
+export const getFriendPageData=createAsyncThunk("getFriendPageData",async()=>{
+    return await axios.get("/user/f1/frnd-detail",{withCredentials:true}).then((res)=>{
+   return res.data
+    }).catch(err=>{
+       window.location.replace("/internal-error")
+    })
+   })
 
 const friendSlice=createSlice({
     name:"userfriend",
@@ -56,6 +60,8 @@ const friendSlice=createSlice({
         error:"",
         notifiData:[],
         friends:[],
+        sendedRequest:[],
+        receivedRequest:[]
 
     },
     extraReducers:(builder)=>{
@@ -78,6 +84,18 @@ builder.addCase(getAllFrnd.fulfilled,(state,{payload})=>{
     state.loading=false;
     state.friends=payload.friends || []
 
+})
+builder.addCase(getFriendPageData.pending,(state)=>{
+state.loading=true
+})
+builder.addCase(getFriendPageData.fulfilled,(state,{payload})=>{
+    console.log(payload,"payload");
+    state.friends=payload?.data?.friends || [];
+    state.receivedRequest=payload?.data.receivedRequest || [];
+    state.sendedRequest=payload?.data.sendRequest || [];
+state.loading=false
+
+    
 })
     },
 

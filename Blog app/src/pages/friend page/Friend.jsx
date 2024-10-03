@@ -15,21 +15,19 @@ import { Slide } from 'react-toastify';
 import Title from '../../component/title/Title.jsx';
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { CiSquareQuestion } from "react-icons/ci";
+import useReactHooks from '../../custom hooks/useReactHooks.jsx';
 const Friend = () => {
 
   const {slideStatus}=useSelector(state=>state.navSlider)
-const {friends,notifiData,loading}=useSelector(state=>{return state.userFriend})
+const {friends,sendedRequest,receivedRequest,loading}=useSelector(state=>{return state.userFriend})
 const containerRef=useRef();
-const location=useLocation();
-const navigate=useNavigate();
-const dispatch=useDispatch();
+const {dispatch,navigate,location}=useReactHooks();
 const {status}=useSelector(state=>state.userAuth)
-// console.log(location);
   useEffect(()=>{
 
     if(status){
-      dispatch(getAllFrnd({type:"self"}));
-      dispatch(getNotificData())
+      // dispatch(getAllFrnd({type:"self"}));
+      // dispatch(getNotificData())
     }
     else{
       // console.log(location);
@@ -79,7 +77,7 @@ const {status}=useSelector(state=>state.userAuth)
 
 
       <div className="fd-res-seciton sm:min-w-[400px] h-full flex-1 px-2 ">
-      <div  className="flex w-full p-2 justify-center relative">
+      <div  className="flex w-full  justify-center relative">
           <Title title={headTitle}/>   
           <span style={data.length<=2?{display:"none"}:{display:""}} className='absolute pointer  border border-sky-500   shadow-blue-300 more-btn flex rounded-[5px] px-2 top-1/2 right-[0px] translate-y-[-50%] items-center  justify-center '>
 
@@ -92,23 +90,24 @@ more <MdOutlineKeyboardArrowRight className='text-xl mt-[1px]' /></span>
        { 
        data.length!=0? 
        data.map((notific,indx)=>{
-         let {senderId,receiverId}=notific
-         
+         let user=typeof(notific.senderId)=="object"?notific.senderId:notific.receiverId;
          return (
-           <div className="fd-req-card bg-[#080D1F] relative  flex min-h-[200px] flex-col min-w-[150px] max-h-[250px] max-w-[180px] rounded-md p-2 border z-[10] " key={indx}>
+           <div className="fd-req-card bg-[#080D1F] relative  flex min-h-[200px] flex-col min-w-[150px] max-h-[250px] max-w-[180px] rounded-md p-2 border  " key={indx}>
 
            <div className="req-card-img flex border-b   p-b-1 h-[60%]">
-             <img className="fd-img  w-full pb-1" src={senderId.profile.profileImage}/>
+             <img className="fd-img  w-full pb-1" src={user?.profile?.profileImage}/>
            </div>
            <div className="fd-content-part h-[30%] flex flex-1 flex-col justify-between">
              <div className="">
-               <h6 className="name capitalize text-sm">{senderId.userName}</h6>
+               <h6 className="name capitalize text-sm">{user?.userName}</h6>
              </div>
              <span className='flex gap-2 w-ful flex-wrap   capitalize items-center justify-between '>
-             <button className="  px-[5px] text-[15px] capitalize justify-center  rounded-[5px] flex  flex-1  border border-blue-500 " onClick={btn1.fn}>
+
+              
+             <button className="  px-[5px] hover:bg-blue-500 transition ease-in duration-300 text-[15px] active:scale-10 capitalize justify-center  rounded-[5px] flex  flex-1  border border-blue-500 " onClick={btn1.fn}>
                {btn1.title}
              </button>
-             <button className=' px-[5px] text-[15px] capitalize flex  flex-1 border-red-300 items-center justify-center rounded-[5px] border' onClick={btn2.fn}>
+             <button className=' px-[5px] duration-300 hover:bg-red-300 text-[15px] capitalize flex transition ease-in  flex-1 border-red-300 items-center justify-center rounded-[5px] border' onClick={btn2.fn}>
                {btn2.title}
              </button>
              </span>
@@ -176,11 +175,11 @@ more <MdOutlineKeyboardArrowRight className='text-xl mt-[1px]' /></span>
           
              {/* received Request container */}
            
-      <CardContainer data={notifiData} headTitle='received Request' btn1={{title:"confirm",fn:()=>dispatch(cnfFrndReq(senderId.userId))}} btn2={{title:"cancel",fn:()=>alert("canceled")}}/>
+      <CardContainer data={receivedRequest} headTitle='received Request' btn1={{title:"confirm",fn:()=>dispatch(cnfFrndReq(senderId.userId))}} btn2={{title:"cancel",fn:()=>alert("canceled")}}/>
                {/* received Request container end */}
 
 {/* send requests container */}
-               <CardContainer data={[]} headTitle='send request' btn1={{title:"remind",fn:()=>alert("remind")}} btn2={{title:"cancel",fn:()=>alert("canceled")}}/>
+               <CardContainer data={sendedRequest} headTitle='send request' btn1={{title:"remind",fn:()=>alert("remind")}} btn2={{title:"cancel",fn:()=>alert("canceled")}}/>
 {/* send requests container  end*/}
 
           </div>

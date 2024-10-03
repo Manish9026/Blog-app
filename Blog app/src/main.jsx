@@ -37,7 +37,7 @@ import  {getUserInfo, isVerified} from './sclice/authSlice/authSlice.js'
 import   {getUserProfile}  from  './sclice/userProfileSlice.js'
 import  {getStories} from './sclice/storySlice.js'
 import UserFriend from './pages/profile page/UserFriend.jsx';
-import { getAllFrnd } from './sclice/friendSlice.js';
+import { getAllFrnd, getFriendPageData } from './sclice/friendSlice.js';
 import UserBlogs from './pages/profile page/UserBlogs.jsx';
 import { getAllPost } from './sclice/userPostSlice.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -68,8 +68,8 @@ const RoutePath = () => {
               // location.replace("/auth/sign-in")          
               // else
              
-              Promise.all( dispatch(getStories()),
-              dispatch(getAllPost({skip:0,next:10})))
+              dispatch(getStories())
+              dispatch(getAllPost({skip:0,next:10}))
              
              
             
@@ -111,7 +111,7 @@ const RoutePath = () => {
           },
           {
             path: '/friends',
-            loader:async()=>await dispatch(isVerified()),
+            loader:async()=>dispatch(getFriendPageData()),
             element: <Friend />
           },
           {
@@ -197,7 +197,7 @@ return 0
 
         ],
         loader:()=>{
-          // dispatch(isVerified())
+          dispatch(isVerified())
           return 0
         }
       },

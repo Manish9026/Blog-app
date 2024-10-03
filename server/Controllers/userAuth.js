@@ -289,10 +289,10 @@ class userAuth extends AuthTools {
                     if(await newUser.save()){
                     
                         loginToken=await this.genJWT_Token(newUser.userEmail,newUser._id)
-                        res.cookie("uid", loginToken, {
-                            sameSite: 'None',
-                            secure: true,
-                            httpOnly: true,
+                        res.cookie("uid", loginToken,{
+                            sameSite: process.env.DEPLOYMENT_TYPE=="local"?'Strict':"None",
+                            secure: process.env.DEPLOYMENT_TYPE=="local"?false:true,
+                            httpOnly:process.env.DEPLOYMENT_TYPE=="local"?false:true,
                             expires: new Date(Date.now() + 3600000)
                         }).status(200).json({
                             message:"successfully login",
@@ -304,9 +304,9 @@ class userAuth extends AuthTools {
                    else{
                     loginToken=await this.genJWT_Token(existUser.userEmail,existUser._id)
                         res.cookie("uid", loginToken, {
-                            sameSite: 'None',
-                            secure: true,
-                            httpOnly: true,
+                            sameSite: process.env.DEPLOYMENT_TYPE=="local"?'Strict':"None",
+                            secure: process.env.DEPLOYMENT_TYPE=="local"?false:true,
+                            httpOnly:process.env.DEPLOYMENT_TYPE=="local"?false:true,
                             expires: new Date(Date.now() + 3600000)
                         }).status(200).json({
                             message:"successfully login",

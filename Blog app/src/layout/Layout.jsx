@@ -13,7 +13,6 @@ import CubeLoader from '../component/cube loader/CubeLoader'
 import { useSelector } from 'react-redux'
 const Layout = () => {
    const [layoutState, setLayoutState] = useState(1)
-   const { loading} = useSelector(state => { return state.userPost.postState })
 
    const widthRef = useRef();
    useEffect(() => {
@@ -61,7 +60,7 @@ const Layout = () => {
                   className={"Toastify"}
                />
 
-{loading && <CubeLoader/>}
+
 
                <Outlet />
             </div>
