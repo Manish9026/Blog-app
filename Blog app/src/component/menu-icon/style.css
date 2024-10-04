@@ -12,6 +12,11 @@
     justify-content: center;
     /* transform: translateX(-50%) translateY(-50%); */
 }
+.top{
+  /* background: #1d9099;
+  transform: rotate(210deg) skew(-30deg) translate(-75px, -22px) scaleY(0.86);
+  z-index: 2; */
+}
 
 .bars {
   cursor: pointer;

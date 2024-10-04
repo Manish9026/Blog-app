@@ -17,6 +17,7 @@ import { getUserProfile, resetBoxStatus, setBoxStatus, updateProfile } from '../
 import ProLoder from './loader/ProLoder';
 import { popupHandler } from '../../sclice/globalSlice';
 import Loder from '../../component/loader/Loder';
+import useReactHooks from '../../custom hooks/useReactHooks';
 
 const show = (e) => {
    
@@ -132,7 +133,7 @@ export const PersonalForm = (e) => {
     const [fieldValue,setFieldValue]=useState("");
     const dispatch=useDispatch();
     let ref=useRef(null);
-    
+    const newRef=useRef(false);
     
     useEffect(()=>{
 
@@ -187,6 +188,67 @@ if(!fieldValue){
         ref.current=null;
     }
 
+
+    const ListContainer=({fieldName,fieldType="text",initValue,listType,icon=<MdOutlineModeEdit />,fn,alertRef})=>{
+        const [fieldValue,setFieldValue]=useState({[fieldName]:initValue})
+        const [isEdit,setIsEdit]=useState(false);
+        const {dispatch}=useReactHooks();
+
+        useEffect(()=>{
+console.log(fieldValue);
+
+        },[fieldValue])
+        return(
+            <div className="f-container">
+
+            <div className="form-show " style={ {display:isEdit?"none":"flex"} } >
+                <span className="logo-icon ">
+                    <MdPersonPinCircle />
+                </span>
+                <span className="name"><p>{initValue}</p>
+                    <p>{listType}</p></span>
+                <button className="icon" 
+                onClick={()=>{
+                    if(alertRef?.current){
+                        dispatch(popupHandler("First save new record"))
+                      return   
+                    }
+                    setIsEdit(!isEdit);alertRef.current=true}}
+                    
+                    >
+
+                    {icon}
+                </button>
+            </div>
+
+            <div className="form-hide" style={ {display:isEdit?"flex":"none"} }>
+
+            {
+              loading ?<ProLoder/>:""
+                }
+                <input type={fieldType} name={fieldName} id="" defaultValue={fieldValue[fieldName]} onChange={(e)=>{
+                    setFieldValue({[e.target.name]:e.target.value})
+                }} className='inField' placeholder=' userName' />
+                <div className="btn">
+                    <button onClick={(e)=>{
+                        if(fieldValue[fieldName]==initValue){
+                            dispatch(popupHandler("No changes track in input field"))
+                        return 
+                             }
+         dispatch(updateProfile({type:"personal",field:fieldValue}))
+
+                             
+                                            console.log(fieldValue);
+                                            
+                    }} >save</button>
+                    <button onClick={() =>{setIsEdit(!isEdit);alertRef.current=false}}>cancel</button>
+                </div>
+            </div>
+
+        </div>
+        )
+    }
+
     if(data.length!=0){
         let [dob,setDOB]=useState( new Date(data.profile.personal.DOB));
     return (
@@ -195,6 +257,10 @@ if(!fieldValue){
             <div className="heading"><h5>Personal Detail </h5></div>
 
             <div className="f-section">
+
+                {/* <ListContainer fieldName={"userName"} listType={"name"} initValue={"satish"} alertRef={newRef}/>
+                <ListContainer fieldName={"userName"} listType={"male"}  initValue={"satish"} alertRef={newRef}/> */}
+
                 <div className="f-container">
 
                     <div className="form-show " >

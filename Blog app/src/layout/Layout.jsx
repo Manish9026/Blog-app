@@ -9,8 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import MenuBar from '../component/hearder/mobileMenuBar/MenuBar'
 import ImageShow from '../component/imageShow/ImageShow'
 import Popup from '../component/popup/Popup'
-import CubeLoader from '../component/cube loader/CubeLoader'
-import { useSelector } from 'react-redux'
 const Layout = () => {
    const [layoutState, setLayoutState] = useState(1)
 

@@ -169,7 +169,7 @@ more <MdOutlineKeyboardArrowRight className='text-xl mt-[1px]' /></span>
 
       </div> 
 
-          <div className="flex flex-wrap w-full justify-between px-2 py-1">
+          <div className="flex flex-wrap w-full justify-between px-2 py-1 pb-3 gap-2">
 
 
           

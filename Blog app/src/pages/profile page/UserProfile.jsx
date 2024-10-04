@@ -120,7 +120,7 @@ const UserProfile = () => {
                             <div className="snglName">
 
                                 <div className="userName  column-flex row-flex"><h4>{user.userName} </h4>
-                                    <h6>{user.userEmail}</h6>
+                                    <h6 className='lowercase'>{user.userEmail}</h6>
 
                                 </div>
 
@@ -141,7 +141,7 @@ const UserProfile = () => {
                     </div>
                 </div>
                 <div className="snglOptions">
-                    <div className="optionContainer">
+                    <div className="optionContainer bg-red-500">
                         {
                             navRoute.map((route,indx)=>{
                                 return(

@@ -355,7 +355,7 @@
 //   overflow: hidden;
 }
 .optionContainer {
-  background: rgba(255, 255, 255, 0.77);
+  background: rgba(174, 166, 219, 0.423);
   padding: 0px 15px 0px 15px;
   display: flex;
   flex-direction: row;
@@ -372,12 +372,13 @@
 .option-btn {
   border-radius: 10px;
   border-style: solid;
-  border-color: #090909;
+  border-color: #9895e57d;
   border-width: 0px 0px 2px 0px;
   padding: 0px 20px;
   display: flex;
   flex-direction: row;
   gap: 10px;
+  color: #3ccde7;
   align-items: center;
   justify-content: center;
   // flex-shrink: 0;
@@ -386,19 +387,16 @@
   max-width: 150px;
   position: relative;
   overflow: hidden;
+  text-transform: capitalize;
   cursor: pointer;
   transition: .2s ease ;
-  .opt-txt{
-    color: #000000;
-    font-size: 1rem;
-    text-transform: capitalize;
-  }
+ 
   img{
     object-fit: cover;
   }
 }
 .option-btn:hover{
-    background-color: #2449c2;
+    background: linear-gradient(45deg ,rgb(130, 130, 191) 45%,rgb(86, 171, 232));
     .opt-txt{
         
         color: white;
