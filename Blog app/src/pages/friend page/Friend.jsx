@@ -76,7 +76,7 @@ const {status}=useSelector(state=>state.userAuth)
     return (
 
 
-      <div className="fd-res-seciton sm:min-w-[400px] h-full flex-1 px-2 ">
+      <div className="fd-res-seciton min-w-[200px] sm:min-w-[400px] h-full flex-1 px-2 ">
       <div  className="flex w-full  justify-center relative">
           <Title title={headTitle}/>   
           <span style={data.length<=2?{display:"none"}:{display:""}} className='absolute pointer  border border-sky-500   shadow-blue-300 more-btn flex rounded-[5px] px-2 top-1/2 right-[0px] translate-y-[-50%] items-center  justify-center '>

@@ -23,10 +23,11 @@ function checkDateStatus(dateString) {
         // logic of yesterday date
         yesterday.setDate(today.getDate() - 1);
       //  convert date to local string "DD/MM/YYYY" format
-        checkIfDate.setDate(today.getDate()-(7 - givenDate.getDay()));
+        checkIfDate.setDate(today.getDate()-(  today.getDay()));
         const [givenDateStr,todayStr,yesterdayStr]=[givenDate.toLocaleDateString(),today.toLocaleDateString(),yesterday.toLocaleDateString()];
         // logic of date chickig
-        if(checkIfDate.toLocaleDateString()<=givenDateStr){
+
+        if(checkIfDate<=givenDate){
             if(givenDateStr==todayStr){
                 return "today";
             }
@@ -47,6 +48,7 @@ function checkDateStatus(dateString) {
     
       
     }
+
 const getFormatedDate=({type,date}={})=>{
     if(type=="time"){
        const newDate= new Date(date)
