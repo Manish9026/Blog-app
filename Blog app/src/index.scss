@@ -1,14 +1,81 @@
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 @import './css-configration/mixins.scss';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@layer utilities {
 
+    .primary-px{
+        padding: 0px .7rem;
+    }
+    .primary-py{
+        padding:.7rem 0px;
+    }
+    .primary-p{
+        padding:.7rem;
+    }
+    .center{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .primary-bg{
+      background-color: #222831;
+    }
+    .secondary-bg{
+        background-color: #393E46;
+
+    }
+    .tertiary{
+      background-color: #FD7014;
+    }
+    .light-bg{
+        background: #eceff4f9;
+        color: #393E46;
+    }
+    .light-dark{
+        background: #393e4690;
+    }
+    .primary-font{
+        color: rgb(255, 255, 255);
+    }
+    .secondary-font{
+        color: rgb(216, 229, 247);
+    }
+    .tertiary-font{
+        color: #FD7014;
+    }
+    .primary-h1{
+        font-size: 30px;
+    }
+    .secondary-h2{
+        font-size: 20px;
+    }
+    .tertiary-h3{
+        font-size: 15px;
+    }
+    
+    .custom-text {
+      font-size: 1.5rem;
+      color: #333;
+      
+    }
+
+// scrollbar -style
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+  }
 
 .open-sans{
     font-family: "Work Sans", sans-serif;

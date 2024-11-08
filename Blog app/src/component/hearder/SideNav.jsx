@@ -38,11 +38,11 @@ const SideNav = () => {
           <div className="num">5</div>
         </span>
         <Link to={"/create/blog"} className="h-title-btn">
-          <MdOutlineAdd/>
-         <p>Create blog</p>
+          <MdOutlineAdd  className='size-[20px]'/>
+         <p> blog</p>
         </Link>
-        <Link to={"/friends"} className="h-title-btn">
-          <FaUserFriends/>
+        <Link to={"/friends"} className="h-title-btn p-2">
+          <FaUserFriends className='size-[20px]'/>
          <p>Friends</p>
         </Link>
       </div>

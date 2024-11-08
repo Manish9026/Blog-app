@@ -46,6 +46,11 @@ import InternalError from './component/utils.component/InternalError.jsx';
 import UserMessage, { MessageBody } from './pages/message page/UserMessage.jsx';
 import SocketProvider from './context/SocketContext.jsx';
 import { CookiesProvider } from 'react-cookie';
+import Blog from './pages/singlefriend page/Blog.jsx';
+import Photo from './pages/singlefriend page/Photo.jsx';
+import About from './pages/singlefriend page/About.jsx';
+import SavedStory from './pages/savedStorypage/SavedStory.jsx';
+import Comment from './pages/comment page/Comment.jsx';
 
 
 const RoutePath = () => {
@@ -120,12 +125,31 @@ const RoutePath = () => {
             children: [
               {
                 path: '',
-                element: <Friends />
+                element: <Friends />,
+               
               },
               {
-                path: './blogs',
-                element: <Friends />
+                path: 'about',
+                element: <About />,
+               
               },
+              
+              {
+                path: 'friends',
+                element: <Friends />,
+               
+              },
+              {
+                path: 'blogs',
+                element: <Blog />,
+               
+              },
+              {
+                path: 'photos',
+                element: <Photo />,
+               
+              },
+
             ]
           }
           ,
@@ -138,8 +162,9 @@ return 0
             },
             
             children: [
+ 
               {
-                path: '',
+                path: 'about',
                 element: <UserAbout />,
                 children: [{
                   path: "",
@@ -170,6 +195,10 @@ return 0
               {
                 path:"blogs",
                 element:<UserBlogs/>
+              },
+              {
+                path:"photos",
+                element:<Photo/>
               }
             ]
           },
@@ -185,7 +214,14 @@ return 0
            
             }]
           },
-
+          {
+            path:"saved-story",
+            element:<SavedStory/>
+          }
+,{
+  path:"/user/comments",
+  element:<Comment/>
+},
           {
             path:"*",
             element:<PNotFound/>

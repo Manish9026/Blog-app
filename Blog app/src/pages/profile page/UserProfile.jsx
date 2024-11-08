@@ -12,8 +12,8 @@ import { getUserInfo, isVerified } from '../../sclice/authSlice/authSlice';
 import { useNavigate } from "react-router-dom";
 import { getUserProfile, updateProfile, uploadLoader } from '../../sclice/userProfileSlice';
 import { FaXmark } from 'react-icons/fa6';
-import { url } from '../../tools/serverURL';
 import DotLoader from './loader/DotLoader';
+export const navRoute=[["About","./about"],["friends","./friends"],["blogs","./blogs"],["photo","./photos"]]
 const UserProfile = () => {
     const { userInfo, loading, frndStatus, likeStatus } = useSelector(state => { return state.snglFrnd })
     const [menuActive, setMenuActive] = useState(1)
@@ -50,7 +50,7 @@ const UserProfile = () => {
     setIsVisible(0)
    }
     },[file])
-    const navRoute=[["About",""],["friends","./friends"],["blogs","./blogs"],["photo","./photos"]]
+  
     const ImagePopup=()=>{
 
         return(
@@ -126,16 +126,16 @@ const UserProfile = () => {
 
                             </div>
 
-                            <img className="more1" src={headerIcons.more} />
+                            {/* <img className="more1" src={headerIcons.more} /> */}
                         </div>
-                        <div className="frame154">
+                        <div className="frame154 p-2 gap-1 flex flex-wrap">
 
-                            <button className="pro-btn" onClick={() => { }}>
+                            <button className="pro-btn" onClick={() => { navigate("/create/story")}}>
 
-                                <IoAdd className='icon' />  <p className="follow">add new story </p>
+                                <IoAdd className='icon' />  <p className="follow">Story </p>
                             </button>
-                            <button className="pro-btn">
-                                <MdEdit className='icon' /><p className="message">edit profile </p>
+                            <button className="pro-btn" onClick={()=>navigate("/user/profile/personal-detail")}>
+                                <MdEdit className='icon' /><p className="message">profile </p>
                             </button>
                         </div>
                     </div>

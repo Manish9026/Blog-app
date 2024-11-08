@@ -28,7 +28,7 @@ if(uid){
     ]).then(([frndInfo,frndReqStatus,frndStatus])=>{
 
  
-        if(frndInfo.like){
+        if(frndInfo?.like){
 
         
         likeStatus=frndInfo.like.likes.some(like=>{

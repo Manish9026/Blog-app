@@ -16,6 +16,7 @@ import Title from '../../component/title/Title.jsx';
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { CiSquareQuestion } from "react-icons/ci";
 import useReactHooks from '../../custom hooks/useReactHooks.jsx';
+import { singleFrndLink, urlCreater } from '../../utills/links.js';
 const Friend = () => {
 
   const {slideStatus}=useSelector(state=>state.navSlider)
@@ -147,7 +148,7 @@ more <MdOutlineKeyboardArrowRight className='text-xl mt-[1px]' /></span>
           friends.slice(0,8).map((friend,indx)=>{
             return (
              
-              <Link to={`/single-friend?uid=${friend._id}`} className="max-w-[500px] w-full    flex-1 aspect-ratio-normal min-w-[200px] flex items-center gap-2 border-slate-200 border justify-start rounded-md p-1 capitalize" key={indx}>
+              <Link to={urlCreater({path:singleFrndLink,params:{uid:friend?._id}})} className="max-w-[500px] w-full    flex-1 aspect-ratio-normal min-w-[200px] flex items-center gap-2 border-slate-200 border justify-start rounded-md p-1 capitalize" key={indx}>
             <div className="save-fd-img size-[50px] rounded-full overflow-hidden ">
               <img className="manish-img-1" width={"100%"} height={"100%"} src={friend.profile.profileImage}/>
             </div>

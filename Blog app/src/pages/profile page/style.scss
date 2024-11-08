@@ -330,24 +330,64 @@
                 .pro-btn {
                     display: inline-flex;
                     justify-content: center;
+                    position: relative;
+                    align-items: center;
                     gap: 10px;
                     flex: 1;
                     min-width: 100px;
                     max-width: 150px;
-                    padding: 5px;
-                    border-radius: 8px;
-                    background-color: #602c2c;
+                    padding: 10px 5px;
+                    // font-size:;
+                    @apply capitalize rounded-lg;
+                    // border-radius: 8px;
+                    font-size: 18px;
+                    // background-color: #602c2c;
+                    overflow: hidden;
+                    z-index: 2;
+
+
+
+                    & ::after{
+                        content: "";
+                        width: 20px;
+                        height: 20px;
+                        bottom: 0;
+                        left: 0;
+                        border-top-right-radius: 100%;
+                        position: absolute;
+                        transition: all ease 1s;
+                        z-index: -1;
+                        // background-color: #e9c0c0;
+
+          
+
+
+                    }
+                    &:hover ::after{
+                        // transform: scale(100%);
+                        // scale: 2;
+                        width: 200%;
+                        height: 200%;
+
+
+                    }
 
                     .icon {}
                 }
 
                 .pro-btn:nth-child(1) {
                     background-color: #312af0;
+                    & ::after{
+background: linear-gradient(to top right ,blue,rgb(82, 186, 228));
+                    }
 
                 }
 
                 .pro-btn:nth-child(2) {
-                    background-color: #292931;
+                    background-color: #2b3253;
+                    & ::after{
+background: linear-gradient(to top right ,#2b3253,#a0a0da);
+                    }
                 }
 
             }

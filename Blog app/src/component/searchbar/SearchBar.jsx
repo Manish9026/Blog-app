@@ -21,7 +21,7 @@ const dispatch=useDispatch();
           
             data.map((item,indx)=>{
               return (  
-                <Link to={`/single-friend?uid=${item?.userId}`} className="srh-container " onClick={()=>dispatch(setSrhValue(item.userId))} key={item.userId}>
+                <Link to={`/single-friend/friends?uid=${item?.userId}`} className="srh-container " onClick={()=>dispatch(setSrhValue(item.userId))} key={item.userId}>
                   <BiSearch className="srh-icon"/>
               {/* <img className="srh-icon" src="srh-icon0.svg" /> */}
               <div className="srh-text">

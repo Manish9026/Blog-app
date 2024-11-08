@@ -60,5 +60,5 @@ export const headerIcons={
   import { FaUser } from "react-icons/fa6";
 
 export const navTitle=[
-    [ <AiFillHome />,"Home","/"],[<FaUser />,"profile","/user/profile"],[  <FaUserFriends />,"friends","/friends"],[ <MdOutlineAdd />,"new Blog","/create/blog"],[<FaBookmark />,"saved Story","/saved-story"],[ <SiGooglemessages />,"messages","/user/message"],[<FaComments />," your comments","/user/comments"],[  <MdOutlineHistory />,"history","/history"]
+    [ <AiFillHome />,"Home","/"],[<FaUser />,"profile","/user/profile/about"],[  <FaUserFriends />,"friends","/friends"],[ <MdOutlineAdd />,"new Blog","/create/blog"],[<FaBookmark />,"saved Story","/saved-story"],[ <SiGooglemessages />,"messages","/user/message"],[<FaComments />," your comments","/user/comments"],[  <MdOutlineHistory />,"history","/history"]
 ]
