@@ -7,10 +7,10 @@ export default defineConfig({
   plugins: [react(), VitePWA({
     registerType: 'autoUpdate', // automatically updates the service worker
     manifest: {
-      name: 'rapid-blog',
-      short_name: 'rapid-blog',
+      name: 'Rapid Blog',
+      short_name: 'Rapid Blog',
       description: 'A Vite-based Progressive Web App',
-      theme_color: '#ffffff',
+      theme_color: '#080d1f',
       background_color:"#080d1f",
       icons: [
         {
