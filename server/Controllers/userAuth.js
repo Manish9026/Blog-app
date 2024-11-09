@@ -14,6 +14,7 @@ import { googleClient } from "../utils/googleConfig.js";
 let app = express();
 app.use(cookieParser());
 import axios from 'axios'
+import { userPostModel } from "../Models/userPostModel.js";
 
 dotenv.config();
 export class AuthTools {
@@ -382,16 +383,69 @@ class userAuth extends AuthTools {
                 // console.log(uid,userId);
 
 
-                const data = await userModel.findOne({ userId },{userEmail:1,userName:1,profile:1}).populate({
-                    path: "profile",
-                    select:"profileImage coverImage"
+                // const data = await userModel.findOne({ userId },{password:0}).populate({
+                //     path: "profile",
+                //     select:"profileImage coverImage"
 
-                })
-                const { userName, userEmail, profile } = data
+                // })
+                const totalPost =await userPostModel.findOne({userId}).countDocuments()
+                const data = await userModel.aggregate([
+                    {
+                        $match: { userId:new mongoose.Types.ObjectId(userId) } // Match the specific user by their ObjectId
+                    },
+                    {
+                        $lookup: {
+                            from: 'userprofiles', // Collection to join (should match the referenced collection name)
+                            localField: 'profile',
+                            foreignField: '_id',
+                            as: 'profile'
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: 'userfriends', // Collection for friends
+                            localField: 'friends',
+                            foreignField: '_id',
+                            as: 'friends'
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: 'userstories', // Collection for stories
+                            localField: 'stories',
+                            foreignField: '_id',
+                            as: 'storyDetails'
+                        }
+                    },
+                    {
+                        $addFields: {
+                            friends: { $arrayElemAt: ['$friends', 0] },
+                            profile: { $arrayElemAt: ['$profile', 0] },
+                            // storyDetails: { $arrayElemAt: ['$storyDetails', 0] }
+
+                            // Add similar fields for other lookup arrays if needed
+                        }
+                    },
+                    {
+                        $project: {
+                            userName: 1,
+                            userEmail: 1,
+                            // profileDetails: 1,
+                            'profile.profileImage':1,
+                            // friends: 1,
+                            // storyDetails: 1,
+                            userLikes: 1,
+                            userFollowers: 1,
+                            totalFriends:{ $size: { $ifNull: ['$friends.friends', []] } }
+                        }
+                    }
+                ]);
+
+                
                 if (data) {
                     res.status(201).json({
                         status: true,
-                        data: { userEmail, userId, userName, profile }
+                        data:{...data[0],totalPost}
                     })
                 }
 
@@ -407,6 +461,7 @@ class userAuth extends AuthTools {
 
         } catch (error) {
 
+        console.log(error);
         
         }
     }

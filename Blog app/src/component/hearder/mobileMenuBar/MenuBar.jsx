@@ -27,12 +27,15 @@ const MenuBar = () => {
     return (
 
 
-        <section onClick={()=>dispatch(navTogle("onclick"))} className={` m-nav-section capitalize ${slideStatus?"translate-x-[0]":"translate-x-[-100vw]"} gap-1 flex-col transtion-all duration-500 flex translate-0  w-full  h-full z-10 fixed`}>
+        <section onClick={()=>dispatch(navTogle("onclick"))} className={` m-nav-section capitalize ${slideStatus?"translate-x-[0]":"translate-x-[-100vw]"} gap-1 flex-col transtion-all duration-500 flex translate-0  w-full  h-[100vh] z-10 fixed`}>
             <div onClick={(e)=>e.stopPropagation()} className='w-[80%] bg-[#080D1F] primary-p flex-1'>
+
 
 <div className="flex items-center justify-between relative ">
     <span className='flex items-end gap-1'><img src={logo.logo3} alt="" className='size-[40px] rounded-lg' />
     <h6>blog</h6></span>
+  
+  {/* <h6 onClick={()=>dispatch(getUserInfo())}>click</h6> */}
 
     {!(userInfo.length!=0 && userInfo)? 
      <div className="auth-btn">
@@ -48,20 +51,20 @@ const MenuBar = () => {
 
 
 {(userInfo.length!=0 && userInfo)?<div className="top flex flex-col gap-2 w-full py-1 pb-3 min-h-[50px] border-b ">
-        <div  className='  flex capitalize flex gap-1'>
+        <div  className='flex capitalize flex gap-1'>
             <span className=' overflow-hidden'><img src={userInfo?.profile?.profileImage} alt="" className='rounded-lg size-[50px] object-fill' /></span>
             <span className=' flex flex-col justify-start'>
                 <h6>{userInfo?.userName}</h6>
                 {/* <h6 className='text-xs'>{userInfo?.userEmail}</h6> */}
                 <span className='pl-1 gap-2 text-sm'>
-                <p>100 followers</p></span>
+                <p>{userInfo?.userFollowers || 0} followers</p></span>
             </span>
 
         </div>
         <div className=" flex flex-1 gap-2">
-        <span className='top-box'><img src={headerIcons?.heart} alt="" className='' /> 5</span>
-            <span className='top-box'><img src={headerIcons?.friendIcon} alt="" className='' /> 5</span>
-            <span className='top-box'><img src={headerIcons?.blog} alt="" className='' /> 5</span>
+        <span className='top-box'><img src={headerIcons?.heart} alt="" className='' /> {userInfo?.userLikes || 0}</span>
+            <span className='top-box'><img src={headerIcons?.friendIcon} alt="" className='' /> {userInfo?.totalFriends}</span>
+            <span className='top-box'><img src={headerIcons?.blog} alt="" className='' /> {userInfo?.totalPost || 0}</span>
         </div>
 
                
