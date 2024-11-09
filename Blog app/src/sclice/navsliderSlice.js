@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const navsliderSlice=createSlice({
     name:"navslider",
     initialState:{
-        slideStatus:false
+        slideStatus:true
     },
     reducers:{
         navTogle(state,{payload}){

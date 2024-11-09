@@ -21,6 +21,8 @@ import chat from './chat.png'
 import message from './picture.png'
 import check from './check.png';
 import rotate from './rotate.png';
+import blog from './blog.png'
+import heart from './heart.png'
 
 export const headerIcons={
     userIcons: user,
@@ -29,6 +31,7 @@ export const headerIcons={
     message:ms,
     githup,
     fb,
+    blog,
     google,
     gmail,
     notFound,
@@ -38,7 +41,7 @@ export const headerIcons={
     logout,
     avtar,
     pro,
-    chat,message,check,rotate
+    chat,message,check,rotate,heart
     
 
 

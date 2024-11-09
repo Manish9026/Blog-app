@@ -88,6 +88,11 @@
     color: white;
   }
 
+
+  .grow-in{
+    &:active
+ {   @apply transition-all duration-200 ease-in scale-50 ;}
+  }
   body{
     // font-family: "Libre Franklin", sans-serif;
     font-family: "Work Sans", sans-serif;

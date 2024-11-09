@@ -6,6 +6,9 @@ import { BiSolidLike } from "react-icons/bi";
 import { IoMdNotifications } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
 import { FaFacebookMessenger } from "react-icons/fa";
+import logo1 from './applogo/logo.png'
+import logo2 from './applogo/logo2.png'
+import logo3 from './applogo/logo3.png'
 
 
 export const icons={
@@ -20,6 +23,12 @@ messageIcon:FaFacebookMessenger
 
 
 
+}
+
+export const logo={
+    logo1,
+    logo2,
+    logo3
 }
 
 // export const aboutTitle= [["Add bio", "",GiSecretBook], ["Personal detail", "personal-detail",<FaUser/>], ["Education and work", "education-and-work",FaUserGraduate], ["Family details", "",PiHouseLineFill], ["Detail about you ", "",RiEditBoxLine]]

@@ -2,6 +2,31 @@
 .menu-bar-section * {
   box-sizing: border-box;
 }
+
+.m-nav-section{
+
+  .active{
+    background: #6d23cf;
+    box-shadow: inset 0 0 10px 1px rgb(73, 193, 52);
+
+
+  }
+  .m-nav-title{
+    @apply  w-full  flex items-center gap-2 capitalize p-2 rounded-lg;
+    // background-color: #171d25c6;
+    box-shadow: inset 0 0 1px 1px  rgb(82, 82, 125);
+  }
+  .top-box{
+    @apply max-w-[50px] gap-1 flex-1 rounded-md p-1 center ;
+    img{
+      @apply size-[20px] ;
+    }
+    box-shadow: inset 0 0 1px 1px rgb(51, 71, 137);
+  }
+}
+
+
+
 .menu-bar-section {
     transition: all 1s ease;
     transform: translatex(-650px);
@@ -439,21 +464,23 @@ height: 60vh;
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   padding: 10px ;
   .loginBtn{
   display: flex;
-
+    position: relative;
+    right: 20px;
     align-items: center;
     justify-content: center;
     font-family: "Work Sans", sans-serif;
 font-weight: 450;
-    background-color: #ba7c1e;
+    background-color: #e6e6e940;
     border-radius: 5px;
     min-width: 50px;
     max-width: 150px;
    
-    flex: 1;
+    // flex: 1;
+  padding: 5px 10px;
     position: relative;
     overflow: hidden;
     .icon{
