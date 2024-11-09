@@ -371,3 +371,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 
 )
+
+import { registerSW } from 'virtual:pwa-register';
+// import {} from 'virt'
+
+registerSW({
+  onNeedRefresh() {},
+  onOfflineReady() {}
+});
