@@ -11,6 +11,7 @@ export default defineConfig({
       short_name: 'rapid-blog',
       description: 'A Vite-based Progressive Web App',
       theme_color: '#ffffff',
+      background_color:"#080d1f",
       icons: [
         {
           src: 'logo.png',
