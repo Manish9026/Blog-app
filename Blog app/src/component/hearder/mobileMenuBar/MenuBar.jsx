@@ -35,7 +35,7 @@ const MenuBar = () => {
     <span className='flex items-end gap-1'><img src={logo.logo3} alt="" className='size-[40px] rounded-lg' />
     <h6>blog</h6></span>
   
-  <h6 onClick={()=>dispatch(getUserInfo())}>click</h6>
+  {/* <h6 onClick={()=>dispatch(getUserInfo())}>click</h6> */}
 
     {!(userInfo.length!=0 && userInfo)? 
      <div className="auth-btn">
