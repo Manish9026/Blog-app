@@ -35,7 +35,7 @@ const MenuBar = () => {
     <span className='flex items-end gap-1'><img src={logo.logo3} alt="" className='size-[40px] rounded-lg' />
     <h6>blog</h6></span>
   
-  {/* <h6 onClick={()=>dispatch(getUserInfo())}>click</h6> */}
+  <h6 onClick={()=>dispatch(getUserInfo())}>click</h6>
 
     {!(userInfo.length!=0 && userInfo)? 
      <div className="auth-btn">
@@ -62,7 +62,7 @@ const MenuBar = () => {
 
         </div>
         <div className=" flex flex-1 gap-2">
-        <span className='top-box'><img src={headerIcons?.heart} alt="" className='' /> {userInfo?.userLikes || 0}</span>
+        <span className='top-box'><img src={headerIcons?.heart} alt="" className='' /> {userInfo?.totalLikes || 0}</span>
             <span className='top-box'><img src={headerIcons?.friendIcon} alt="" className='' /> {userInfo?.totalFriends}</span>
             <span className='top-box'><img src={headerIcons?.blog} alt="" className='' /> {userInfo?.totalPost || 0}</span>
         </div>

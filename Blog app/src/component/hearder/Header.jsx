@@ -51,11 +51,11 @@ const UserProfile=()=>{
           <img src={headerIcons.userIcons} />
         </div> 
           
-{ isActive?<NavLink  to={"/auth/sign-in"} state={{prevUrl:"/"}} className={({ isActive, isPending })=>{setIsActive(!isActive)}} >
+{ isActive?<NavLink end  to={"/auth/sign-in"} state={{prevUrl:"/"}} className={({ isActive, isPending })=>{setIsActive(!isActive)}} >
 
  <p>Login now</p>
 
-</NavLink>:<NavLink  to={"/auth/sign-up"} state={{prevUrl:"/"}} className={({ isActive, isPending })=>{console.log(isActive); setIsActive(isActive)}} >
+</NavLink>:<NavLink end  to={"/auth/sign-up"} state={{prevUrl:"/"}} className={({ isActive, isPending })=>{console.log(isActive); setIsActive(isActive)}} >
  <p>Sign-up</p>
 </NavLink>}
 </div>
@@ -72,7 +72,7 @@ const UserProfile=()=>{
           navTitle.map((item,indx)=>{
 
             return(
-             <NavLink to={item[2]} style={{display:"flex",width:"100%"}} key={indx}  >
+             <NavLink end to={item[2]} style={{display:"flex",width:"100%"}} key={indx}  >
 <div style={{width:"100%"}} className="nav-title flex justify-start items-center" >
           
           <div className="iconContainer">

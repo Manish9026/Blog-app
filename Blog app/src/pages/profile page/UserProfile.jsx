@@ -134,7 +134,7 @@ const UserProfile = () => {
 
                                 <IoAdd className='icon' />  <p className="follow">Story </p>
                             </button>
-                            <button className="pro-btn" onClick={()=>navigate("/user/profile/personal-detail")}>
+                            <button className="pro-btn" onClick={()=>navigate("/user/profile/about/personal-detail")}>
                                 <MdEdit className='icon' /><p className="message">profile </p>
                             </button>
                         </div>

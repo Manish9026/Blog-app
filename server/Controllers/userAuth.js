@@ -418,9 +418,19 @@ class userAuth extends AuthTools {
                         }
                     },
                     {
+                        $lookup: {
+                            from: 'userlikes', // Collection for stories
+                            localField: 'like',
+                            foreignField: '_id',
+                            as: 'like'
+                        }
+                    },
+                    {
                         $addFields: {
                             friends: { $arrayElemAt: ['$friends', 0] },
                             profile: { $arrayElemAt: ['$profile', 0] },
+                            like: { $arrayElemAt: ['$like', 0] },
+
                             // storyDetails: { $arrayElemAt: ['$storyDetails', 0] }
 
                             // Add similar fields for other lookup arrays if needed
@@ -430,17 +440,15 @@ class userAuth extends AuthTools {
                         $project: {
                             userName: 1,
                             userEmail: 1,
-                            // profileDetails: 1,
                             'profile.profileImage':1,
-                            // friends: 1,
-                            // storyDetails: 1,
-                            userLikes: 1,
+                            totalLikes: "$like.likeCount",
                             userFollowers: 1,
                             totalFriends:{ $size: { $ifNull: ['$friends.friends', []] } }
                         }
                     }
                 ]);
 
+                // console.log(data,totalPost);
                 
                 if (data) {
                     res.status(201).json({
@@ -529,6 +537,7 @@ class userAuth extends AuthTools {
 
     }
 }
+
 
 
 

@@ -18,6 +18,7 @@ function useScroll(scrollTo = 'top', dependencies = [],smooth = true) {
           behavior: smooth ? 'smooth' : 'auto',
         });
       }
+      console.count();
   }, dependencies); // Dependencies trigger scroll on change
 
   return containerRef;

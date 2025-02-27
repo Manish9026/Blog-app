@@ -7,7 +7,12 @@ const SocketContext=createContext(null);
 // socket provider
 const SocketProvider = ({ children }) => {
     const [cookies]=useCookies()
-const socket=io(url,{auth:{
+const socket=io(url,{
+  autoConnect: false,
+  reconnection: true,
+  reconnectionAttempts: 5,
+  reconnectionDelay: 1000,
+  auth:{
   token:cookies?.uid,
   
 }, withCredentials: true,forceNew:true});

@@ -5,4 +5,6 @@ const router =express.Router();
 
 router.get('/userInfo',singleFriend.userInfo)
 router.get('/userLikes',authMiddleWare, singleFriend.userLikeHandler)
+router.get('/userFollowers',authMiddleWare, singleFriend.userFollowHandler)
+
 export default router

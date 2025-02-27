@@ -302,13 +302,16 @@
 
             @extend .center;
             min-height: 70px;
-            background-color: #babef44f;
+            background: linear-gradient(0deg,rgba(138, 122, 202, 0.758) 10%,rgba(87, 133, 219, 0.877)100%);
             flex: 1;
             justify-content: space-between;
             width: 100%;
             padding: 5px 10px;
             max-height: 80px;
-
+            .md-icons{
+                background: #12044d;
+                color: #d1d1f5;
+            }
             .backIcon {
                 display: none;
             }
@@ -352,7 +355,7 @@
             @extend .flex;
             width: 100%;
             // background:linear-gradient(to top,rgb(33, 12, 58),rgb(32, 32, 64));
-            background-color: rgb(25, 47, 88);
+            // background-color: rgb(25, 47, 88);
             // justify-content: center;
             color: white;
         }
@@ -361,12 +364,18 @@
             @extend .flex;
             background-color: #1b1b1d;
             width: 100%;
+            border-top: 1px solid ;
             padding: 10px 10px;
             gap: 5px;
             max-height: 150px;
 
+
             .md-icons {
-                background: #182694;
+                background: #2135cc;
+                // background: #12044d;
+
+                color: #d1d1f5;
+
             }
 
             .upload-btn {

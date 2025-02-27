@@ -385,7 +385,7 @@ static friendPageDetail=async(req,res)=>{
                         path:"friends"
                     }
                 })
-                console.log(match)
+                // console.log(match)
                 if(match){
                     res.status(201).json({
                         data:match,

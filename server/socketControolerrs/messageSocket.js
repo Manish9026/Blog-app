@@ -32,9 +32,9 @@ export const sendUserMessage=async(io,socket,token)=>{
   const {userId}=await AuthTools.tokenVerifier(token)
  socket.on("sendMessage",async({data,receiverId})=>{
   try {
-    console.log(data,receiverId,userId,token);
+    console.log(data,userId,receiverId);
     
-    if(userId && receiverId && data){
+    if(userId ,receiverId , data){
       const {file,message}=data;
       let todayDate=new Date;
       let startDate= new Date;
@@ -45,6 +45,8 @@ export const sendUserMessage=async(io,socket,token)=>{
       startDate.setHours(0, 0, 0, 0);
       todayDate.setHours(23, 59, 59, 999);
       const isMessage=await userMessageModel.findOne({$and:[{$or:[{senderId:userId,receiverId},{senderId:receiverId,receiverId:userId}]},{ $and: [{ createdAt: { $lte: todayDate } }, { createdAt: { $gte: startDate } }] }]})
+      // console.log(isMessage);
+      
       if(!isMessage){
           return await userMessageModel.create({
             senderId:userId,
@@ -71,7 +73,7 @@ export const sendUserMessage=async(io,socket,token)=>{
           senderId:userId,
         })
         await isMessage.save();
-        // console.log(isMessage,"ismessage");
+        console.log(isMessage?.messages?.slice(-1)[0],"ismessage");
       io.emit("receiveMessage",{data:isMessage?.messages?.slice(-1)[0],receiverId,senderId:userId});
 
         

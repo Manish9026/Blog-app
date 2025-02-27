@@ -60,7 +60,11 @@ const userSchema = new mongoose.Schema({
             mongoose.Schema.Types.ObjectId
         ],
         ref: "userStories"
-    }
+    },
+    follower: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userFollowers"
+    },
 
 
 

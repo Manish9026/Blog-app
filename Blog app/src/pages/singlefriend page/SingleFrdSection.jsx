@@ -63,26 +63,26 @@ const [menuActive,setMenuActive]=useState(1)
                            
                              </div>
                             <div className="flex flex-1 text-xs gap-1">
-                                <div className="center flex gap-1">{userInfo.like?userInfo.like.likeCount : 0} <p className="text-xs">likes</p> </div>
+                                <div className="center flex gap-1">{userInfo?.totalLikes || 0} <p className="text-xs">likes</p> </div>
                                 <div className=" flex-1 center gap-1">{userInfo.userFollowers} <p className="text-xs">Followers</p> </div>
                             </div>
                         </div>
 
                         { 
                             frndStatus=="unCheck"?
-                            <button className="frnd-status-btn" onClick={async()=>{await dispatch(sndFrndReq(userInfo.userId));setReload(prev=>!prev)}}>Add friend</button>:frndStatus=="pending"?
+                            <button className="frnd-status-btn" onClick={async()=>{await dispatch(sndFrndReq(userInfo.userId || userInfo._id ));setReload(prev=>!prev)}}>Add friend</button>:frndStatus=="pending"?
                             <button className="frnd-status-btn"> send request</button>:<button className="frnd-status-btn">friends</button>
                             }
                         {/* <img className="more1" src={headerIcons.more} /> */}
                     </div>
                     <div className="flex gap-2 flex-wrap p-2 flex-1">
                        { 
-                       !likeStatus?
-                       <button className="sng-btn" onClick={async()=>{ await dispatch(setLike(userInfo.userId));setReload(prev=>!prev)}}>
+                       !userInfo?.liked?
+                       <button className="sng-btn" onClick={async()=>{ await dispatch(setLike(userInfo._id));setReload(prev=>!prev)}}>
                             <img className="size-[20px]" src={headerIcons.like} />
                             <p className="">Like </p>
                         </button>:
-                        <button className="sng-btn"  onClick={async()=>{await dispatch(setDisLike(userInfo.userId));setReload(prev=>!prev)}}>
+                        <button className="sng-btn"  onClick={async()=>{await dispatch(setDisLike(userInfo._id));setReload(prev=>!prev)}}>
                             <img className="size-[20px]" src={headerIcons.like} />
                             <p className="">unLike </p>
                         </button>}

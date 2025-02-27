@@ -220,6 +220,7 @@ import { NavLink } from 'react-router-dom';
 import { getAllPost, setPostLike, setPostdisLike } from '../../sclice/userPostSlice';
 import { useSocket } from '../../context/SocketContext';
 import DotLoader from '../profile page/loader/DotLoader';
+import isNotEmpty from '../../utills/isNotEmpty';
 // import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
 
 // import useSocket from '../../custom hooks/SocketIo';
@@ -516,22 +517,22 @@ const StoryView = () => {
 
 const CommentCard = ({ storyId, commentActive, setActive }) => {
   const dispatch = useDispatch();
-  console.log(storyId);
   const [cmtMessage, setCmtMessage] = useState("")
   const { data, status, loading } = useSelector(state => { return state.userStory.comments })
   const { addStatus } = useSelector(state => { return state.userStory.addComment })
-  console.log("data", data, status);
   useEffect(() => {
     // console.log(addStatus,"jgh");
-    // console.log(data,status);
+    console.log(data,status);
     dispatch(getAllcomments(storyId))
+
+
   }, [addStatus])
 
   const submit = async () => {
     console.log(storyId, cmtMessage);
      dispatch(addComment({ storyId, cmtMessage }))
   }
-  if (!status)
+  if (status)
     return (
       <section className={`comment-section ${commentActive ? "active" : "deActive"}`} >
         <span className='icon' onClick={() => setActive()}>
@@ -552,7 +553,7 @@ const CommentCard = ({ storyId, commentActive, setActive }) => {
           </span>
         </div>
 
-        <div className="message-section">
+        <div className="message-section !important ">
 
           <textarea name="" id="" placeholder='enter your message' onChange={(e) => setCmtMessage(e.target.value)}></textarea>
           <span className="btn-area">
@@ -563,15 +564,15 @@ const CommentCard = ({ storyId, commentActive, setActive }) => {
 
         <div className="recent-comment">
           <span className="heading">
-            <p>recent comment ({data?.cmtMessages?.length})</p>
+            <p>recent comment ({ isNotEmpty(data?.cmtMessages) && data?.cmtMessages?.length})</p>
           </span>
 
           <span className="comm-container">
 
 
             {
-              data?.cmtMessages?.length != 0 ?
-                data.cmtMessages.map((item, indx) => {
+             isNotEmpty(data?.cmtMessages) ?
+                data?.cmtMessages.map((item, indx) => {
 
                   if (indx % 2 == 0)
                     return (

@@ -43,7 +43,10 @@ import { getAllPost } from './sclice/userPostSlice.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import PNotFound from './component/utils.component/PNotFound.jsx';
 import InternalError from './component/utils.component/InternalError.jsx';
-import UserMessage, { MessageBody } from './pages/message page/UserMessage.jsx';
+// import UserMessage, { MessageBody } from './pages/message page/UserMessage.jsx';
+const UserMessage = lazy(() => import("./pages/message page/UserMessages.jsx").then(module =>({ default: module.UserMessage })
+));
+const MessageBody = lazy(() => import("./pages/message page/UserMessages.jsx").then(module => ({ default: module.MessageBody })));
 import SocketProvider from './context/SocketContext.jsx';
 import { CookiesProvider } from 'react-cookie';
 import Blog from './pages/singlefriend page/Blog.jsx';

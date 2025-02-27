@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, memo, useRef } from 'react'
-import './style.scss'
+// import './style.scss'
 import { IoFilter, IoSearch } from 'react-icons/io5'
 import { FaArrowLeft, FaBackspace, FaBackward, FaSearch } from 'react-icons/fa'
 import { IoCall, IoSend } from 'react-icons/io5'
@@ -87,16 +87,19 @@ const {userInfo}=useSelector(state=>state.userAuth)
 const socket=useSocket();
 
 useEffect(() => {
-if(userInfo?.userId)
-socket.emit("userOnline",userInfo.userId)
+    import("./style.scss"); // Dynamically load CSS
+  }, []);
+useEffect(() => {
+    // console.log(userInfo);
+    
+if(userInfo?._id)
+    socket.connect();
+socket.emit("userOnline",userInfo._id)
 socket.on("onlineUsers",(users)=>{
     // console.log("onlineUsers:",users);  
     dispatch(setOnlineUsers(users))     
 })
-//    socket.emit("userOnline",4
-//    )
-
-//    return()=>socket.disconnect();
+   return()=>socket.disconnect();
 },[userInfo])
 
 
@@ -255,7 +258,7 @@ const dispatch=useDispatch()
         </Link>
     )
 })
-export  const MessageBody = memo(() => {
+  const MessageBody = memo(() => {
 // react-states & useRef
 const socket=useSocket();
 const scrollBodyref=useRef(null);
@@ -272,7 +275,7 @@ const {userInfo}=useSelector(state=>state.userAuth)
 // custom hooks 
 const {textareaRef}= useFlexibleTextField([messageData.message]);
 const {dispatch,navigate}=useReactHooks();
-const scrollBottm=useScroll('bottom', [messageData.message,selectedUser])
+const scrollBottm=useScroll('bottom', [messageData.message,selectedUser,messages])
 
 
 useEffect(()=>{
@@ -287,7 +290,7 @@ setScrollHeight(scrollBodyref.current?.clientHeight)
 
     socket.off("receiveMessage").on("receiveMessage",({data,senderId,receiverId})=>{
         console.log("data",{data,senderId,receiverId});
-        if(userInfo?.userId==senderId || userInfo?.userId==receiverId ){
+        if(userInfo?._id==senderId || userInfo?._id==receiverId ){
         dispatch(setMessages(data))
     }
 
@@ -307,7 +310,7 @@ setScrollHeight(scrollBodyref.current?.clientHeight)
     return (
         
         <div className="message-body font-sans  relative h-full" style={isVisible ? { left: 0,display:"" } : { left: "-1000px" ,display:"none"}} >
-            <div className="msg-head z-10 sticky top-[70px] ">
+            <div className="msg-head bg-slate-400 z-5 sticky top-[70px] ">
                 <span className='md-icons backIcon' onClick={() => {navigate("/user/message/");dispatch(setMsgPage(0))}}>
                     <FaArrowLeft />
                 </span>
@@ -342,11 +345,11 @@ setScrollHeight(scrollBodyref.current?.clientHeight)
 
                 return(
                    
-                    <div key={msgContainer?._id} className="message-wrapper border-b border-sky-900 relative  items-center   flex-col flex w-full gap-2">
-                     <div className="sticky top-[0px] time capitalize" >{getFormatedDate({type:"date",date:msgContainer?.createdAt})}</div>
+                    <div key={msgContainer?._id} className="message-wrapper border-t border-sky-900 relative  items-center   flex-col flex w-full gap-2">
+                     <div className="sticky top-[0px] time capitalize z-[2]" >{getFormatedDate({type:"date",date:msgContainer?.createdAt})}</div>
                      <div className="  msg-container flex gap-2 flex-col w-full">
                         {msgContainer?.messages?.map((data,id)=>{
-                            if(userInfo?.userId==data?.senderId)
+                            if(userInfo?._id==data?.senderId)
                             return(
                                 <span key={id} className="sender relative flex w-full px-2 justify-end pb-2   min-h-[50px] ">
                                 <span className="msg h-full  max-w-[300px]  min-w-[150px] rounded-md  px-2 pb-3 bg-sky-600 opacity-70 flex items-center">
@@ -424,4 +427,5 @@ setScrollHeight(scrollBodyref.current?.clientHeight)
     }
 })
 
-export default UserMessage
+export { UserMessage, MessageBody };
+export default { UserMessage, MessageBody };
